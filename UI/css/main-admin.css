@@ -57,6 +57,11 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   line-height: 46px;
 }
 
+.img-logo{
+  width: 60px;
+  height: 55px;
+}
+
 .scroll-to-top:focus, .scroll-to-top:hover {
   color: white;
 }
