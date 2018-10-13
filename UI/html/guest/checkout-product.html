@@ -26,7 +26,7 @@
 
     <!-- Custom styles for this template-->
     <link href="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\css\main-admin.css" rel="stylesheet">
-    <link href="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\css\detail-product.css" rel="stylesheet">
+    <link href="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\css\checkout-product.css" rel="stylesheet">
 
 </head>
 
@@ -137,97 +137,59 @@
         <div id="content-wrapper">
 
             <div class="container-fluid">
-                <!-- start detail product -->
-                <div class="container">
-                        <div class="card">
-                            <div class="container-fliud">
-                                <div class="wrapper row">
-                                    <div class="preview col-md-6">
-                                        
-                                        <div class="preview-pic tab-content">
-                                          <div class="tab-pane active" id="pic-1"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun.jpg" /></div>
-                                          <div class="tab-pane " id="pic-2"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun1.jpg" /></div>
-                                          <div class="tab-pane" id="pic-3"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun2.jpg" /></div>
-                                          <div class="tab-pane" id="pic-4"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun3.jpg" /></div>
-                                          
-                                        </div>
-                                        <ul class="preview-thumbnail nav nav-tabs">
-                                          <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun.jpg" /></a></li>
-                                          <li><a data-target="#pic-2" data-toggle="tab"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun1.jpg" /></a></li>
-                                          <li><a data-target="#pic-3" data-toggle="tab"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun2.jpg" /></a></li>
-                                          <li><a data-target="#pic-4" data-toggle="tab"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun3.jpg" /></a></li>
-                                        </ul>
-                                        
-                                    </div>
-                                    <div class="details col-md-6">
-                                        <h3 class="product-title">ÁO THUN NỮ FORM RỘNG TAY LỞ, ÁO THUN NAM NỮ - ATR98</h3>
-                                        <h4 class="oldPrice">OLD PRICE: <span class="oldprice">$180</span></h4>
-                                        <h4 class="price">Price: <span>$90</span></h4>
-                                        <h4 class="material">Material: <span >Thun</span></h4>
-                                        <h5 class="sizes">sizes:
-                                                <div class="checkbox">
-                                                        <label><input type="checkbox" value=""> Size M</label>
-                                                </div> 
-                                                <!-- start quantity input -->
-                                                <div class="center">
-                                                        <p>
-                                                          </p><div class="input-group">
-                                                              <span class="input-group-btn">
-                                                                  <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-                                                                      <span class="glyphicon glyphicon-minus"><i class="fas fa-minus"></i></span>
-                                                                  </button>
-                                                              </span>
-                                                              <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
-                                                              <span class="input-group-btn">
-                                                                  <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
-                                                                      <span class="glyphicon glyphicon-plus"><i class="fas fa-plus"></i></span>
-                                                                  </button>
-                                                              </span>
-                                                          </div>
-                                                        <p></p>
-                                                        <p>
-                            
-                                                    </div>
-                                                        <!-- end quantity input -->
-                                                      
-                                                        <div class="checkbox">
-                                                                <label><input type="checkbox" value=""> Size L</label>
-                                                        </div> 
-                                                        <!-- start quantity input -->
-                                                        <div class="center">
-                                                                <p>
-                                                                  </p><div class="input-group">
-                                                                      <span class="input-group-btn">
-                                                                          <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-                                                                              <span class="glyphicon glyphicon-minus"><i class="fas fa-minus"></i></span>
-                                                                          </button>
-                                                                      </span>
-                                                                      <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
-                                                                      <span class="input-group-btn">
-                                                                          <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
-                                                                              <span class="glyphicon glyphicon-plus"><i class="fas fa-plus"></i></span>
-                                                                          </button>
-                                                                      </span>
-                                                                  </div>
-                                                                <p></p>
-                                                                <p>
-                                    
-                                                            </div>
-                                                                <!-- end quantity input -->
+                <!-- start checkout product -->
+                <h2>Checkout Product</h2>
             
-                                        </h5>
-                                       
-                                        <div class="action">
-                                            <button class="add-to-cart btn btn-default" type="button" style="margin-right: 300px;">add to cart</button>
-                                            <button class="like btn btn-default" type="button">BuyNow</button>
-                                        </div>
-                                        
+                <div class="row">
+                    <div class="col-75">
+                        <div class="container">
+                            <form action="/action_page.php">
+
+                                <div class="row">
+                                    <div class="col-50">
+                                        <h3>Billing Address</h3>
+                                        <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                                        <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
+                                        <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                                        <input type="text" id="email" name="email" placeholder="john@example.com">
+                                        <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                                        <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+                                        <label for="cellphone"><i class="fas fa-mobile-alt"></i> Cellphone</label>
+                                        <input type="text" id="cellphone" name="cellphone" placeholder="01234567789">
+
                                     </div>
+
+                                    <div class="col-50">
+                                        <h3>Payment</h3>
+
+                                        <label for="cname"><input type="checkbox" id="Home" name="Home">Thanh toán khi
+                                            nhận hàng</label>
+                                        <label for="cname"><input type="checkbox" id="store" name="Home">Thanh toán tại
+                                            cửa hàng</label>
+
+
+                                    </div>
+
                                 </div>
-                            </div>
+    
+                                <button type="button" class="btn btn-danger">Order <i class="fas fa-money-bill-alt"></i></button>
+                            </form>
                         </div>
                     </div>
-                <!-- end detail product -->
+                    <div class="col-25">
+                        <div class="container">
+                            <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
+                            <p><a href="#">Áo sơ mi</a> <span class="price">$15</span></p>
+                            <p><a href="#">Quần jean</a> <span class="price">$5</span></p>
+                            <p><a href="#">Áo ấm </a> <span class="price">$8</span></p>
+                            <p><a href="#">Áo thun</a> <span class="price">$2</span></p>
+                            <hr>
+                            <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- end checkout product -->
 
             </div>
         </div>
@@ -346,7 +308,7 @@
             $('#dataTable').DataTable();
         });
     </script>
-    
+
 
 </body>
 

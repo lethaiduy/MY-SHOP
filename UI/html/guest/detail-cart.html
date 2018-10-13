@@ -27,6 +27,8 @@
     <!-- Custom styles for this template-->
     <link href="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\css\main-admin.css" rel="stylesheet">
     <link href="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\css\detail-product.css" rel="stylesheet">
+    <link href="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\css\detail-cart.css" rel="stylesheet">
+
 
 </head>
 
@@ -137,97 +139,139 @@
         <div id="content-wrapper">
 
             <div class="container-fluid">
-                <!-- start detail product -->
-                <div class="container">
-                        <div class="card">
-                            <div class="container-fliud">
-                                <div class="wrapper row">
-                                    <div class="preview col-md-6">
-                                        
-                                        <div class="preview-pic tab-content">
-                                          <div class="tab-pane active" id="pic-1"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun.jpg" /></div>
-                                          <div class="tab-pane " id="pic-2"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun1.jpg" /></div>
-                                          <div class="tab-pane" id="pic-3"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun2.jpg" /></div>
-                                          <div class="tab-pane" id="pic-4"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun3.jpg" /></div>
-                                          
-                                        </div>
-                                        <ul class="preview-thumbnail nav nav-tabs">
-                                          <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun.jpg" /></a></li>
-                                          <li><a data-target="#pic-2" data-toggle="tab"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun1.jpg" /></a></li>
-                                          <li><a data-target="#pic-3" data-toggle="tab"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun2.jpg" /></a></li>
-                                          <li><a data-target="#pic-4" data-toggle="tab"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun3.jpg" /></a></li>
-                                        </ul>
-                                        
-                                    </div>
-                                    <div class="details col-md-6">
-                                        <h3 class="product-title">ÁO THUN NỮ FORM RỘNG TAY LỞ, ÁO THUN NAM NỮ - ATR98</h3>
-                                        <h4 class="oldPrice">OLD PRICE: <span class="oldprice">$180</span></h4>
-                                        <h4 class="price">Price: <span>$90</span></h4>
-                                        <h4 class="material">Material: <span >Thun</span></h4>
-                                        <h5 class="sizes">sizes:
-                                                <div class="checkbox">
-                                                        <label><input type="checkbox" value=""> Size M</label>
-                                                </div> 
-                                                <!-- start quantity input -->
-                                                <div class="center">
-                                                        <p>
-                                                          </p><div class="input-group">
-                                                              <span class="input-group-btn">
-                                                                  <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-                                                                      <span class="glyphicon glyphicon-minus"><i class="fas fa-minus"></i></span>
-                                                                  </button>
-                                                              </span>
-                                                              <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
-                                                              <span class="input-group-btn">
-                                                                  <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
-                                                                      <span class="glyphicon glyphicon-plus"><i class="fas fa-plus"></i></span>
-                                                                  </button>
-                                                              </span>
-                                                          </div>
-                                                        <p></p>
-                                                        <p>
-                            
-                                                    </div>
-                                                        <!-- end quantity input -->
-                                                      
-                                                        <div class="checkbox">
-                                                                <label><input type="checkbox" value=""> Size L</label>
-                                                        </div> 
-                                                        <!-- start quantity input -->
-                                                        <div class="center">
-                                                                <p>
-                                                                  </p><div class="input-group">
-                                                                      <span class="input-group-btn">
-                                                                          <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-                                                                              <span class="glyphicon glyphicon-minus"><i class="fas fa-minus"></i></span>
-                                                                          </button>
-                                                                      </span>
-                                                                      <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
-                                                                      <span class="input-group-btn">
-                                                                          <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
-                                                                              <span class="glyphicon glyphicon-plus"><i class="fas fa-plus"></i></span>
-                                                                          </button>
-                                                                      </span>
-                                                                  </div>
-                                                                <p></p>
-                                                                <p>
-                                    
-                                                            </div>
-                                                                <!-- end quantity input -->
-            
-                                        </h5>
-                                       
-                                        <div class="action">
-                                            <button class="add-to-cart btn btn-default" type="button" style="margin-right: 300px;">add to cart</button>
-                                            <button class="like btn btn-default" type="button">BuyNow</button>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
+                <!-- start detail cart -->
+                <div class="card">
+                        <table class="table table-hover shopping-cart-wrap">
+                        <thead class="text-muted">
+                        <tr>
+                          <th scope="col">Product</th>
+                          <th scope="col" width="120">Quantity</th>
+                          <th scope="col" width="120">Price</th>
+                          <th scope="col" width="200" class="text-right">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                        <figure class="media">
+                            <div class="img-wrap"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun.jpg" class="img-thumbnail img-sm"></div>
+                            <figcaption class="media-body">
+                                <h6 class="title text-truncate">Product name goes here </h6>
+                                <dl class="param param-inline small">
+                                  <dt>Size: </dt>
+                                  <dd>XXL</dd>
+                                </dl>
+                                <dl class="param param-inline small">
+                                  <dt>Color: </dt>
+                                  <dd>Orange color</dd>
+                                </dl>
+                            </figcaption>
+                        </figure> 
+                            </td>
+                            <td> 
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>	
+                                    <option>3</option>	
+                                    <option>4</option>	
+                                </select> 
+                            </td>
+                            <td> 
+                                <div class="price-wrap"> 
+                                    <var class="price">USD 145</var> 
+                                    <small class="text-muted">(USD5 each)</small> 
+                                </div> <!-- price-wrap .// -->
+                            </td>
+                            <td class="text-right"> 
+                            <!-- <a title="" href="" class="btn btn-outline-success" data-toggle="tooltip" data-original-title="Save to Wishlist"> <i class="fa fa-heart"></i></a>  -->
+                            <a href="" class="btn btn-outline-danger"> × Remove</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                        <figure class="media">
+                            <div class="img-wrap"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun3.jpg" class="img-thumbnail img-sm"></div>
+                            <figcaption class="media-body">
+                                <h6 class="title text-truncate">Product name goes here </h6>
+                                <dl class="param param-inline small">
+                                  <dt>Size: </dt>
+                                  <dd>XXL</dd>
+                                </dl>
+                                <dl class="param param-inline small">
+                                  <dt>Color: </dt>
+                                  <dd>Orange color</dd>
+                                </dl>
+                            </figcaption>
+                        </figure> 
+                            </td>
+                            <td> 
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>	
+                                    <option>3</option>	
+                                    <option>4</option>	
+                                </select> 
+                            </td>
+                            <td> 
+                                <div class="price-wrap"> 
+                                    <var class="price">USD 35</var> 
+                                    <small class="text-muted">(USD10 each)</small> 
+                                </div> <!-- price-wrap .// -->
+                            </td>
+                            <td class="text-right"> 
+                            <!-- <a title="" href="" class="btn btn-outline-success" data-toggle="tooltip" data-original-title="Save to Wishlist"> <i class="fa fa-heart"></i></a>  -->
+                            <a href="" class="btn btn-outline-danger btn-round"> × Remove</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                        <figure class="media">
+                            <div class="img-wrap"><img src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun3.jpg" class="img-thumbnail img-sm"></div>
+                            <figcaption class="media-body">
+                                <h6 class="title text-truncate">Product name goes here </h6>
+                                <dl class="param param-inline small">
+                                  <dt>Size: </dt>
+                                  <dd>XXL</dd>
+                                </dl>
+                                <dl class="param param-inline small">
+                                  <dt>Color: </dt>
+                                  <dd>Orange color</dd>
+                                </dl>
+                            </figcaption>
+                        </figure> 
+                            </td>
+                            <td> 
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>	
+                                    <option>3</option>	
+                                    <option>4</option>	
+                                </select> 
+                            </td>
+                            <td> 
+                                <div class="price-wrap"> 
+                                    <var class="price">USD 45</var> 
+                                    <small class="text-muted">(USD15 each)</small> 
+                                </div> <!-- price-wrap .// -->
+                            </td>
+                            <td class="text-right"> 
+                                <!-- <a title="" href="" class="btn btn-outline-success" data-toggle="tooltip" data-original-title="Save to Wishlist"> <i class="fa fa-heart"></i></a>  -->
+                                <a href="" class="btn btn-outline-danger btn-round"> × Remove</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        <div class="action">
+
+                                <button type="button" class="btn btn-danger">Delete Cart <i class="fas fa-trash-alt"></i></button>
+                                <button type="button" class="btn btn-success">Buy Continous <i class="far fa-hand-point-right"></i></button>
+                                <button type="button" class="btn btn-primary">Payment <i class="fas fa-money-bill-alt"></i></button>
+                               
                         </div>
-                    </div>
-                <!-- end detail product -->
+                        </div> <!-- card.// -->
+                        
+
+                <!-- end detail cart -->
 
             </div>
         </div>
