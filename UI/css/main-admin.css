@@ -61,6 +61,10 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   width: 60px;
   height: 55px;
 }
+.img-news{
+  max-width:50px;
+  max-height:50px;
+}
 
 .scroll-to-top:focus, .scroll-to-top:hover {
   color: white;
@@ -345,6 +349,10 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   font-size: 12px;
   color: #777;
 }
+ .text-area {
+    height:  500px;
+    width: 350px;
+ }
 
 footer.sticky-footer {
   display: -webkit-box;
@@ -362,7 +370,11 @@ footer.sticky-footer .copyright {
   line-height: 1;
   font-size: 0.8rem;
 }
+.form-control-combobox{
+  width: 100px;
+  border: #343a40;
 
+}
 @media (min-width: 768px) {
   footer.sticky-footer {
     width: calc(100% - 225px);
