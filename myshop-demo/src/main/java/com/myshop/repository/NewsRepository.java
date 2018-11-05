@@ -10,4 +10,6 @@ import com.myshop.model.News;
 @RepositoryRestResource
 public interface NewsRepository extends CrudRepository<News, Long>{
 	List<News> findAll();
+    /*News findByNews_id( final int news_id);	*/
+
 }
