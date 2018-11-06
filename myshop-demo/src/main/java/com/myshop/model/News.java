@@ -16,8 +16,8 @@ public class News {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "news_id")
-	private int news_id;
+	@Column(name = "newsid")
+	private int newsid;
 	@Column(name = "date_sub")
 	private Date dateSub;
 	@Column(name = "detail")
@@ -27,6 +27,14 @@ public class News {
 	@Lob
 	@Column(name = "image")
 	private byte[] image;
+
+	public int getNewsid() {
+		return newsid;
+	}
+
+	public void setNewsid(int newsid) {
+		this.newsid = newsid;
+	}
 
 	public Date getDateSub() {
 		return dateSub;
@@ -60,21 +68,13 @@ public class News {
 		this.image = image;
 	}
 
-	public int getNews_id() {
-		return news_id;
-	}
-
-	public void setNews_id(int news_id) {
-		this.news_id = news_id;
-	}
-
 	public News() {
 		super();
 	}
 
-	public News(int news_id, Date dateSub, String detail, String title, byte[] image) {
+	public News(int newsid, Date dateSub, String detail, String title, byte[] image) {
 		super();
-		this.news_id = news_id;
+		this.newsid = newsid;
 		this.dateSub = dateSub;
 		this.detail = detail;
 		this.title = title;

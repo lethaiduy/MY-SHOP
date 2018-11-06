@@ -1,7 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page pageEncoding="UTF-8" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -47,47 +48,47 @@
 
 	<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-	<!-- <a class="navbar-brand mr-1" href="#">Start Bootstrap</a> --> <a
-		class="navbar-brand" href="#"> <img src="img/logo-myshop.JPG"
-		class="img-logo">
-	</a>
-
-	<button class="btn btn-link btn-sm text-white order-1 order-sm-0"
-		id="sidebarToggle" href="#">
-		<i class="fas fa-bars"></i>
-	</button>
-
-	<!-- Navbar Search -->
-	<form
-		class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-		<div class="input-group">
-			<input type="text" class="form-control" placeholder="Search for..."
-				aria-label="Search" aria-describedby="basic-addon2">
-			<div class="input-group-append">
-				<button class="btn btn-primary" type="button">
-					<i class="fas fa-search"></i>
-				</button>
-			</div>
-		</div>
-	</form>
-
-	<!-- Navbar -->
-	<ul class="navbar-nav ml-auto ml-md-0">
-		<li class="nav-item dropdown no-arrow"><a
-			class="nav-link dropdown-toggle" href="#" id="userDropdown"
-			role="button" data-toggle="dropdown" aria-haspopup="true"
-			aria-expanded="false"> <i class="fas fa-user-circle fa-fw"></i>
+		<!-- <a class="navbar-brand mr-1" href="#">Start Bootstrap</a> -->
+		<a class="navbar-brand" href="#"> <img src="img/logo-myshop.JPG"
+			class="img-logo">
 		</a>
-			<div class="dropdown-menu dropdown-menu-right"
-				aria-labelledby="userDropdown">
-				<a href="#editAccountModal" class="dropdown-item"
-					data-toggle="modal">Account</a>
-				<!-- <a class="dropdown-item" href="#">Activity Log</a> -->
-				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="#" data-toggle="modal"
-					data-target="#logoutModal">Logout</a>
-			</div></li>
-	</ul>
+
+		<button class="btn btn-link btn-sm text-white order-1 order-sm-0"
+			id="sidebarToggle" href="#">
+			<i class="fas fa-bars"></i>
+		</button>
+
+		<!-- Navbar Search -->
+		<form
+			class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search for..."
+					aria-label="Search" aria-describedby="basic-addon2">
+				<div class="input-group-append">
+					<button class="btn btn-primary" type="button">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+
+		<!-- Navbar -->
+		<ul class="navbar-nav ml-auto ml-md-0">
+			<li class="nav-item dropdown no-arrow"><a
+				class="nav-link dropdown-toggle" href="#" id="userDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="fas fa-user-circle fa-fw"></i>
+			</a>
+				<div class="dropdown-menu dropdown-menu-right"
+					aria-labelledby="userDropdown">
+					<a href="#editAccountModal" class="dropdown-item"
+						data-toggle="modal">Account</a>
+					<!-- <a class="dropdown-item" href="#">Activity Log</a> -->
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#" data-toggle="modal"
+						data-target="#logoutModal">Logout</a>
+				</div></li>
+		</ul>
 
 	</nav>
 
@@ -157,16 +158,17 @@
 													type="checkbox" id="checkbox5" name="options[]" value="1">
 													<label for="checkbox5"></label>
 											</span></td>
-											<td>${listnews.news_id}</td>
+											<td>${listnews.newsid}</td>
 											<td>${listnews.title}</td>
 											<td><img src="${listnews.image}" class="img-news"></td>
 											<td>${listnews.dateSub}</td>
 											<td>${listnews.detail}</td>
 
-											<td><a href="#editNewsModal" class="edit"
+											<td><a href="/news/update/${listnews.newsid}"
+												class="edit"  data-target="#editNewsModal"
 												data-toggle="modal"><i class="material-icons"
 													data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
-												href="#deleteNewsModal" class="delete" data-toggle="modal"><i
+												href="/news/delete/${listnews.newsid} " class="delete"><i
 													class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 											</td>
 										</tr>
@@ -182,7 +184,8 @@
 									<li class="page-item disabled"><a href="#">Previous</a></li>
 									<li class="page-item"><a href="/news" class="page-link">1</a></li>
 									<li class="page-item"><a href="/news" class="page-link">2</a></li>
-									<li class="page-item active"><a href="/news" class="page-link">3</a></li>
+									<li class="page-item active"><a href="/news"
+										class="page-link">3</a></li>
 									<li class="page-item"><a href="/news" class="page-link">4</a></li>
 									<li class="page-item"><a href="/news" class="page-link">5</a></li>
 									<li class="page-item"><a href="/news" class="page-link">Next</a></li>
@@ -209,7 +212,7 @@
 										</div>
 										<div class="form-group">
 											<label>Image</label> <input type="file" class="form-control"
-												name="images"  >
+												name="images">
 										</div>
 										<div class="form-group">
 											<label>Date submit</label> <input type="text"
@@ -289,41 +292,48 @@
 					<div id="editNewsModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Edit News</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<div class="form-group">
-											<label>Title ID </label> <input type="text"
-												class="form-control" disabled>
+									<form:form action="/news/save" method="post" modelAttribute="newsupdate">
+										<div class="modal-header">
+											<h4 class="modal-title">Edit News</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true">&times;</button>
+										</div>
+                                       
+										<div class="modal-body">
+											<div class="form-group">
+												<label>Title ID </label> <input type="text" 
+													name="${newsid}" class="form-control" disabled>
 
-										</div>
-										<div class="form-group">
-											<label>Title</label> <input type="text" class="form-control"
-												required>
+											</div>
+											<div class="form-group">
+												<label>Title</label> <input type="text" class="form-control"
+													name="${title}" required>
 
+											</div>
+											<div class="form-group">
+												<label>Image</label> <input type="file" class="form-control"
+													name="${image}">
+											</div>
+											<div class="form-group">
+												<label>Date submit</label> <input type="text"
+													name="${dateSub}" id="datetimepicker1"
+													class="form-control">
+											</div>
+											<div class="form-group">
+												<label>Detail</label>
+											</div>
+											<textarea name="editor1" class="text-area"
+												name="${detail}"></textarea>
 										</div>
-										<div class="form-group">
-											<label>Image</label> <input type="file" class="form-control">
+										<div class="modal-footer">
+											<input type="button" class="btn btn-default"
+												data-dismiss="modal" value="Cancel"> <input
+												type="submit" class="btn btn-info" value="Save">
 										</div>
-										<div class="form-group">
-											<label>Date submit</label> <input type="text"
-												id="datetimepicker1" class="form-control">
-										</div>
-										<div class="form-group">
-											<label>Detail</label>
-										</div>
-										<textarea name="editor1" class="text-area"></textarea>
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-info" value="Save">
-									</div>
-								</form>
+
+									</form:form>
+								
+
 							</div>
 						</div>
 					</div>
@@ -331,7 +341,7 @@
 					<div id="deleteNewsModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form>
+								<form<%--  action="news//delete/${newsid}" method="get"  --%> >
 									<div class="modal-header">
 										<h4 class="modal-title">Delete News</h4>
 										<button type="button" class="close" data-dismiss="modal"
@@ -339,6 +349,7 @@
 									</div>
 									<div class="modal-body">
 										<p>Are you sure you want to delete these Records?</p>
+
 										<p class="text-warning">
 											<small>This action cannot be undone.</small>
 										</p>
@@ -359,11 +370,11 @@
 
 			<!-- Sticky Footer -->
 			<footer class="sticky-footer">
-			<div class="container my-auto">
-				<div class="copyright text-center my-auto">
-					<span>Copyright Â© My Shop-LeThaiDuy, All rights reserved</span>
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright Â© My Shop-LeThaiDuy, All rights reserved</span>
+					</div>
 				</div>
-			</div>
 			</footer>
 
 		</div>
