@@ -2,6 +2,8 @@ package com.myshop.controller;
 
 
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,7 @@ public class NewsController {
 	}
 
 	@RequestMapping(value = "/news/save", method = RequestMethod.POST)
-	public String save(@RequestParam MultipartFile[] images, News news) throws Exception {
+	public String save( @Valid @RequestParam MultipartFile[] images, @Valid News news) throws Exception {
 		if (images != null && images.length > 0) {
 			for (MultipartFile aFile : images) {
 				news.setImage(aFile.getBytes());
@@ -46,10 +48,14 @@ public class NewsController {
 		return "redirect:/news";
 	}
 
-	@RequestMapping(value = "/news/update/{id}", method = RequestMethod.GET)
-	public void update(@PathVariable("id") int id, Model model) {
+/*	@RequestMapping(value = "/news/update/{id}", method = RequestMethod.GET)
+	public String  update(@PathVariable("id") int id, Model model) {
 		News result = newsRepository.findByNewsid(id);
 		model.addAttribute("newsupdate", result);
-	}
+		return "redirect:/news";
+
+	}*/
+
+
 
 }
