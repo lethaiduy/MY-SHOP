@@ -160,12 +160,11 @@
 											</span></td>
 											<td>${listnews.newsid}</td>
 											<td>${listnews.title}</td>
-											<td><img src="${listnews.image}" class="img-news"></td>
+											<td><img src="data:image/png;base64,${listnews.base64}" class="img-news"></td>
 											<td>${listnews.dateSub}</td>
 											<td>${listnews.detail}</td>
-
 											<td><a href="/news/update/${listnews.newsid}"
-												class="edit"  data-target="#editNewsModal"
+												data-target="#editNewsModal" class="edit"
 												data-toggle="modal"><i class="material-icons"
 													data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
 												href="/news/delete/${listnews.newsid} " class="delete"><i
@@ -292,47 +291,47 @@
 					<div id="editNewsModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-									<form:form action="/news/save" method="post" modelAttribute="newsupdate">
-										<div class="modal-header">
-											<h4 class="modal-title">Edit News</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-hidden="true">&times;</button>
-										</div>
-                                       
-										<div class="modal-body">
-											<div class="form-group">
-												<label>Title ID </label> <input type="text" 
-													name="${newsid}" class="form-control" disabled>
+								<form:form action="/news/save" method="post"
+									modelAttribute="newsupdate">
+									<div class="modal-header">
+										<h4 class="modal-title">Edit News</h4>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button>
+									</div>
 
-											</div>
-											<div class="form-group">
-												<label>Title</label> <input type="text" class="form-control"
-													name="${title}" required>
+									<div class="modal-body">
+										<div class="form-group">
+											<label>Title ID </label> <input type="text"
+												value="${newsupdate.newsid}" name="newsid" id="newsid"
+												class="form-control" disabled>
 
-											</div>
-											<div class="form-group">
-												<label>Image</label> <input type="file" class="form-control"
-													name="${image}">
-											</div>
-											<div class="form-group">
-												<label>Date submit</label> <input type="text"
-													name="${dateSub}" id="datetimepicker1"
-													class="form-control">
-											</div>
-											<div class="form-group">
-												<label>Detail</label>
-											</div>
-											<textarea name="editor1" class="text-area"
-												name="${detail}"></textarea>
 										</div>
-										<div class="modal-footer">
-											<input type="button" class="btn btn-default"
-												data-dismiss="modal" value="Cancel"> <input
-												type="submit" class="btn btn-info" value="Save">
-										</div>
+										<div class="form-group">
+											<label>Title</label> <input type="text" class="form-control"
+												name="title" required>
 
-									</form:form>
-								
+										</div>
+										<div class="form-group">
+											<label>Image</label> <input type="file" class="form-control"
+												name="image">
+										</div>
+										<div class="form-group">
+											<label>Date submit</label> <input type="text" name="dateSub"
+												id="datetimepicker1" class="form-control">
+										</div>
+										<div class="form-group">
+											<label>Detail</label>
+										</div>
+										<textarea name="editor1" class="text-area" name="detail"></textarea>
+									</div>
+									<div class="modal-footer">
+										<input type="button" class="btn btn-default"
+											data-dismiss="modal" value="Cancel"> <input
+											type="submit" class="btn btn-info" value="Save">
+									</div>
+
+								</form:form>
+
 
 							</div>
 						</div>
@@ -441,6 +440,15 @@
 			$('#datetimepicker').datetimepicker();
 			$('#datetimepicker1').datetimepicker();
 
+		});
+	</script>
+	<script>
+		$(document).on("click", ".edit", function() {
+			var newsId = $(this).data('id');
+			$(".modal-body #newsId").val(newsId);
+			// As pointed out in comments, 
+			// it is superfluous to have to manually call the modal.
+			// $('#addBookDialog').modal('show');
 		});
 	</script>
 

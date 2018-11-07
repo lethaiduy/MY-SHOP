@@ -1,5 +1,6 @@
 package com.myshop.model;
 
+import java.util.Base64;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,10 +10,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "News")
 public class News {
+	
+	@Transient 
+	private String base64;
+	//Annotation so it does not persist in the database
+	public String getBase64() {
+	    //Convert the data type byte to String, store it in the variable and return it
+	    return this.base64 = Base64.getEncoder().encodeToString(image); 
+	}
+
+	public void setBase64(String base64) {
+	    this.base64 = base64;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
