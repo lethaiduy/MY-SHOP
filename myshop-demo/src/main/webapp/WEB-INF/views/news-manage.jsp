@@ -171,7 +171,7 @@
 												data-todo-dateSub="${listnews.dateSub}"
 												data-detail-todo="${listnews.detail}" data-toggle="modal"><i
 													class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-												<a href=""  class="delete"
+												<a href="/news/delete/${listnews.newsid}"  class="delete"
 												data-news-id="${listnews.newsid}"><i
 													class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 											</td>
@@ -343,7 +343,7 @@
 					<div id="deleteNewsModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form  action="/news/delete/${listnews.newsid}" method="get">
+								<form>
 									<div class="modal-header">
 										<h4 class="modal-title">Delete News</h4>
 										<button type="button" class="close" data-dismiss="modal"
