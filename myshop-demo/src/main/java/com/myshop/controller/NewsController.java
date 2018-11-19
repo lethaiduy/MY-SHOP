@@ -2,6 +2,8 @@ package com.myshop.controller;
 
 
 
+
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +50,13 @@ public class NewsController {
 		return "redirect:/news";
 	}
 
-/*	@RequestMapping(value = "/news/update/{id}", method = RequestMethod.GET)
-	public String  update(@PathVariable("id") int id, Model model) {
-		News result = newsRepository.findByNewsid(id);
-		model.addAttribute("newsupdate", result);
+	@RequestMapping(value = "/news/update", method = RequestMethod.POST)
+	public String  update( News news) {
+		
+       newsRepository.updateNews(news.getNewsid(), news.getDateSub(), news.getTitle(), news.getDetail(), news.getImage());
 		return "redirect:/news";
 
-	}*/
+	}
 
 
 

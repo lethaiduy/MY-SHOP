@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
 
@@ -36,7 +36,9 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet"
-	href="vendor/datetimepicker/jquery.datetimepicker.min.css">
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+
+
 
 <!-- Custom styles for this template-->
 <link href="css/main-admin.css" rel="stylesheet">
@@ -99,6 +101,7 @@
 			<li class="nav-item active"><a class="nav-link" href="#"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
 			</a></li>
+
 			<li class="nav-item"><a class="nav-link" href="#"> <i
 					class="fas fa-box-open"></i> <span>Product Manager</span></a></li>
 			<li class="nav-item"><a class="nav-link" href="#"> <i
@@ -124,13 +127,13 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<h2>
-											Manage <b>News</b>
+											Manage <b>Product</b>
 										</h2>
 									</div>
 									<div class="col-sm-6">
-										<a href="#addNewsModal" class="btn btn-success"
+										<a href="#addProductModal" class="btn btn-success"
 											data-toggle="modal"><i class="material-icons">&#xE147;</i>
-											<span>Add New News</span></a> <a href="#deleteNewsModal"
+											<span>Add New Product</span></a> <a href="#deleteProductModal"
 											class="btn btn-danger" data-toggle="modal"><i
 											class="material-icons">&#xE15C;</i> <span>Delete</span></a>
 									</div>
@@ -143,40 +146,50 @@
 												type="checkbox" id="selectAll"> <label
 												for="selectAll"></label>
 										</span></th>
-										<th>News ID</th>
-										<th>Title</th>
-										<th>Image Date</th>
-										<th>Date submit</th>
-										<th>Detail</th>
+										<th>Product ID</th>
+										<th>Product name</th>
+										<th>Image</th>
+										<th>Brand</th>
+										<th>Fabric</th>
+										<th>Size</th>
+										<th>Price</th>
+										<th>Discount</th>
+										<th>Catalog</th>
+										<th>Amount</th>
 										<th>Actions</th>
+
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${news}" var="listnews">
+									<c:forEach items="${product}" var="product">
 										<tr>
 											<td><span class="custom-checkbox"> <input
 													type="checkbox" id="checkbox5" name="options[]" value="1">
 													<label for="checkbox5"></label>
 											</span></td>
-											<td>${listnews.newsid}</td>
-											<td>${listnews.title}</td>
-											<td><img src="data:image/jpg;base64,${listnews.image}"
-												class="img-news"></td>
-											<td>${listnews.dateSub}</td>
-											<td>${listnews.detail}</td>
-											<td><a href="#editNewsModal" class="edit"
-												data-news-id="${listnews.newsid}"
-												data-title-todo="${listnews.title}"
-												data-datesub-todo="${listnews.dateSub}"
-												data-todo-dateSub="${listnews.dateSub}"
-												data-detail-todo="${listnews.detail}" data-toggle="modal"><i
-													class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-												<a href="/news/delete/${listnews.newsid}" class="delete"><i
-													class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-											</td>
+											<td>${product.prodid}</td>
+											<td>${product.prodname}</td>
+											<td><img class="img-product"
+												src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\Somi.jpg"></td>
+											<td>${product.brand}</td>
+											<td>${product.fabric}</td>
+
+											<td><c:forEach items="${product.sizes}" var="sizes">
+													<div>${sizes.sizename}</div>
+												</c:forEach></td>
+
+											<td>${product.price}</td>
+											<td>${product.prodname}</td>
+											<td>${product.productGrp.prodgrpname}</td>
+											<td>${product.quantity}</td>
+											<td><a href="#editProductModal" class="edit"
+												data-toggle="modal"><i class="material-icons"
+													data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
+												href="#deleteProductModal" class="delete"
+												data-toggle="modal"><i class="material-icons"
+													data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>
 										</tr>
 									</c:forEach>
-
 								</tbody>
 							</table>
 							<div class="clearfix">
@@ -185,46 +198,75 @@
 								</div>
 								<ul class="pagination">
 									<li class="page-item disabled"><a href="#">Previous</a></li>
-									<li class="page-item"><a href="/news" class="page-link">1</a></li>
-									<li class="page-item"><a href="/news" class="page-link">2</a></li>
-									<li class="page-item active"><a href="/news"
-										class="page-link">3</a></li>
-									<li class="page-item"><a href="/news" class="page-link">4</a></li>
-									<li class="page-item"><a href="/news" class="page-link">5</a></li>
-									<li class="page-item"><a href="/news" class="page-link">Next</a></li>
+									<li class="page-item"><a href="#" class="page-link">1</a></li>
+									<li class="page-item"><a href="#" class="page-link">2</a></li>
+									<li class="page-item active"><a href="#" class="page-link">3</a></li>
+									<li class="page-item"><a href="#" class="page-link">4</a></li>
+									<li class="page-item"><a href="#" class="page-link">5</a></li>
+									<li class="page-item"><a href="#" class="page-link">Next</a></li>
 								</ul>
 							</div>
 						</div>
 					</div>
-					<!-- Add Modal HTML -->
-					<div id="addNewsModal" class="modal fade">
+					<!-- Edit Modal HTML -->
+					<div id="addProductModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form action="/news/save" method="POST"
-									enctype="multipart/form-data">
+								<form>
 									<div class="modal-header">
-										<h4 class="modal-title">Add News</h4>
+										<h4 class="modal-title">Add Product</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
 									<div class="modal-body">
 										<div class="form-group">
-											<label>Title</label> <input type="text" class="form-control"
-												name="title" value="${title}" required>
-
+											<label>Product Name</label> <input type="text"
+												class="form-control" required>
 										</div>
 										<div class="form-group">
 											<label>Image</label> <input type="file" class="form-control"
-												name="images">
+												required>
 										</div>
 										<div class="form-group">
-											<label>Date submit</label> <input type="text"
-												id="datetimepicker" class="form-control" name="dateSub">
+											<label>Brand</label> <input type="text" class="form-control"
+												required>
 										</div>
 										<div class="form-group">
-											<label>Detail</label>
+											<label>Fabric</label> <input type="text" class="form-control"
+												required>
 										</div>
-										<textarea class="text-area" name="detail"></textarea>
+										<div class="form-group">
+											<label>Size</label>
+
+										</div>
+										<select class="selectpicker" multiple data-live-search="true">
+											<option>29</option>
+											<option>30</option>
+											<option>31</option>
+											<option>32</option>
+											<option>S</option>
+											<option>M</option>
+											<option>L</option>
+											<option>XL</option>
+											<option>XXL</option>
+										</select>
+										<div class="form-group">
+											<label>Price</label> <input type="text" class="form-control"
+												required>
+										</div>
+										<div class="form-group">
+											<label>Discount</label> <input type="text"
+												class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label>Catalog</label> <input type="text"
+												class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label>Amount</label> <input type="text" class="form-control"
+												required>
+										</div>
+
 									</div>
 									<div class="modal-footer">
 										<input type="button" class="btn btn-default"
@@ -291,66 +333,90 @@
 						</div>
 					</div>
 					<!-- Edit Modal HTML -->
-					<div id="editNewsModal" class="modal fade">
+					<div id="editProductModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form action="/news/update" method="POST"
-									enctype="multipart/form-data">
+								<form>
 									<div class="modal-header">
-										<h4 class="modal-title">Edit News</h4>
+										<h4 class="modal-title">Edit Product</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
 
 									<div class="modal-body">
 										<div class="form-group">
-											<label>Title ID </label> <input type="text" name="newsid" id="newsid" 
-												class="form-control">
-
+											<label>Product ID</label> <input type="text"
+												class="form-control" disabled>
 										</div>
 										<div class="form-group">
-											<label>Title</label> <input type="text" class="form-control"
-												name="title" required>
-
+											<label>Product Name</label> <input type="text"
+												class="form-control" required>
 										</div>
 										<div class="form-group">
 											<label>Image</label> <input type="file" class="form-control"
-												name="images">
+												required>
 										</div>
 										<div class="form-group">
-											<label>Date submit</label> <input type="text" name="dateSub"
-												id="datetimepicker1" class="form-control">
+											<label>Brand</label> <input type="text" class="form-control"
+												required>
 										</div>
 										<div class="form-group">
-											<label>Detail</label>
+											<label>Fabric</label> <input type="text" class="form-control"
+												required>
 										</div>
-										<textarea class="text-area" name="detail"></textarea>
+										<div class="form-group">
+											<label>Size</label>
+										</div>
+										<select class="selectpicker" multiple data-live-search="true">
+											<option>29</option>
+											<option>30</option>
+											<option>31</option>
+											<option>32</option>
+											<option>S</option>
+											<option>M</option>
+											<option>L</option>
+											<option>XL</option>
+											<option>XXL</option>
+										</select>
+										<div class="form-group">
+											<label>Price</label> <input type="text" class="form-control"
+												required>
+										</div>
+										<div class="form-group">
+											<label>Discount</label> <input type="text"
+												class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label>Catalog</label> <input type="text"
+												class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label>Amount</label> <input type="text" class="form-control"
+												required>
+										</div>
+
 									</div>
 									<div class="modal-footer">
 										<input type="button" class="btn btn-default"
 											data-dismiss="modal" value="Cancel"> <input
 											type="submit" class="btn btn-info" value="Save">
 									</div>
-
 								</form>
-
-
 							</div>
 						</div>
 					</div>
 					<!-- Delete Modal HTML -->
-					<div id="deleteNewsModal" class="modal fade">
+					<div id="deleteProductModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<form>
 									<div class="modal-header">
-										<h4 class="modal-title">Delete News</h4>
+										<h4 class="modal-title">Delete Product</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
 									<div class="modal-body">
 										<p>Are you sure you want to delete these Records?</p>
-
 										<p class="text-warning">
 											<small>This action cannot be undone.</small>
 										</p>
@@ -373,7 +439,7 @@
 			<footer class="sticky-footer">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Copyright Â© My Shop-LeThaiDuy, All rights reserved</span>
+						<span>Copyright © My Shop-LeThaiDuy, All rights reserved</span>
 					</div>
 				</div>
 			</footer>
@@ -411,9 +477,6 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		
-	</script>
 
 	<!-- Bootstrap core JavaScript-->
 	<script
@@ -424,40 +487,21 @@
 	<!-- Core plugin JavaScript-->
 	<script src="vendor/datatables/jquery.dataTables.js"></script>
 	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-	<script src="https://cdn.ckeditor.com/4.10.1/standard/ckeditor.js"></script>
-	<script src="vendor/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+
 
 	<!-- Custom scripts for all pages-->
 	<script src="js/myshop-admin.js"></script>
 	<script src="js/product-manage.js"></script>
 
-
 	<!--  -->
-	<script>
-		
-	</script>
 	<script>
 		$(document).ready(function() {
 			$('#dataTable').DataTable();
-			$('#datetimepicker').datetimepicker();
-			$('#datetimepicker1').datetimepicker();
-			$('#editNewsModal').on('show.bs.modal', function(e) {
-				var newsId = $(e.relatedTarget).data('news-id');
-				var title = $(e.relatedTarget).data('title-todo');
-				var dateSub = $(e.relatedTarget).data('datesub-todo');
-				var detail = $(e.relatedTarget).data('detail-todo');
-
-				$(e.currentTarget).find('input[name="newsid"]').val(newsId);
-				$(e.currentTarget).find('input[name="title"]').val(title);
-				$(e.currentTarget).find('input[name="dateSub"]').val(dateSub);
-				$(e.currentTarget).find('textarea[name="detail"]').val(detail);
-
-			});
-			/* $( "#newsid" ).prop( "disabled", true ); */
-			
-
+			$('select').selectpicker();
 		});
-		document.getElementById('newsid').readOnly = true;
 	</script>
 
 </body>
