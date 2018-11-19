@@ -160,7 +160,7 @@
 											</span></td>
 											<td>${listnews.newsid}</td>
 											<td>${listnews.title}</td>
-											<td><img src="data:image/jpg;base64,${listnews.image}"
+											<td><img src="data:image/png;base64,${listnews.image}"
 												class="img-news"></td>
 											<td>${listnews.dateSub}</td>
 											<td>${listnews.detail}</td>

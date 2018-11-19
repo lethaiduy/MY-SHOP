@@ -12,10 +12,23 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+
 @Entity
 @Table(name = "News")
 public class News {
 	// Annotation so it does not persist in the database
+	@Transient 
+	private String base64;
+	//Annotation so it does not persist in the database
+	public String getBase64() {
+	    //Convert the data type byte to String, store it in the variable and return it
+	    return this.base64 = Base64.getDecoder().decode(getImage()).toString();
+	}
+ 	public void setBase64(String base64) {
+	    this.base64 = base64;
+	}
+
+ 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "newsid")
@@ -24,13 +37,11 @@ public class News {
 	private Date dateSub;
 	@Column(name = "detail")
 	private String detail;
-	@Column(name = "image")
+	@Lob
+	@Column(name = "image",columnDefinition="binary")
 	private byte[] image;
 	@Column(name = "title")
 	private String title;
-	@Transient
-	private String base64;
-
 
 	public int getNewsid() {
 		return newsid;
@@ -72,32 +83,18 @@ public class News {
 		this.image = image;
 	}
 
-	public String getBase64() {
-		// Convert the data type byte to String, store it in the variable and
-		// return it
-		return this.base64 = Base64.getEncoder().encodeToString(image);
-	}
-
-	public void setBase64(String base64) {
-		this.base64 = base64;
-	}
-
 	public News() {
 		super();
 	}
 
-	public News(int newsid, Date dateSub, String detail, byte[] image, String title, String base64) {
+	public News(int newsid, Date dateSub, String detail, byte[] image, String title) {
 		super();
 		this.newsid = newsid;
 		this.dateSub = dateSub;
 		this.detail = detail;
 		this.image = image;
 		this.title = title;
-		this.base64 = base64;
+
 	}
-
-	
-
-	
 
 }

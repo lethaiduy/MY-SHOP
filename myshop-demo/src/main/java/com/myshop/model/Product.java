@@ -1,15 +1,19 @@
 package com.myshop.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -37,18 +41,30 @@ public class Product {
 	private long price;
 	@Column(name = "quantity")
 	private int quantity;
-	@ManyToOne(
-	        fetch = FetchType.LAZY)
-	    @NotFound(
-	        action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@NotFound(action = NotFoundAction.IGNORE)
 	@JoinColumn(name = "prodgrpid")
 	private ProductGrp productGrp;
+	/* @ManyToMany(fetch = FetchType.EAGER, mappedBy = "productes") */
 	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-                },mappedBy = "productes")
-	private List<Size> sizes;
+	        cascade =
+	        {
+	                CascadeType.DETACH,
+	                CascadeType.MERGE,
+	                CascadeType.REFRESH,
+	                CascadeType.PERSIST
+	        },
+	        targetEntity = Size.class)
+	@JoinTable(name = "Prod_Size",
+	        inverseJoinColumns = @JoinColumn(name = "sizeid",
+	                nullable = false,
+	                updatable = false),
+	        joinColumns = @JoinColumn(name = "prodid",
+	                nullable = false,
+	                updatable = false),
+	        foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+	        inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
+	private List<Size> sizes=  new ArrayList<>();
 
 	public int getProdid() {
 		return prodid;

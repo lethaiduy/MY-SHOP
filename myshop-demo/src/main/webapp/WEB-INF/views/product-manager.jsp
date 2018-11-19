@@ -183,11 +183,17 @@
 											<td>${product.productGrp.prodgrpname}</td>
 											<td>${product.quantity}</td>
 											<td><a href="#editProductModal" class="edit"
-												data-toggle="modal"><i class="material-icons"
-													data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
-												href="#deleteProductModal" class="delete"
-												data-toggle="modal"><i class="material-icons"
-													data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>
+												data-product-id="${product.prodid}"
+											    data-product-name-todo="${product.prodname}"
+												data-brand-todo="${product.brand}"
+												data-fabric-todo="${product.fabric}"
+												data-price-todo="${product.price}"
+												data-catalog-todo="${product.productGrp.prodgrpname}"
+												data-quantity-todo="${product.quantity}" data-toggle="modal"><i
+													class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+												<a href="/product/delete/${product.prodid}" class="delete"><i
+													class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+											</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -212,7 +218,8 @@
 					<div id="addProductModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form>
+								<form action="/product/save" method="POST"
+									enctype="multipart/form-data">
 									<div class="modal-header">
 										<h4 class="modal-title">Add Product</h4>
 										<button type="button" class="close" data-dismiss="modal"
@@ -221,50 +228,47 @@
 									<div class="modal-body">
 										<div class="form-group">
 											<label>Product Name</label> <input type="text"
-												class="form-control" required>
+												name="prodname" class="form-control" required>
 										</div>
 										<div class="form-group">
 											<label>Image</label> <input type="file" class="form-control"
-												required>
+												name="images" required>
 										</div>
 										<div class="form-group">
 											<label>Brand</label> <input type="text" class="form-control"
-												required>
+												name="brand" required>
 										</div>
 										<div class="form-group">
 											<label>Fabric</label> <input type="text" class="form-control"
-												required>
+												name="fabric" required>
 										</div>
 										<div class="form-group">
-											<label>Size</label>
-
-										</div>
-										<select class="selectpicker" multiple data-live-search="true">
-											<option>29</option>
-											<option>30</option>
-											<option>31</option>
-											<option>32</option>
-											<option>S</option>
-											<option>M</option>
-											<option>L</option>
-											<option>XL</option>
-											<option>XXL</option>
-										</select>
-										<div class="form-group">
-											<label>Price</label> <input type="text" class="form-control"
-												required>
+											<label>Size</label> <select class="form-control" multiple
+												data-live-search="true" name="sizes.sizeid">
+												<c:forEach var="sizes" items="${sizes}">
+													<option value="${sizes.sizeid}">${sizes.sizename}</option>
+												</c:forEach>
+											</select>
 										</div>
 										<div class="form-group">
-											<label>Discount</label> <input type="text"
-												class="form-control" required>
+											<label>Price</label> <input type="number"
+												class="form-control" min="0" required>
 										</div>
 										<div class="form-group">
-											<label>Catalog</label> <input type="text"
-												class="form-control" required>
+											<label>Discount</label> <input type="number"
+												class="form-control" min="0" max="100" required>
 										</div>
 										<div class="form-group">
-											<label>Amount</label> <input type="text" class="form-control"
-												required>
+											<label>Catalog</label> <select class="form-control"
+												name="productGrp.prodgrpid" id="exampleFormControlSelect1">
+												<c:forEach var="prdgrps" items="${productgrp}">
+													<option value="${prdgrps.prodgrpid}">${prdgrps.prodgrpname}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="form-group">
+											<label>Amount</label> <input type="number"
+												class="form-control" min="0" required>
 										</div>
 
 									</div>
@@ -281,7 +285,7 @@
 					<div id="editAccountModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form>
+								<form >
 									<div class="modal-header">
 										<h4 class="modal-title">Change Infomation</h4>
 										<button type="button" class="close" data-dismiss="modal"
@@ -336,7 +340,8 @@
 					<div id="editProductModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form>
+								<form action="/product/update" method="POST"
+									enctype="multipart/form-data">
 									<div class="modal-header">
 										<h4 class="modal-title">Edit Product</h4>
 										<button type="button" class="close" data-dismiss="modal"
@@ -346,53 +351,51 @@
 									<div class="modal-body">
 										<div class="form-group">
 											<label>Product ID</label> <input type="text"
-												class="form-control" disabled>
+												class="form-control" name="prodid" id="prodid">
 										</div>
 										<div class="form-group">
-											<label>Product Name</label> <input type="text"
+											<label>Product Name</label> <input type="text"  name="prodname"
 												class="form-control" required>
 										</div>
 										<div class="form-group">
-											<label>Image</label> <input type="file" class="form-control"
+											<label>Image</label> <input type="file" class="form-control" name="images"
 												required>
 										</div>
 										<div class="form-group">
-											<label>Brand</label> <input type="text" class="form-control"
+											<label>Brand</label> <input type="text" class="form-control" name="brand"
 												required>
 										</div>
 										<div class="form-group">
-											<label>Fabric</label> <input type="text" class="form-control"
+											<label>Fabric</label> <input type="text" class="form-control" name="fabric"
 												required>
 										</div>
 										<div class="form-group">
-											<label>Size</label>
+											<label>Size</label> <select class="form-control" multiple
+												data-live-search="true" name="sizes.sizeid">
+												<c:forEach var="sizes" items="${sizes}">
+													<option value="${sizes.sizeid}">${sizes.sizename}</option>
+												</c:forEach>
+											</select>
 										</div>
-										<select class="selectpicker" multiple data-live-search="true">
-											<option>29</option>
-											<option>30</option>
-											<option>31</option>
-											<option>32</option>
-											<option>S</option>
-											<option>M</option>
-											<option>L</option>
-											<option>XL</option>
-											<option>XXL</option>
-										</select>
 										<div class="form-group">
-											<label>Price</label> <input type="text" class="form-control"
+											<label>Price</label> <input type="number" class="form-control" name="price" min="0"
 												required>
 										</div>
 										<div class="form-group">
-											<label>Discount</label> <input type="text"
+											<label>Discount</label> <input type="number"  min="0" max="100" 
 												class="form-control" required>
 										</div>
 										<div class="form-group">
-											<label>Catalog</label> <input type="text"
-												class="form-control" required>
+											<label>Catalog</label> <select class="form-control"
+												name="productGrp.prodgrpid" id="exampleFormControlSelect1">
+												<c:forEach var="prdgrps" items="${productgrp}">
+													<option value="${prdgrps.prodgrpid}">${prdgrps.prodgrpname}</option>
+												</c:forEach>
+											</select>
 										</div>
-										<div class="form-group">
-											<label>Amount</label> <input type="text" class="form-control"
-												required>
+										<div class="form-group"> 
+											<label>Amount</label> <input type="number" name="quantity"
+												class="form-control" min="0"  required >
 										</div>
 
 									</div>
@@ -501,7 +504,27 @@
 		$(document).ready(function() {
 			$('#dataTable').DataTable();
 			$('select').selectpicker();
+			$('#editProductModal').on('show.bs.modal', function(e) {
+				var prodId = $(e.relatedTarget).data('product-id');
+				 var prodName = $(e.relatedTarget).data('product-name-todo');
+				 var brand = $(e.relatedTarget).data('brand-todo');
+				var fabric = $(e.relatedTarget).data('fabric-todo'); 
+				var price = $(e.relatedTarget).data('price-todo'); 
+				var quantity = $(e.relatedTarget).data('quantity-todo'); 
+				var catalog = $(e.relatedTarget).data('catalog-todo'); 
+
+				$(e.currentTarget).find('input[name="prodid"]').val(prodId);
+				 $(e.currentTarget).find('input[name="prodname"]').val(prodName);
+				 $(e.currentTarget).find('input[name="brand"]').val(brand);
+				$(e.currentTarget).find('input[name="fabric"]').val(fabric); 
+				$(e.currentTarget).find('input[name="price"]').val(price); 
+				$(e.currentTarget).find('input[name="quantity"]').val(quantity); 
+				$(e.currentTarget).find('select[name="productGrp.prodgrpid"]').val(catalog); 
+
+
+			});
 		});
+		document.getElementById('prodid').readOnly = true;
 	</script>
 
 </body>
