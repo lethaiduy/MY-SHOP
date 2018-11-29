@@ -1,7 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,14 +32,12 @@
 	href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-
 
 
 <!-- Custom styles for this template-->
 <link href="css/main-admin.css" rel="stylesheet">
 <link href="css/product-manage.css" rel="stylesheet">
+
 
 </head>
 
@@ -127,13 +122,13 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<h2>
-											Manage <b>Product</b>
+											Manage <b>Customer</b>
 										</h2>
 									</div>
 									<div class="col-sm-6">
-										<a href="#addProductModal" class="btn btn-success"
+										<a href="#addCustomerModal" class="btn btn-success"
 											data-toggle="modal"><i class="material-icons">&#xE147;</i>
-											<span>Add New Product</span></a> <a href="#deleteProductModal"
+											<span>Add New Customer</span></a> <a href="#deleteCustomerModal"
 											class="btn btn-danger" data-toggle="modal"><i
 											class="material-icons">&#xE15C;</i> <span>Delete</span></a>
 									</div>
@@ -146,56 +141,37 @@
 												type="checkbox" id="selectAll"> <label
 												for="selectAll"></label>
 										</span></th>
-										<th>Product ID</th>
-										<th>Product name</th>
-										<th>Image</th>
-										<th>Brand</th>
-										<th>Fabric</th>
-										<th>Size</th>
-										<th>Price</th>
-										
-										<th>Catalog</th>
-										<th>Amount</th>
+										<th>Customer ID</th>
+										<th>Customer name</th>
+										<th>Address</th>
+										<th>Number Phone</th>
+										<th>Email</th>
+										<th>Username</th>
 										<th>Actions</th>
 
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${product}" var="product">
+									<c:forEach items="${customer}" var="customers">
 										<tr>
 											<td><span class="custom-checkbox"> <input
 													type="checkbox" id="checkbox5" name="options[]" value="1">
 													<label for="checkbox5"></label>
 											</span></td>
-											<td>${product.prodid}</td>
-											<td>${product.prodname}</td>
-											<td><img class="img-product"
-												src="data:image/jpg;base64,${product.image}"></td>
-											<td>${product.brand}</td>
-											<td>${product.fabric}</td>
-
-											<td><c:forEach items="${product.sizes}" var="sizes">
-													<div>${sizes.sizename}</div>
-												</c:forEach></td>
-
-											<td>${product.price}</td>
-											
-											<td>${product.productGrp.prodgrpname}</td>
-											<td>${product.quantity}</td>
-											<td><a href="#editProductModal" class="edit"
-												data-product-id="${product.prodid}"
-											    data-product-name-todo="${product.prodname}"
-												data-brand-todo="${product.brand}"
-												data-fabric-todo="${product.fabric}"
-												data-price-todo="${product.price}"
-												data-catalog-todo="${product.productGrp.prodgrpname}"
-												data-quantity-todo="${product.quantity}" data-toggle="modal"><i
-													class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-												<a href="/product/delete/${product.prodid}" class="delete"><i
-													class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-											</td>
+											<td>${customers.customerid}</td>
+											<td>${customers.fullname}</td>
+											<td>${customers.address}</td>
+											<td>${customers.cellphone}</td>
+											<td>${customers.email}</td>
+											<td>${customers.account.username}</td>
+											<td><a href="#editCustomerModal" class="edit"
+												data-toggle="modal"><i class="material-icons"
+													data-toggle="tooltip" title="Edit">&#xE254;</i></a><a
+												href="/customer/delete/${customers.customerid}" class="delete"><i
+													class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>
 										</tr>
 									</c:forEach>
+
 								</tbody>
 							</table>
 							<div class="clearfix">
@@ -214,75 +190,11 @@
 							</div>
 						</div>
 					</div>
-					<!-- Edit Modal HTML -->
-					<div id="addProductModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form action="/product/save" method="POST"
-									enctype="multipart/form-data">
-									<div class="modal-header">
-										<h4 class="modal-title">Add Product</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<div class="form-group">
-											<label>Product Name</label> <input type="text"
-												name="prodname" class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Image</label> <input type="file" class="form-control"
-												name="images" required>
-										</div>
-										<div class="form-group">
-											<label>Brand</label> <input type="text" class="form-control"
-												name="brand" required>
-										</div>
-										<div class="form-group">
-											<label>Fabric</label> <input type="text" class="form-control"
-												name="fabric" required>
-										</div>
-										<div class="form-group">
-											<label>Size</label> <select class="form-control" multiple
-												data-live-search="true"  >
-												<c:forEach var="sizes" items="${sizes}">
-													<option value="${sizes.sizeid}">${sizes.sizename}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="form-group">
-											<label>Price</label> <input type="number"
-												class="form-control" min="0" required>
-										</div>
-										
-										<div class="form-group">
-											<label>Catalog</label> <select class="form-control"
-												name="productGrp.prodgrpid" id="exampleFormControlSelect1">
-												<c:forEach var="prdgrps" items="${productgrp}">
-													<option value="${prdgrps.prodgrpid}">${prdgrps.prodgrpname}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="form-group">
-											<label>Amount</label> <input type="number"
-												class="form-control" min="0" required>
-										</div>
-
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-success" value="Add">
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
 					<!-- Edit Account -->
 					<div id="editAccountModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form >
+								<form>
 									<div class="modal-header">
 										<h4 class="modal-title">Change Infomation</h4>
 										<button type="button" class="close" data-dismiss="modal"
@@ -333,68 +245,108 @@
 							</div>
 						</div>
 					</div>
-					<!-- Edit Modal HTML -->
-					<div id="editProductModal" class="modal fade">
+					<!-- Add Modal HTML -->
+					<div id="addCustomerModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form action="/product/update" method="POST"
-									enctype="multipart/form-data">
+								<form action="/customer/save" method="POST">
 									<div class="modal-header">
-										<h4 class="modal-title">Edit Product</h4>
+										<h4 class="modal-title">Add Customer</h4>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button>
+									</div>
+									<div class="modal-body">
+										<div class="form-group">
+											<label>Customer Name</label> <input type="text"
+												class="form-control" name="fullname" required>
+										</div>
+										<div class="form-group">
+											<label>Address</label> <input type="text"
+												class="form-control" name="address" equired>
+										</div>
+										<div class="form-group">
+											<label>Number Phone</label> <input type="text"
+												class="form-control" name="cellphone" required>
+										</div>
+										<div class="form-group">
+											<label>Email</label> <input type="email" class="form-control"
+												name="email" required>
+										</div>
+										<div class="form-group">
+											<label>Username</label> <input type="text"
+												class="form-control" name="account.username" required>
+										</div>
+										<div class="form-group">
+											<label>Password</label> <input type="password"
+												class="form-control" name="account.password" required>
+										</div>
+										<div class="form-group">
+											<label>Confirm Password</label> <input type="password"
+												class="form-control" required>
+										</div>
+
+										<div class="form-group">
+											<label>Role</label> <select class="form-control"
+												id="exampleFormControlSelect1" name="role.roleid">
+												<c:forEach var="roles" items="${roles}">
+													<option value="${roles.roleid}">${roles.rolename}</option>
+												</c:forEach>
+											</select>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<input type="button" class="btn btn-default"
+											data-dismiss="modal" value="Cancel"> <input
+											type="submit" class="btn btn-success" value="Add">
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- Edit Modal HTML -->
+					<div id="editCustomerModal" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<form>
+									<div class="modal-header">
+										<h4 class="modal-title">Edit Customer</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
 
 									<div class="modal-body">
 										<div class="form-group">
-											<label>Product ID</label> <input type="text"
-												class="form-control" name="prodid" id="prodid">
+											<label>Customer ID</label> <input type="text"
+												class="form-control" disabled>
 										</div>
 										<div class="form-group">
-											<label>Product Name</label> <input type="text"  name="prodname"
+											<label>Customer Name</label> <input type="text"
 												class="form-control" required>
 										</div>
 										<div class="form-group">
-											<label>Image</label> <input type="file" class="form-control" name="images"
-												required>
-										</div>
-										<div class="form-group">
-											<label>Brand</label> <input type="text" class="form-control" name="brand"
-												required>
-										</div>
-										<div class="form-group">
-											<label>Fabric</label> <input type="text" class="form-control" name="fabric"
-												required>
-										</div>
-										<div class="form-group">
-											<label>Size</label> <select class="form-control" multiple
-												data-live-search="true" name="sizes.sizeid">
-												<c:forEach var="sizes" items="${sizes}">
-													<option value="${sizes.sizeid}">${sizes.sizename}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="form-group">
-											<label>Price</label> <input type="number" class="form-control" name="price" min="0"
-												required>
-										</div>
-										<div class="form-group">
-											<label>Discount</label> <input type="number"  min="0" max="100" 
+											<label>Address</label> <input type="text"
 												class="form-control" required>
 										</div>
 										<div class="form-group">
-											<label>Catalog</label> <select class="form-control"
-												name="productGrp.prodgrpid" id="exampleFormControlSelect1">
-												<c:forEach var="prdgrps" items="${productgrp}">
-													<option value="${prdgrps.prodgrpid}">${prdgrps.prodgrpname}</option>
-												</c:forEach>
-											</select>
+											<label>Number Phone</label> <input type="number"
+												class="form-control" required>
 										</div>
-										<div class="form-group"> 
-											<label>Amount</label> <input type="number" name="quantity"
-												class="form-control" min="0"  required >
+										<div class="form-group">
+											<label>Email</label> <input type="email" class="form-control"
+												required>
 										</div>
-
+										<div class="form-group">
+											<label>Username</label> <input type="text"
+												class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label>Password</label> <input type="password"
+												class="form-control" required>
+										</div>
+										<div class="form-group">
+											<label>Confirm Password</label> <input type="password"
+												class="form-control" required>
+										</div>
 									</div>
 									<div class="modal-footer">
 										<input type="button" class="btn btn-default"
@@ -406,12 +358,12 @@
 						</div>
 					</div>
 					<!-- Delete Modal HTML -->
-					<div id="deleteProductModal" class="modal fade">
+					<div id="deleteCustomerModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<form>
 									<div class="modal-header">
-										<h4 class="modal-title">Delete Product</h4>
+										<h4 class="modal-title">Delete Customer</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
@@ -439,7 +391,7 @@
 			<footer class="sticky-footer">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Copyright © My Shop-LeThaiDuy, All rights reserved</span>
+						<span>Copyright Â© My Shop-LeThaiDuy, All rights reserved</span>
 					</div>
 				</div>
 			</footer>
@@ -485,11 +437,10 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Core plugin JavaScript-->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="vendor/datatables/jquery.dataTables.js"></script>
 	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
 
 
 	<!-- Custom scripts for all pages-->
@@ -500,28 +451,7 @@
 	<script>
 		$(document).ready(function() {
 			$('#dataTable').DataTable();
-			$('select').selectpicker();
-			$('#editProductModal').on('show.bs.modal', function(e) {
-				var prodId = $(e.relatedTarget).data('product-id');
-				 var prodName = $(e.relatedTarget).data('product-name-todo');
-				 var brand = $(e.relatedTarget).data('brand-todo');
-				var fabric = $(e.relatedTarget).data('fabric-todo'); 
-				var price = $(e.relatedTarget).data('price-todo'); 
-				var quantity = $(e.relatedTarget).data('quantity-todo'); 
-				var catalog = $(e.relatedTarget).data('catalog-todo'); 
-
-				$(e.currentTarget).find('input[name="prodid"]').val(prodId);
-				 $(e.currentTarget).find('input[name="prodname"]').val(prodName);
-				 $(e.currentTarget).find('input[name="brand"]').val(brand);
-				$(e.currentTarget).find('input[name="fabric"]').val(fabric); 
-				$(e.currentTarget).find('input[name="price"]').val(price); 
-				$(e.currentTarget).find('input[name="quantity"]').val(quantity); 
-				$(e.currentTarget).find('select[name="productGrp.prodgrpid"]').val(catalog); 
-
-
-			});
 		});
-		document.getElementById('prodid').readOnly = true;
 	</script>
 
 </body>

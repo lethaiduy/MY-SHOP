@@ -38,13 +38,14 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/product/save", method = RequestMethod.POST)
-	public String save(@Valid @RequestParam MultipartFile[] images, @Valid Product products) throws Exception {
+	public String save(@Valid @RequestParam MultipartFile[] images, @Valid Product products,@Valid Size sizes) throws Exception {
 		if (images != null && images.length > 0) {
 			for (MultipartFile aFile : images) {
 				products.setImage(aFile.getBytes());
 			}
 		}
 		productsRepository.save(products);
+		/*sizeRepository.save(sizes);*/
 		return "redirect:/product";
 	}
 

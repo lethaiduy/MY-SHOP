@@ -1,14 +1,11 @@
 package com.myshop.controller;
 
-
-
-
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,13 +21,13 @@ public class NewsController {
 	private NewsRepository newsRepository;
 
 	@RequestMapping(value = "/news", method = RequestMethod.GET)
-	public String getNews(Model model, News news)  {
+	public String getNews(Model model, News news) {
 		model.addAttribute("news", newsRepository.findAll());
 		return "news-manage";
 	}
 
 	@RequestMapping(value = "/news/save", method = RequestMethod.POST)
-	public String save( @Valid @RequestParam MultipartFile[] images, @Valid News news) throws Exception {
+	public String saveNews(News news,@Valid @RequestParam MultipartFile[] images) throws Exception {
 		if (images != null && images.length > 0) {
 			for (MultipartFile aFile : images) {
 				news.setImage(aFile.getBytes());
@@ -51,13 +48,12 @@ public class NewsController {
 	}
 
 	@RequestMapping(value = "/news/update", method = RequestMethod.POST)
-	public String  update( News news) {
-		
-       newsRepository.updateNews(news.getNewsid(), news.getDateSub(), news.getTitle(), news.getDetail(), news.getImage());
+	public String update(News news) {
+
+		newsRepository.updateNews(news.getNewsid(), news.getDateSub(), news.getTitle(), news.getDetail(),
+				news.getImage());
 		return "redirect:/news";
 
 	}
-
-
 
 }

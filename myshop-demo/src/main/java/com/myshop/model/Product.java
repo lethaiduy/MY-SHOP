@@ -17,9 +17,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 @Entity
 @Table(name = "Product")
@@ -41,11 +44,11 @@ public class Product {
 	private long price;
 	@Column(name = "quantity")
 	private int quantity;
+	/*@Transient 
+	private String base64;*/
 	@ManyToOne(fetch = FetchType.LAZY)
-	@NotFound(action = NotFoundAction.IGNORE)
 	@JoinColumn(name = "prodgrpid")
 	private ProductGrp productGrp;
-	/* @ManyToMany(fetch = FetchType.EAGER, mappedBy = "productes") */
 	@ManyToMany(fetch = FetchType.LAZY,
 	        cascade =
 	        {
@@ -65,6 +68,15 @@ public class Product {
 	        foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
 	        inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
 	private List<Size> sizes=  new ArrayList<>();
+	
+	
+	/*public String getBase64() {
+		 return this.base64 = Base64.encode(this.image); 
+	}
+	public void setBase64(String base64) {
+	    this.base64 = base64;
+	}*/
+	
 
 	public int getProdid() {
 		return prodid;

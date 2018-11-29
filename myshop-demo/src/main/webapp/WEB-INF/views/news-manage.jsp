@@ -1,10 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 
 <head>
 
@@ -160,7 +159,7 @@
 											</span></td>
 											<td>${listnews.newsid}</td>
 											<td>${listnews.title}</td>
-											<td><img src="data:image/png;base64,${listnews.image}"
+											<td><img src="data:image/jpg;base64,${listnews.base64}"
 												class="img-news"></td>
 											<td>${listnews.dateSub}</td>
 											<td>${listnews.detail}</td>
@@ -210,7 +209,7 @@
 									<div class="modal-body">
 										<div class="form-group">
 											<label>Title</label> <input type="text" class="form-control"
-												name="title" value="${title}" required>
+												name="title"  required>
 
 										</div>
 										<div class="form-group">

@@ -20,21 +20,6 @@ public class MyshopDemoApplication {
 		SpringApplication.run(MyshopDemoApplication.class, args);
 	}
 
-	@Bean
-	public CommonsMultipartResolver commonsMultipartResolver() {
-		final CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-		commonsMultipartResolver.setMaxUploadSize(20971520);
-		commonsMultipartResolver.setMaxInMemorySize(1048576);
-		return commonsMultipartResolver;
-	}
-	@Bean
-    public FilterRegistrationBean openEntityManagerFilterRegistrationBean() {
-        // Set upload filter
-        final MultipartFilter multipartFilter = new MultipartFilter();
-        final FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(multipartFilter);
-        filterRegistrationBean.addInitParameter("multipartResolverBeanName", "commonsMultipartResolver");
 
-        return filterRegistrationBean;
-    }
-
+	
 }

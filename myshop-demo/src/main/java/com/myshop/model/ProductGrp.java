@@ -1,15 +1,22 @@
 package com.myshop.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ProdGrp")
+@Table(name = "prod_grp")
 public class ProductGrp {
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,6 +24,7 @@ public class ProductGrp {
 	private int prodgrpid;
 	@Column(name = "prodgrpname")
 	private String prodgrpname;
+	
 
 	public int getProdgrpid() {
 		return prodgrpid;
@@ -33,6 +41,8 @@ public class ProductGrp {
 	public void setProdgrpname(String prodgrpname) {
 		this.prodgrpname = prodgrpname;
 	}
+	
+	
 
 	public ProductGrp() {
 		super();

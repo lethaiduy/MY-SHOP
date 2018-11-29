@@ -136,7 +136,7 @@
 							<div class="col-lg-4 col-md-6 mb-4">
 								<div class="card h-100">
 									<a href="#"><img class="card-img-tops"
-										src="data:image/png;base64,${newsuser.image}" alt="" style="max-width:345px; display: block;"></a>
+										src="data:image/png;base64,${newsuser.base64}" alt="" style="max-width:345px; display: block;"></a>
 									<div class="card-body">
 										<h4 class="card-title">
 											<p>${newsuser.title}</p>
