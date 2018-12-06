@@ -424,12 +424,12 @@
 							</div>
 						</div>
 					</div>
-					<!-- Edit Order  -->
+					
 					<!-- Edit Modal HTML -->
 					<div id="editOrderModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form  action="/order/update"  method="POST">
+								<form action="/order/update" method="POST">
 									<div class="modal-header">
 										<h4 class="modal-title">Edit News</h4>
 										<button type="button" class="close" data-dismiss="modal"

@@ -1,7 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,13 +33,15 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet"
+	href="vendor/datetimepicker/jquery.datetimepicker.min.css">
+<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 
 
 
 <!-- Custom styles for this template-->
 <link href="css/main-admin.css" rel="stylesheet">
-<link href="css/product-manage.css" rel="stylesheet">
+<link href="css/product-manage2.css" rel="stylesheet">
 
 </head>
 
@@ -101,7 +100,6 @@
 			<li class="nav-item active"><a class="nav-link" href="#"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
 			</a></li>
-
 			<li class="nav-item"><a class="nav-link" href="#"> <i
 					class="fas fa-box-open"></i> <span>Product Manager</span></a></li>
 			<li class="nav-item"><a class="nav-link" href="#"> <i
@@ -127,15 +125,16 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<h2>
-											Manage <b>Product</b>
+											Manage <b>Promotion</b>
 										</h2>
 									</div>
 									<div class="col-sm-6">
-										<a href="#addProductModal" class="btn btn-success"
+										<a href="#addPromotionModal" class="btn btn-success"
 											data-toggle="modal"><i class="material-icons">&#xE147;</i>
-											<span>Add New Product</span></a> <a href="#deleteProductModal"
-											class="btn btn-danger" data-toggle="modal"><i
-											class="material-icons">&#xE15C;</i> <span>Delete</span></a>
+											<span>Add New Promotion</span></a> <a
+											href="#deletePromotionModal" class="btn btn-danger"
+											data-toggle="modal"><i class="material-icons">&#xE15C;</i>
+											<span>Delete</span></a>
 									</div>
 								</div>
 							</div>
@@ -146,58 +145,41 @@
 												type="checkbox" id="selectAll"> <label
 												for="selectAll"></label>
 										</span></th>
-										<th>Product ID</th>
-										<th>Product name</th>
-										<th>Image</th>
-										<th>Brand</th>
-										<th>Fabric</th>
-										<th>Size</th>
-										<th>Price</th>
-
-										<th>Catalog</th>
-										<th>Amount</th>
+										<th>Discount ID</th>
+										<th>Discount name</th>
+										<th>Start Date</th>
+										<th>Finish Date</th>
+										<th>Percent Discount</th>
+										<th>Detail Product</th>
 										<th>Actions</th>
 
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${product}" var="product">
+									<c:forEach items="${promotions}" var="prm">
 										<tr>
 											<td><span class="custom-checkbox"> <input
 													type="checkbox" id="checkbox5" name="options[]" value="1">
 													<label for="checkbox5"></label>
 											</span></td>
-											<td>${product.prodid}</td>
-											<td>${product.prodname}</td>
-											<td><img class="img-product"
-												src="data:image/jpg;base64,${product.base64}"></td>
-											<td>${product.brand}</td>
-											<td>${product.fabric}</td>
+											<td>${prm.promid}</td>
+											<td>${prm.promname}</td>
+											<td>${prm.datestart}</td>
+											<td>${prm.datefinish}</td>
+											<td>${prm.persdisc}</td>
+											<td><a href="#detailProductModal" data-toggle="modal"><i
+													class="fas fa-info-circle"></i></a></td>
 
-											<td style="width:30px;"><select >
-													<c:forEach items="${product.sizes}" var="sizes">
-														<option value="volvo">${sizes.sizename}</option>
-													</c:forEach>
-											</select></td>
 
-											<td>${product.price}</td>
-
-											<td>${product.productGrp.prodgrpname}</td>
-											<td>${product.quantity}</td>
-											<td><a href="#editProductModal" class="edit"
-												data-product-id="${product.prodid}"
-												data-product-name-todo="${product.prodname}"
-												data-brand-todo="${product.brand}"
-												data-fabric-todo="${product.fabric}"
-												data-price-todo="${product.price}"
-												data-catalog-todo="${product.productGrp.prodgrpname}"
-												data-quantity-todo="${product.quantity}" data-toggle="modal"><i
-													class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-												<a href="/product/delete/${product.prodid}" class="delete"><i
-													class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-											</td>
+											<td><a href="#editPromotionModal" class="edit"
+												data-toggle="modal"><i class="material-icons"
+													data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
+												href="#deletePromotionModal" class="delete"
+												data-toggle="modal"><i class="material-icons"
+													data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>
 										</tr>
 									</c:forEach>
+
 								</tbody>
 							</table>
 							<div class="clearfix">
@@ -217,57 +199,44 @@
 						</div>
 					</div>
 					<!-- Edit Modal HTML -->
-					<div id="addProductModal" class="modal fade">
+					<div id="addPromotionModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form action="/product/save" method="POST"
-									enctype="multipart/form-data">
+								<form>
 									<div class="modal-header">
-										<h4 class="modal-title">Add Product</h4>
+										<h4 class="modal-title">Add Promotion</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
 									<div class="modal-body">
 										<div class="form-group">
-											<label>Product Name</label> <input type="text" name="prodname"
-											 class="form-control" required>
+											<label>Discount Name</label> <input type="text"
+												class="form-control" required>
 										</div>
 										<div class="form-group">
-											<label>Image</label> <input type="file" class="form-control"
-											  name="images" required>
-										</div>
-										<div class="form-group">
-											<label>Brand</label> <input type="text" class="form-control" name="brand"
-											 required>
-										</div>
-										<div class="form-group">
-											<label>Fabric</label> <input type="text" class="form-control" name="fabric"
-											 required>
-										</div>
-										<div class="form-group">
-											<label>Size</label> <select class="form-control" multiple
-												data-live-search="true">
-												<c:forEach var="sizes" items="${sizes}">
-													<option value="${sizes.sizeid}">${sizes.sizename}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="form-group">
-											<label>Price</label> <input type="number" name="price">
+											<label>Date Start</label> <input type="text"
+												id="datetimepicker" class="form-control">
 										</div>
 
 										<div class="form-group">
-											<label>Catalog</label> <select class="form-control"
-												name="productGrp.prodgrpid" id="exampleFormControlSelect1">
-												<c:forEach  items="${productgrp}" var="prdgrps" >
-													<option value="${prdgrps.prodgrpid}">${prdgrps.prodgrpname}</option>
-												</c:forEach>
-											</select>
+											<label>Date Finish</label> <input type="text"
+												id="datetimepicker1" class="form-control">
+										</div>
+
+										<div class="form-group">
+											<label>Percent Discount</label> <input type="number"
+												class="form-control" required>
 										</div>
 										<div class="form-group">
-											<label>Amount</label> <input type="number"
-												class="form-control" min="0" required>
+											<label>Product Name</label>
+
 										</div>
+										<select class="selectpicker" multiple data-live-search="true">
+											<option>Ao So Mi</option>
+											<option>Quan So Mi</option>
+											<option>Ao Thun</option>
+											<option>Quan jean</option>
+										</select>
 
 									</div>
 									<div class="modal-footer">
@@ -279,6 +248,7 @@
 							</div>
 						</div>
 					</div>
+
 					<!-- Edit Account -->
 					<div id="editAccountModal" class="modal fade">
 						<div class="modal-dialog">
@@ -335,67 +305,47 @@
 						</div>
 					</div>
 					<!-- Edit Modal HTML -->
-					<div id="editProductModal" class="modal fade">
+					<div id="editPromotionModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form action="/product/update" method="POST"
-									enctype="multipart/form-data">
+								<form>
 									<div class="modal-header">
-										<h4 class="modal-title">Edit Product</h4>
+										<h4 class="modal-title">Edit Promotion</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
 
 									<div class="modal-body">
 										<div class="form-group">
-											<label>Product ID</label> <input type="text"
-												class="form-control" name="prodid" id="prodid">
+											<label>Discount ID</label> <input type="text"
+												class="form-control" disabled>
 										</div>
 										<div class="form-group">
-											<label>Product Name</label> <input type="text"
-												name="prodname" class="form-control" required>
+											<label>Discount Name</label> <input type="text"
+												class="form-control" required>
 										</div>
 										<div class="form-group">
-											<label>Image</label> <input type="file" class="form-control"
-												name="images" required>
+											<label>Date Start</label> <input type="text"
+												id="datetimepicker2" class="form-control" st>
 										</div>
 										<div class="form-group">
-											<label>Brand</label> <input type="text" class="form-control"
-												name="brand" required>
+											<label>Date Finish</label> <input type="text"
+												id="datetimepicker3" class="form-control">
 										</div>
 										<div class="form-group">
-											<label>Fabric</label> <input type="text" class="form-control"
-												name="fabric" required>
+											<label>Percent Discount</label> <input type="number"
+												class="form-control" required>
 										</div>
 										<div class="form-group">
-											<label>Size</label> <select class="form-control" multiple
-												data-live-search="true" name="sizes.sizeid">
-												<c:forEach var="sizes" items="${sizes}">
-													<option value="${sizes.sizeid}">${sizes.sizename}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="form-group">
-											<label>Price</label> <input type="number"
-												class="form-control" name="price" min="0" required>
-										</div>
-										<div class="form-group">
-											<label>Discount</label> <input type="number" min="0"
-												max="100" class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Catalog</label> <select class="form-control"
-												name="productGrp.prodgrpid" id="exampleFormControlSelect1">
-												<c:forEach var="prdgrps" items="${productgrp}">
-													<option value="${prdgrps.prodgrpid}">${prdgrps.prodgrpname}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="form-group">
-											<label>Amount</label> <input type="number" name="quantity"
-												class="form-control" min="0" required>
-										</div>
+											<label>Product Name</label>
 
+										</div>
+										<select class="selectpicker" multiple data-live-search="true">
+											<option>Ao So Mi</option>
+											<option>Quan So Mi</option>
+											<option>Ao Thun</option>
+											<option>Quan jean</option>
+										</select>
 									</div>
 									<div class="modal-footer">
 										<input type="button" class="btn btn-default"
@@ -406,13 +356,14 @@
 							</div>
 						</div>
 					</div>
+
 					<!-- Delete Modal HTML -->
-					<div id="deleteProductModal" class="modal fade">
+					<div id="deletePromotionModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<form>
 									<div class="modal-header">
-										<h4 class="modal-title">Delete Product</h4>
+										<h4 class="modal-title">Delete Promotion</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
@@ -440,7 +391,7 @@
 			<footer class="sticky-footer">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Copyright © My Shop-LeThaiDuy, All rights reserved</span>
+						<span>Copyright Â© My Shop-LeThaiDuy, All rights reserved</span>
 					</div>
 				</div>
 			</footer>
@@ -488,73 +439,27 @@
 	<!-- Core plugin JavaScript-->
 	<script src="vendor/datatables/jquery.dataTables.js"></script>
 	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+	<script src="vendor/datetimepicker/jquery.datetimepicker.full.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
 
 
 	<!-- Custom scripts for all pages-->
 	<script src="js/myshop-admin.js"></script>
 	<script src="js/product-manage.js"></script>
 
+
 	<!--  -->
 	<script>
-		$(document)
-				.ready(
-						function() {
-							$('#dataTable').DataTable();
-							$('select').selectpicker();
-							$('#editProductModal')
-									.on(
-											'show.bs.modal',
-											function(e) {
-												var prodId = $(e.relatedTarget)
-														.data('product-id');
-												var prodName = $(
-														e.relatedTarget).data(
-														'product-name-todo');
-												var brand = $(e.relatedTarget)
-														.data('brand-todo');
-												var fabric = $(e.relatedTarget)
-														.data('fabric-todo');
-												var price = $(e.relatedTarget)
-														.data('price-todo');
-												var quantity = $(
-														e.relatedTarget).data(
-														'quantity-todo');
-												var catalog = $(e.relatedTarget)
-														.data('catalog-todo');
-
-												$(e.currentTarget).find(
-														'input[name="prodid"]')
-														.val(prodId);
-												$(e.currentTarget)
-														.find(
-																'input[name="prodname"]')
-														.val(prodName);
-												$(e.currentTarget).find(
-														'input[name="brand"]')
-														.val(brand);
-												$(e.currentTarget).find(
-														'input[name="fabric"]')
-														.val(fabric);
-												$(e.currentTarget).find(
-														'input[name="price"]')
-														.val(price);
-												$(e.currentTarget)
-														.find(
-																'input[name="quantity"]')
-														.val(quantity);
-												$(e.currentTarget)
-														.find(
-																'select[name="productGrp.prodgrpid"]')
-														.val(catalog);
-
-											});
-						});
-		document.getElementById('prodid').readOnly = true;
+		$(document).ready(function() {
+			$('#dataTable').DataTable();
+			$('#datetimepicker').datetimepicker();
+			$('#datetimepicker1').datetimepicker();
+			$('#datetimepicker2').datetimepicker();
+			$('#datetimepicker3').datetimepicker();
+			$('select').selectpicker();
+		});
 	</script>
-
 </body>
 
 </html>

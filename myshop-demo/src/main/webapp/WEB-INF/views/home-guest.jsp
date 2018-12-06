@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -110,16 +109,10 @@
 			<li class="nav-item active"><a class="nav-link" href="#"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <span>Áo
-						khoác</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <span>Áo
-						sơ mi</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <span>Quần
-						short</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <span>Quần
-						jeans</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <span>Áo
-						thun</span></a></li>
+			<c:forEach items="${productgrps}" var="productgrps">
+				<li class="nav-item"><a class="nav-link" href="#"> <span>${productgrps.prodgrpname}</span></a></li>
+			</c:forEach>
+
 		</ul>
 
 		<div id="content-wrapper">
@@ -128,39 +121,69 @@
 				<!-- Dcarousel -->
 				<div class="card mb-3">
 
-					<div class="card-body"></div>
+					<div class="card-body">
+
+						<div id="carouselExampleIndicators" class="carousel slide my-4"
+							data-ride="carousel">
+							<ol class="carousel-indicators">
+								<li data-target="#carouselExampleIndicators" data-slide-to="0"
+									class="active"></li>
+								<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+								<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+							</ol>
+							<div class="carousel-inner" role="listbox">
+								<div class="carousel-item active">
+									<img class="d-block img-fluid" src="img/slide-1.jpg"
+										alt="First slide">
+								</div>
+								<div class="carousel-item">
+									<img class="d-block img-fluid" src="img/slide-2.jpg"
+										alt="Second slide">
+								</div>
+								<div class="carousel-item">
+									<img class="d-block img-fluid" src="img/slide-1.jpg"
+										alt="Third slide">
+								</div>
+							</div>
+							<a class="carousel-control-prev"
+								href="#carouselExampleIndicators" role="button"
+								data-slide="prev"> <span class="carousel-control-prev-icon"
+								aria-hidden="true"></span> <span class="sr-only">Previous</span>
+							</a> <a class="carousel-control-next"
+								href="#carouselExampleIndicators" role="button"
+								data-slide="next"> <span class="carousel-control-next-icon"
+								aria-hidden="true"></span> <span class="sr-only">Next</span>
+							</a>
+						</div>
+					</div>
 					<div class="row">
-						<c:forEach items="${newsuser}" var="newsuser">
+						<div class=""></div>
+						<c:forEach items="${products}" var="products">
 							<div class="col-lg-4 col-md-6 mb-4">
 								<div class="card h-100">
-									<a href="#"><img class="card-img-tops"
-										src="data:image/png;base64,${newsuser.base64}" alt="" style="max-width:345px; display: block;"></a>
+									<a href="#"><img class="card-img-top"
+										src="data:image/jpg;base64,${products.base64}" alt=""></a>
 									<div class="card-body">
 										<h4 class="card-title">
-											<p>${newsuser.title}</p>
+											<a  href="/detailproduct/${products.prodid}">${products.prodname}</a>
 										</h4>
-										<p class="card-text">${newsuser.detail}</p>
-										<p class="card-text">${newsuser.dateSub}</p>
+										<h5>${products.price}</h5>
+
 									</div>
 
 								</div>
 							</div>
 						</c:forEach>
-
-
-
 					</div>
-					<div class="clearfix">
+					<nav aria-label="Page navigation example">
 						<ul class="pagination">
-							<li class="page-item disabled"><a href="/user.news">Previous</a></li>
-							<li class="page-item active"><a href="/user.news" class="page-link">1</a></li>
-							<li class="page-item"><a href="/user.news" class="page-link">2</a></li>
-							<li class="page-item "><a href="/user.news" class="page-link">3</a></li>
-							<li class="page-item"><a href="/user.news" class="page-link">4</a></li>
-							<li class="page-item"><a href="/user.news" class="page-link">5</a></li>
-							<li class="page-item"><a href="/user.news" class="page-link">Next</a></li>
+							<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">Next</a></li>
 						</ul>
-					</div>
+					</nav>
 				</div>
 				<!-- /.row -->
 
@@ -282,9 +305,10 @@
 	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
 
 
+
 	<!-- Custom scripts for all pages-->
 	<script src="js/myshop-admin.js"></script>
-	
+
 	<!--  -->
 	<script>
 		$(document).ready(function() {

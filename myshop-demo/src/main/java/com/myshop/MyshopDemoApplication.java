@@ -13,7 +13,7 @@ import org.springframework.web.multipart.support.MultipartFilter;
 
 @SpringBootApplication(scanBasePackages = "com.myshop")
 @ComponentScan
-@EnableAutoConfiguration(exclude = {MultipartAutoConfiguration.class})
+@EnableAutoConfiguration
 public class MyshopDemoApplication {
 
 	public static void main(String[] args) {

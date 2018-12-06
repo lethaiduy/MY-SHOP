@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.myshop.model.News;
 import com.myshop.model.Product;
+import com.myshop.model.ProductGrp;
 import com.myshop.model.Size;
 import com.myshop.repository.ProductGrpRepositoy;
 import com.myshop.repository.ProductsRepository;
@@ -30,7 +31,7 @@ public class ProductController {
 	SizeRepository sizeRepository;
 
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
-	public String getProduct(Model model,News news) {
+	public String getProduct(Model model, Product product) {
 		model.addAttribute("product", productsRepository.findAll());
 		model.addAttribute("productgrp", productsgrpRepository.findAll());
 		model.addAttribute("sizes", sizeRepository.findAll());
@@ -38,33 +39,38 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/product/save", method = RequestMethod.POST)
-	public String save(@Valid @RequestParam MultipartFile[] images, @Valid Product products,@Valid Size sizes) throws Exception {
+	public String save(@Valid @RequestParam MultipartFile[] images, @Valid Product products) throws Exception {
 		if (images != null && images.length > 0) {
 			for (MultipartFile aFile : images) {
 				products.setImage(aFile.getBytes());
 			}
 		}
+	/*	ProductGrp grp = new ProductGrp();
+		grp.setProdgrpid(1);
+		products.setProductGrp(grp);*/
 		productsRepository.save(products);
-		/*sizeRepository.save(sizes);*/
 		return "redirect:/product";
 	}
 
 	@RequestMapping(value = "/product/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") int id) {
 
-		/*Size rsByPrd = sizeRepository.findByProductesProdid(id);*/
+		/* Size rsByPrd = sizeRepository.findByProductesProdid(id); */
 		Product result = productsRepository.findByProdid(id);
-		if (result == null ) {
+		if (result == null) {
 			return "The id not exist";
 		}
-		/*sizeRepository.delete(rsByPrd);*/
+		/* sizeRepository.delete(rsByPrd); */
 		productsRepository.delete(result);
 
 		return "redirect:/product";
 	}
+
 	@RequestMapping(value = "/product/update", method = RequestMethod.POST)
-	public String  update( Product product) {
-		productsRepository.updateProduct(product.getProdid(), product.getProdname(), product.getBrand(), product.getFabric(), product.getPrice(), product.getQuantity(), product.getImage(), product.getProductGrp().getProdgrpid());
+	public String update(Product product) {
+		productsRepository.updateProduct(product.getProdid(), product.getProdname(), product.getBrand(),
+				product.getFabric(), product.getPrice(), product.getQuantity(), product.getImage(),
+				product.getProductGrp().getProdgrpid());
 		return "redirect:/product";
 
 	}
