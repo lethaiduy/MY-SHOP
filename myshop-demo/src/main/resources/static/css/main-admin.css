@@ -353,6 +353,13 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
     height:  500px;
     width: 350px;
  }
+ /*   radio */
+ .btn span.glyphicon {    			
+	opacity: 0;				
+}
+.btn.active span.glyphicon {				
+	opacity: 1;				
+}
 
 footer.sticky-footer {
   display: -webkit-box;

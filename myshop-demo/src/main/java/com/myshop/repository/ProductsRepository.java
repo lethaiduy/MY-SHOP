@@ -1,6 +1,5 @@
 package com.myshop.repository;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Modifying;

@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,10 +27,17 @@
 <link
 	href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css"
 	rel="stylesheet">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"
+	rel="stylesheet">
+
 
 
 <!-- Custom styles for this template-->
 <link href="css/main-admin.css" rel="stylesheet">
+<link href="css/detail-product.css" rel="stylesheet">
 
 </head>
 
@@ -110,130 +116,150 @@
 			<li class="nav-item active"><a class="nav-link" href="#"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <span>Áo
-						khoác</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <span>Áo
-						sơ mi</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <span>Quần
-						short</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <span>Quần
-						jeans</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <span>Áo
-						thun</span></a></li>
+			<c:forEach items="${productgrps}" var="productgrps">
+				<li class="nav-item"><a class="nav-link" href="#"> <span>${productgrps.prodgrpname}</span></a></li>
+			</c:forEach>
 		</ul>
 
 		<div id="content-wrapper">
 
 			<div class="container-fluid">
-				<!-- Dcarousel -->
-				<div class="card mb-3">
+				<!-- start detail product -->
+				<div class="container">
+					<div class="card">
+						<div class="container-fliud">
+							<div class="wrapper row">
+								<div class="preview col-md-6">
 
-					<div class="card-body"></div>
-					<div class="row">
-						<c:forEach items="${newsuser}" var="newsuser">
-							<div class="col-lg-4 col-md-6 mb-4">
-								<div class="card h-100">
-									<a href="#"><img class="card-img-tops"
-										src="data:image/png;base64,${newsuser.base64}" alt="" style="max-width:345px; display: block;"></a>
-									<div class="card-body">
-										<h4 class="card-title">
-											<p>${newsuser.title}</p>
-										</h4>
-										<p class="card-text">${newsuser.detail}</p>
-										<p class="card-text">${newsuser.dateSub}</p>
+									<div class="preview-pic tab-content">
+										<div class="tab-pane active" id="pic-1">
+											<img src="data:image/jpg;base64,${productlist.base64}" />
+										</div>
+										<!-- <div class="tab-pane " id="pic-2">
+											<img src="img/aothun1.jpg" />
+										</div>
+										<div class="tab-pane" id="pic-3">
+											<img src="img/aothun2.jpg" />
+										</div>
+										<div class="tab-pane" id="pic-4">
+											<img src="img/aothun3.jpg" />
+										</div>
+ -->
+									</div>
+									<ul class="preview-thumbnail nav nav-tabs">
+										<li class="active"><a data-target="#pic-1"
+											data-toggle="tab"><img
+												src="data:image/jpg;base64,${productlist.base64}" /></a></li>
+										<!-- <li><a data-target="#pic-2" data-toggle="tab"><img
+												src="img/aothun1.jpg" /></a></li>
+										<li><a data-target="#pic-3" data-toggle="tab"><img
+												src="img/aothun2.jpg" /></a></li>
+										<li><a data-target="#pic-4" data-toggle="tab"><img
+												src="img/aothun3.jpg" /></a></li> -->
+
+									</ul>
+
+								</div>
+								<div class="details col-md-6">
+									<h3 class="product-title">${productlist.prodname}</h3>
+									<h4 class="price">
+										Price: <span>${productlist.price}</span>
+									</h4>
+									<h4 class="material">
+										Material: <span>${productlist.fabric}</span>
+									</h4>
+									<img alt="sizeao" src="img/sizeaoquan.jpg">
+									<div class="container-fluid" style="margin-top: 15px;">
+										<c:forEach items="${sizes}" var="sizes">
+											<!-- Radio Buttons -->
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio"
+													name="inlineRadioOptions" id="inlineRadio1"
+													value="${sizes.sizeid}"> <label
+													class="form-check-label">${sizes.sizename}</label>
+											</div>
+										</c:forEach>
+
+									</div>
+									<div class="action" style="margin-top:15px;">
+										
+										<button class="btn btn-success" type="button" onclick="location.href='/payment';" >Buy Now</button>
 									</div>
 
 								</div>
 							</div>
-						</c:forEach>
-
-
-
-					</div>
-					<div class="clearfix">
-						<ul class="pagination">
-							<li class="page-item disabled"><a href="/user.news">Previous</a></li>
-							<li class="page-item active"><a href="/user.news" class="page-link">1</a></li>
-							<li class="page-item"><a href="/user.news" class="page-link">2</a></li>
-							<li class="page-item "><a href="/user.news" class="page-link">3</a></li>
-							<li class="page-item"><a href="/user.news" class="page-link">4</a></li>
-							<li class="page-item"><a href="/user.news" class="page-link">5</a></li>
-							<li class="page-item"><a href="/user.news" class="page-link">Next</a></li>
-						</ul>
+						</div>
 					</div>
 				</div>
-				<!-- /.row -->
+				<!-- end detail product -->
 
 			</div>
-			<!-- /.col-lg-9 -->
-
 		</div>
-	</div>
-	<!-- /.container-fluid -->
-	<!-- Edit Account -->
-	<div id="editAccountModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">
-						<h4 class="modal-title">Change Infomation</h4>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-					</div>
-
-					<div class="modal-body">
-						<div class="form-group">
-							<label>ID</label> <input type="text" class="form-control"
-								disabled>
-						</div>
-						<div class="form-group">
-							<label>User Name</label> <input type="text" class="form-control"
-								required>
-						</div>
-						<div class="form-group">
-							<label>Password</label> <input type="password"
-								class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Confirm Password</label> <input type="password"
-								class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Full Name</label> <input type="text" class="form-control"
-								required>
-						</div>
-						<div class="form-group">
-							<label>Address</label> <input type="text" class="form-control"
-								required>
-						</div>
-						<div class="form-group">
-							<label>Email</label> <input type="email" class="form-control"
-								required>
-						</div>
-						<div class="form-group">
-							<label>Cell phone</label> <input type="text" class="form-control"
-								required>
+		<!-- /.container-fluid -->
+		<!-- Edit Account -->
+		<div id="editAccountModal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form>
+						<div class="modal-header">
+							<h4 class="modal-title">Change Infomation</h4>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
 						</div>
 
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal"
-							value="Cancel"> <input type="submit" class="btn btn-info"
-							value="Save">
-					</div>
-				</form>
+						<div class="modal-body">
+							<div class="form-group">
+								<label>ID</label> <input type="text" class="form-control"
+									disabled>
+							</div>
+							<div class="form-group">
+								<label>User Name</label> <input type="text" class="form-control"
+									required>
+							</div>
+							<div class="form-group">
+								<label>Password</label> <input type="password"
+									class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label>Confirm Password</label> <input type="password"
+									class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label>Full Name</label> <input type="text" class="form-control"
+									required>
+							</div>
+							<div class="form-group">
+								<label>Address</label> <input type="text" class="form-control"
+									required>
+							</div>
+							<div class="form-group">
+								<label>Email</label> <input type="email" class="form-control"
+									required>
+							</div>
+							<div class="form-group">
+								<label>Cell phone</label> <input type="text"
+									class="form-control" required>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<input type="button" class="btn btn-default" data-dismiss="modal"
+								value="Cancel"> <input type="submit"
+								class="btn btn-info" value="Save">
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Sticky Footer -->
-	<footer class="sticky-footer">
-		<div class="container my-auto">
-			<div class="copyright text-center my-auto">
-				<span>Copyright Â© My Shop-LeThaiDuy, All rights reserved</span>
+		<!-- Sticky Footer -->
+		<footer class="sticky-footer">
+			<div class="container my-auto">
+				<div class="copyright text-center my-auto">
+					<span>Copyright Â© My Shop-LeThaiDuy, All rights reserved</span>
+				</div>
 			</div>
-		</div>
-	</footer>
+		</footer>
 
 	</div>
 	<!-- /.content-wrapper -->
@@ -278,19 +304,21 @@
 	<!-- Core plugin JavaScript-->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="vendor/datatables/jquery.dataTables.js"></script>
 	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
 
 
 	<!-- Custom scripts for all pages-->
 	<script src="js/myshop-admin.js"></script>
-	
+	<script src="js/quanity-input.js"></script>
+
 	<!--  -->
 	<script>
 		$(document).ready(function() {
 			$('#dataTable').DataTable();
 		});
 	</script>
+
+
 
 </body>
 

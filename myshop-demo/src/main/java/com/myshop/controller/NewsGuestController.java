@@ -13,7 +13,7 @@ public class NewsGuestController {
 	@Autowired
 	NewsRepository newsRepository;
 
-	@RequestMapping(value = "/user.news",method=RequestMethod.GET)
+	@RequestMapping(value = "/user-news",method=RequestMethod.GET)
 	public String getNewsGuest(Model model ) {
 		model.addAttribute("newsuser",newsRepository.findAll());
 		return "news-guest";

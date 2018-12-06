@@ -33,6 +33,7 @@ public class NewsController {
 				news.setImage(aFile.getBytes());
 			}
 		}
+		System.out.println(news.getTitle());
 		newsRepository.save(news);
 		return "redirect:/news";
 	}
