@@ -157,13 +157,13 @@
                                     <div class="col-50">
                                         <h3>Address Infomation</h3>
                                         <label for="fname" ><i class="fa fa-user"></i> Full Name</label>
-                                        <input type="text" id="fname" name="firstname" placeholder="John M. Doe" disabled>
+                                        <input type="text" id="fname" name="firstname" placeholder="John M. Doe" >
                                         <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                                        <input type="text" id="email" name="email" placeholder="john@example.com" disabled>
+                                        <input type="text" id="email" name="email" placeholder="john@example.com" >
                                         <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                                        <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" disabled>
+                                        <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" >
                                         <label for="cellphone"><i class="fas fa-mobile-alt"></i> Cellphone</label>
-                                        <input type="text" id="cellphone" name="cellphone" placeholder="01234567789" disabled>
+                                        <input type="text" id="cellphone" name="cellphone" placeholder="01234567789" >
 
                                     </div>
 
