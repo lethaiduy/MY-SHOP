@@ -1,5 +1,7 @@
 package com.myshop.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class DetailProductController {
 	@RequestMapping(value = "/detailproduct", method = RequestMethod.GET)
 	public String getProduct(Model model, Product product,HttpSession http) {
  
-        Product products= (Product)(http.getAttribute("product"));
+        Product products= (Product)http.getAttribute("product");
         model.addAttribute("productlist", products);
         model.addAttribute("sizes",sizeRepository.findAll());
         model.addAttribute("productgrps", productgrpRepository.findAll());

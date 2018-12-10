@@ -216,7 +216,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                   <%--   <c:forEach items="${prdPayment }" var="prdPayment"> --%>
+                                     <c:forEach items="${prdPayment }" var="prdPayment">
                                        <tr>
                                             <td>
                                                 <span class="custom-checkbox">
@@ -233,15 +233,13 @@
                                             <td>${prdPayment.price}</td>
                                             <td>2%</td>
                                             <td>${prdPayment.productGrp.prodgrpname}</td>
-                                            <td>40</td>
+                                            <td>1</td>
                                             <td>
-                                                <a href="#editProductModal" class="edit" data-toggle="modal"><i class="material-icons"
-                                                        data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                                <a href="#deleteProductModal" class="delete" data-toggle="modal"><i class="material-icons"
-                                                        data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                               	<a href="#" class="delete"><i
+													class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                             </td>
                                         </tr>
-                                    <%--  </c:forEach> --%>
+                                     </c:forEach>
                                       
                                
                                       
@@ -503,7 +501,7 @@
             
             </div>
 
-         <button type="button" class="btn btn-primary" style="margin-left:400px;width:150px;">Buy Next</button>
+         <button type="button" class="btn btn-primary" style="margin-left:400px;width:150px;" onclick="location.href='/home';">Buy Next</button>
           <button type="button" class="btn btn-success" style="margin-right: 200px;width: 150px;">Completed</button>
         </div>
 
@@ -620,6 +618,9 @@
     <script>
         $(document).ready(function () {
             $('#dataTable').DataTable();
+        });
+        $('.table tbody').on('click','.delete',function	(){
+        			$(this).closest('tr').remove();
         });
     </script>
 
