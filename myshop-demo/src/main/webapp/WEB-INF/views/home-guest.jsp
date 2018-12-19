@@ -54,7 +54,8 @@
 					<span class="sr-only">(current)</span>
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">News</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+			<li class="nav-item"><a class="nav-link"
+				href="javascript:AlertIt();" id="login">Login</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">Register</a></li>
 			<li class="nav-item">
 				<form
@@ -165,7 +166,7 @@
 										src="data:image/jpg;base64,${products.base64}" alt=""></a>
 									<div class="card-body">
 										<h4 class="card-title">
-											<a  href="/product/${products.prodid}">${products.prodname}</a>
+											<a href="/product/${products.prodid}">${products.prodname}</a>
 										</h4>
 										<h5>${products.price}</h5>
 
@@ -313,7 +314,14 @@
 	<script>
 		$(document).ready(function() {
 			$('#dataTable').DataTable();
-		});
+			
+	</script>
+	<script type="text/javascript">
+		function AlertIt() {
+		var answer = confirm ("This function is for admin.Please click on OK to continue.")
+		if (answer)
+		window.location="/login-admin";
+			}
 	</script>
 
 </body>

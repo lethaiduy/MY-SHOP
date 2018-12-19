@@ -1,5 +1,7 @@
 package com.myshop.controller;
 
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +16,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.myshop.model.Customer;
 import com.myshop.model.News;
 import com.myshop.repository.CustomerRepository;
-import com.myshop.repository.RoleRepository;
 
 @Controller
 public class CustomerController {
 	@Autowired
 	private CustomerRepository customerRepository;
-	@Autowired
-	private RoleRepository roleRepository;
+	
 
 	@RequestMapping(value = "/customer", method = RequestMethod.GET)
 	public String getCustomer(Model model, Customer customer)  {
 		model.addAttribute("customer", customerRepository.findAll());
-		model.addAttribute("roles", roleRepository.findAll());
-		
 		return "customer-manage";
 	}
 	@RequestMapping(value = "/customer/save", method = RequestMethod.POST)
@@ -43,5 +41,11 @@ public class CustomerController {
 		}
 		customerRepository.delete(result);
 		return "redirect:/customer";
+	}
+	@RequestMapping(value = "/customer/update", method = RequestMethod.POST)
+	public String update(@Valid Customer customer) throws IOException {
+		customerRepository.updateCustomer(customer.getCustomerid(), customer.getFullname(), customer.getAddress(), customer.getCellphone(), customer.getEmail());
+		return "redirect:/customer";
+
 	}
 }

@@ -117,7 +117,7 @@
 
 		<div id="content-wrapper">
 
-			<div class="container-fluid">
+			<%-- <div class="container-fluid">
 				<!-- DataTables Example -->
 				<div class="card mb-3">
 					<div class="container">
@@ -138,61 +138,66 @@
 									</div>
 								</div>
 							</div>
-							<table class="table table-striped table-hover">
-								<thead>
-									<tr>
-										<th><span class="custom-checkbox"> <input
-												type="checkbox" id="selectAll"> <label
-												for="selectAll"></label>
-										</span></th>
-										<th>Order ID</th>
-										<th>Date Order</th>
-										<th>Customer Name</th>
-										<th>Address</th>
-										<th>CellPhone</th>
-										<th>Email</th>
-										<th>Sum Money</th>
-										<th>Status</th>
-										<th>Action</th>
-										<th>Detail Product</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${orders}" var="orders">
+							<div style="overflow-x:auto;">
+								<table class="table table-striped table-hover">
+									<thead>
 										<tr>
-											<td><span class="custom-checkbox"> <input
-													type="checkbox" id="checkbox5" name="options[]" value="1">
-													<label for="checkbox5"></label>
-											</span></td>
-											<td>${orders.orderid}</td>
-											<td>${orders.date_order}</td>
-											<td>${orders.customer.fullname}</td>
-											<td>${orders.customer.address}</td>
-											<td>${orders.customer.cellphone}</td>
-											<td>${orders.customer.email}</td>
-											<td>${orders.total_money}</td>
-											<td><select class="form-control-combobox">
-													<option value="">${orders.status}</option>
-
-											</select></td>
-											<td><a href="#editOrderModal" class="edit"
-												data-order-id="${orders.orderid}"
-												data-dateorder-todo="${orders.date_order}"
-												data-fullname-todo="${orders.customer.fullname}"
-												data-address-todo="${orders.customer.address}"
-												data-cellphone-todo="${orders.customer.cellphone}"
-												data-email-todo="${orders.customer.email}"
-												data-money-todo="${orders.total_money}" data-toggle="modal"><i
-													class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-												<a href="#" class="delete"><i class="material-icons"
-													data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>
-											<td><a href="#detailProductModal" data-toggle="modal"><i
-													class="fas fa-info-circle"></i></a></td>
+											<th><span class="custom-checkbox"> <input
+													type="checkbox" id="selectAll"> <label
+													for="selectAll"></label>
+											</span></th>
+											<th>Order ID</th>
+											<th>Date Order</th>
+											<th>Customer Name</th>
+											<th>Address</th>
+											<th>CellPhone</th>
+											<th>Email</th>
+											<th>Sum Money</th>
+											<th>Payment Method</th>
+											<th>Status</th>
+											<th>Action</th>
+											<th>Detail Product</th>
 										</tr>
-									</c:forEach>
+									</thead>
+									<tbody>
+										<c:forEach items="${orders}" var="orders">
+											<tr>
+												<td><span class="custom-checkbox"> <input
+														type="checkbox" id="checkbox5" name="options[]" value="1">
+														<label for="checkbox5"></label>
+												</span></td>
+												<td>${orders.orderid}</td>
+												<td>${orders.date_order}</td>
+												<td>${orders.customer.fullname}</td>
+												<td>${orders.customer.address}</td>
+												<td>${orders.customer.cellphone}</td>
+												<td>${orders.customer.email}</td>
+												<td>${orders.total_money}</td>
+												<td><select class="form-control-combobox">
+														<option value="">${orders.status}</option>
 
-								</tbody>
-							</table>
+												</select></td>
+												<td>${orders.methodPayment.methodname}</td>
+												<td><a href="#editOrderModal" class="edit"
+													data-order-id="${orders.orderid}"
+													data-dateorder-todo="${orders.date_order}"
+													data-fullname-todo="${orders.customer.fullname}"
+													data-address-todo="${orders.customer.address}"
+													data-cellphone-todo="${orders.customer.cellphone}"
+													data-email-todo="${orders.customer.email}"
+													data-money-todo="${orders.total_money}" data-toggle="modal"><i
+														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+													<a href="#" class="delete"><i class="material-icons"
+														data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>
+												<td><a href="#detailProductModal" data-toggle="modal"><i
+														class="fas fa-info-circle"></i></a></td>
+											</tr>
+										</c:forEach>
+
+									</tbody>
+								</table>
+							</div>
+
 							<div class="clearfix">
 								<div class="hint-text">
 									Showing <b>5</b> out of <b>25</b> entries
@@ -208,7 +213,69 @@
 								</ul>
 							</div>
 						</div>
+					</div> --%>
+					<div class="container-fluid">
+				<!-- DataTables Example -->
+				<div class="card mb-3">
+					<div class="card-header">
+						<i class="fas fa-table"></i> Manage Order
+					</div><!--  -->
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%"
+								cellspacing="0">
+								<thead>
+									<tr>
+										<th>Order ID</th>
+											<th>Date Order</th>
+											<th>Customer Name</th>
+											<th>Address</th>
+											<th>CellPhone</th>
+											<th>Email</th>
+											<th>Sum Money</th>
+											<th>Payment Method</th>
+											<th>Status</th>
+											<th>Action</th>
+											<th>Detail Product</th>
+
+									</tr>
+								</thead>
+								<tbody>
+										<c:forEach items="${orders}" var="orders">
+											<tr>
+												<td>${orders.orderid}</td>
+												<td>${orders.date_order}</td>
+												<td>${orders.customer.fullname}</td>
+												<td>${orders.customer.address}</td>
+												<td>${orders.customer.cellphone}</td>
+												<td>${orders.customer.email}</td>
+												<td>${orders.total_money}</td>
+												<td><select class="form-control-combobox">
+														<option value="">${orders.status}</option>
+
+												</select></td>
+												<td>${orders.methodPayment.methodname}</td>
+												<td><a href="#editOrderModal" class="edit"
+													data-order-id="${orders.orderid}"
+													data-dateorder-todo="${orders.date_order}"
+													data-fullname-todo="${orders.customer.fullname}"
+													data-address-todo="${orders.customer.address}"
+													data-cellphone-todo="${orders.customer.cellphone}"
+													data-email-todo="${orders.customer.email}"
+													data-money-todo="${orders.total_money}" data-toggle="modal"><i
+														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+													<a href="#" class="delete"><i class="material-icons"
+														data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>
+												<td><a href="#detailProductModal" data-toggle="modal"><i
+														class="fas fa-info-circle"></i></a></td>
+											</tr>
+										</c:forEach>
+								</tbody>
+							</table>
+						</div>
 					</div>
+				</div>
+				<!-- /.container-fluid -->
 					<!-- Edit Account -->
 					<div id="editAccountModal" class="modal fade">
 						<div class="modal-dialog">
@@ -287,47 +354,9 @@
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td>
-															<figure class="media">
-																<div class="img-wrap">
-																	<img
-																		src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun.jpg"
-																		class="img-thumbnail img-sm">
-																</div>
-																<figcaption class="media-body">
-																	<h6 class="title text-truncate">Product name goes
-																		here</h6>
-																	<dl class="param param-inline small">
-																		<dt>Size:</dt>
-																		<dd>XXL</dd>
-																	</dl>
-																	<dl class="param param-inline small">
-																		<dt>Color:</dt>
-																		<dd>Orange color</dd>
-																	</dl>
-																</figcaption>
-															</figure>
-														</td>
-														<td><select class="form-control">
-																<option>1</option>
-																<option>2</option>
-																<option>3</option>
-																<option>4</option>
-														</select></td>
-														<td>
-															<div class="price-wrap">
-																<var class="price">USD 145</var>
-																<small class="text-muted">(USD5 each)</small>
-															</div> <!-- price-wrap .// -->
-														</td>
-														<td class="text-right">
-															<!-- <a title="" href="" class="btn btn-outline-success" data-toggle="tooltip" data-original-title="Save to Wishlist"> <i class="fa fa-heart"></i></a>  -->
-															<a href="" class="btn btn-outline-danger"> × Remove</a>
-														</td>
-													</tr>
-													<tr>
-														<td>
+												<tr>
+												<c:forEach items="${products }" var="products">
+												<td>
 															<figure class="media">
 																<div class="img-wrap">
 																	<img
@@ -335,8 +364,7 @@
 																		class="img-thumbnail img-sm">
 																</div>
 																<figcaption class="media-body">
-																	<h6 class="title text-truncate">Product name goes
-																		here</h6>
+																	<h6 class="title text-truncate">${products.prodname}</h6>
 																	<dl class="param param-inline small">
 																		<dt>Size:</dt>
 																		<dd>XXL</dd>
@@ -356,7 +384,7 @@
 														</select></td>
 														<td>
 															<div class="price-wrap">
-																<var class="price">USD 35</var>
+																<var class="price">{products.price}</var>
 																<small class="text-muted">(USD10 each)</small>
 															</div> <!-- price-wrap .// -->
 														</td>
@@ -365,47 +393,11 @@
 															<a href="" class="btn btn-outline-danger btn-round">
 																× Remove</a>
 														</td>
+												
+												</c:forEach>
+														
 													</tr>
-													<tr>
-														<td>
-															<figure class="media">
-																<div class="img-wrap">
-																	<img
-																		src="C:\Users\Duy_FC\Desktop\MY-SHOP\UI\img\aothun3.jpg"
-																		class="img-thumbnail img-sm">
-																</div>
-																<figcaption class="media-body">
-																	<h6 class="title text-truncate">Product name goes
-																		here</h6>
-																	<dl class="param param-inline small">
-																		<dt>Size:</dt>
-																		<dd>XXL</dd>
-																	</dl>
-																	<dl class="param param-inline small">
-																		<dt>Color:</dt>
-																		<dd>Orange color</dd>
-																	</dl>
-																</figcaption>
-															</figure>
-														</td>
-														<td><select class="form-control">
-																<option>1</option>
-																<option>2</option>
-																<option>3</option>
-																<option>4</option>
-														</select></td>
-														<td>
-															<div class="price-wrap">
-																<var class="price">USD 45</var>
-																<small class="text-muted">(USD15 each)</small>
-															</div> <!-- price-wrap .// -->
-														</td>
-														<td class="text-right">
-															<!-- <a title="" href="" class="btn btn-outline-success" data-toggle="tooltip" data-original-title="Save to Wishlist"> <i class="fa fa-heart"></i></a>  -->
-															<a href="" class="btn btn-outline-danger btn-round">
-																× Remove</a>
-														</td>
-													</tr>
+													
 												</tbody>
 											</table>
 
@@ -424,14 +416,14 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<!-- Edit Modal HTML -->
 					<div id="editOrderModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<form action="/order/update" method="POST">
 									<div class="modal-header">
-										<h4 class="modal-title">Edit News</h4>
+										<h4 class="modal-title">Edit Order</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>

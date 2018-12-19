@@ -1,5 +1,6 @@
 package com.myshop.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +22,8 @@ public class DetailOrder {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "prodid")
 	private Product product;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.PERSIST})
 	@JoinColumn(name = "orderid")
 	private Order order;
 	@Column(name ="quantity")

@@ -135,28 +135,11 @@
 										<div class="tab-pane active" id="pic-1">
 											<img src="data:image/jpg;base64,${productlist.base64}" />
 										</div>
-										<!-- <div class="tab-pane " id="pic-2">
-											<img src="img/aothun1.jpg" />
-										</div>
-										<div class="tab-pane" id="pic-3">
-											<img src="img/aothun2.jpg" />
-										</div>
-										<div class="tab-pane" id="pic-4">
-											<img src="img/aothun3.jpg" />
-										</div>
- -->
 									</div>
 									<ul class="preview-thumbnail nav nav-tabs">
 										<li class="active"><a data-target="#pic-1"
 											data-toggle="tab"><img
 												src="data:image/jpg;base64,${productlist.base64}" /></a></li>
-										<!-- <li><a data-target="#pic-2" data-toggle="tab"><img
-												src="img/aothun1.jpg" /></a></li>
-										<li><a data-target="#pic-3" data-toggle="tab"><img
-												src="img/aothun2.jpg" /></a></li>
-										<li><a data-target="#pic-4" data-toggle="tab"><img
-												src="img/aothun3.jpg" /></a></li> -->
-
 									</ul>
 
 								</div>
@@ -169,21 +152,24 @@
 										Material: <span>${productlist.fabric}</span>
 									</h4>
 									<img alt="sizeao" src="img/sizeaoquan.jpg">
-									<div class="container-fluid" style="margin-top: 15px;">
-										<c:forEach items="${sizes}" var="sizes">
-											<!-- Radio Buttons -->
-											<div class="form-check form-check-inline">
-												<input class="form-check-input" type="radio"
-													name="inlineRadioOptions" id="inlineRadio1"
-													value="${sizes.sizeid}"> <label
-													class="form-check-label">${sizes.sizename}</label>
-											</div>
-										</c:forEach>
+									<h4 class="size">
+										<div class="container-fluid" style="margin-top: 15px;">Size:
+											<c:forEach items="${sizes}" var="sizes">
+												<!-- Radio Buttons -->
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio"
+														name="inlineRadioOptions" id="inlineRadio1"
+														value="${sizes.sizeid}"> <label
+														class="form-check-label">${sizes.sizename}</label>
+												</div>
+											</c:forEach>
+										</div>
+									</h4>
 
-									</div>
-									<div class="action" style="margin-top:15px;">
-										
-										<button class="btn btn-success" type="button" onclick="location.href='/payment';" >Buy Now</button>
+									<div class="action" style="margin-top: 15px; margin-left: 200px; width: 200px;">
+
+										<button class="btn btn-success" type="button"
+											onclick="location.href='/payment';">Buy Now</button>
 									</div>
 
 								</div>

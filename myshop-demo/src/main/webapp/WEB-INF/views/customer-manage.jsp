@@ -113,7 +113,7 @@
 
 		<div id="content-wrapper">
 
-			<div class="container-fluid">
+			<%-- <div class="container-fluid">
 				<!-- DataTables Example -->
 				<div class="card mb-3">
 					<div class="container">
@@ -146,7 +146,6 @@
 										<th>Address</th>
 										<th>Number Phone</th>
 										<th>Email</th>
-										<th>Username</th>
 										<th>Actions</th>
 
 									</tr>
@@ -163,7 +162,6 @@
 											<td>${customers.address}</td>
 											<td>${customers.cellphone}</td>
 											<td>${customers.email}</td>
-											<td>${customers.account.username}</td>
 											<td><a href="#editCustomerModal" class="edit"
 												data-toggle="modal"><i class="material-icons"
 													data-toggle="tooltip" title="Edit">&#xE254;</i></a><a
@@ -189,215 +187,233 @@
 								</ul>
 							</div>
 						</div>
+					</div> --%>
+			<div class="container-fluid">
+				<!-- DataTables Example -->
+				<div class="card mb-3">
+					<div class="card-header">
+						<i class="fas fa-table"></i> Manage Product
 					</div>
-					<!-- Edit Account -->
-					<div id="editAccountModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Change Infomation</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
+					<!--  -->
+					<div class="card-header">
+						<a href="#addCustomerModal" class="btn btn-success"
+							data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add
+								New Customer</span></a>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%"
+								cellspacing="0">
+								<thead>
+									<tr>
+										<th>Customer ID</th>
+										<th>Customer name</th>
+										<th>Address</th>
+										<th>Number Phone</th>
+										<th>Email</th>
+										<th>Actions</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${customer}" var="customers">
+										<tr>
+											<td>${customers.customerid}</td>
+											<td>${customers.fullname}</td>
+											<td>${customers.address}</td>
+											<td>${customers.cellphone}</td>
+											<td>${customers.email}</td>
+											<td><a href="#editCustomerModal" class="edit"
+												data-customer-id="${customers.customerid}"
+												data-customer-name-todo="${customers.fullname}"
+												data-address-todo="${customers.address}"
+												data-cellphone-todo="${customers.cellphone}"
+												data-email-todo="${customers.email}" data-toggle="modal"><i
+													class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a><a
+												href="/customer/delete/${customers.customerid}"
+												class="delete"><i class="material-icons"
+													data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- Edit Account -->
+				<div id="editAccountModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form>
+								<div class="modal-header">
+									<h4 class="modal-title">Change Infomation</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+
+								<div class="modal-body">
+									<div class="form-group">
+										<label>ID</label> <input type="text" class="form-control"
+											disabled>
+									</div>
+									<div class="form-group">
+										<label>User Name</label> <input type="text"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Password</label> <input type="password"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Confirm Password</label> <input type="password"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Full Name</label> <input type="text"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Address</label> <input type="text" class="form-control"
+											required>
+									</div>
+									<div class="form-group">
+										<label>Email</label> <input type="email" class="form-control"
+											required>
+									</div>
+									<div class="form-group">
+										<label>Cell phone</label> <input type="text"
+											class="form-control" required>
 									</div>
 
-									<div class="modal-body">
-										<div class="form-group">
-											<label>ID</label> <input type="text" class="form-control"
-												disabled>
-										</div>
-										<div class="form-group">
-											<label>User Name</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Password</label> <input type="password"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Confirm Password</label> <input type="password"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Full Name</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Address</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Email</label> <input type="email" class="form-control"
-												required>
-										</div>
-										<div class="form-group">
-											<label>Cell phone</label> <input type="text"
-												class="form-control" required>
-										</div>
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-info" value="Save">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- Add Modal HTML -->
+				<div id="addCustomerModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form action="/customer/save" method="POST">
+								<div class="modal-header">
+									<h4 class="modal-title">Add Customer</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<div class="form-group">
+										<label>Customer Name</label> <input type="text"
+											class="form-control" name="fullname" required>
+									</div>
+									<div class="form-group">
+										<label>Address</label> <input type="text" class="form-control"
+											name="address" equired>
+									</div>
+									<div class="form-group">
+										<label>Number Phone</label> <input type="text"
+											class="form-control" name="cellphone" required>
+									</div>
+									<div class="form-group">
+										<label>Email</label> <input type="email" class="form-control"
+											name="email" required>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-success" value="Add">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- Edit Modal HTML -->
+				<div id="editCustomerModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form action="/customer/update" method="post">
+								<div class="modal-header">
+									<h4 class="modal-title">Edit Customer</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
 
+								<div class="modal-body">
+									<div class="form-group">
+										<label>Customer ID</label> <input type="text" id="customerid"
+											name="customerid" class="form-control">
+									</div>
+									<div class="form-group">
+										<label>Customer Name</label> <input type="text"
+											name="fullname" class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Address</label> <input type="text" class="form-control"
+											name="address" required>
+									</div>
+									<div class="form-group">
+										<label>Number Phone</label> <input type="text"
+											name="cellphone" class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Email</label> <input type="email" class="form-control"
+											name="email" required>
 									</div>
 									<div class="modal-footer">
 										<input type="button" class="btn btn-default"
 											data-dismiss="modal" value="Cancel"> <input
 											type="submit" class="btn btn-info" value="Save">
 									</div>
-								</form>
-							</div>
+							</form>
 						</div>
 					</div>
-					<!-- Add Modal HTML -->
-					<div id="addCustomerModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form action="/customer/save" method="POST">
-									<div class="modal-header">
-										<h4 class="modal-title">Add Customer</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<div class="form-group">
-											<label>Customer Name</label> <input type="text"
-												class="form-control" name="fullname" required>
-										</div>
-										<div class="form-group">
-											<label>Address</label> <input type="text"
-												class="form-control" name="address" equired>
-										</div>
-										<div class="form-group">
-											<label>Number Phone</label> <input type="text"
-												class="form-control" name="cellphone" required>
-										</div>
-										<div class="form-group">
-											<label>Email</label> <input type="email" class="form-control"
-												name="email" required>
-										</div>
-										<div class="form-group">
-											<label>Username</label> <input type="text"
-												class="form-control" name="account.username" required>
-										</div>
-										<div class="form-group">
-											<label>Password</label> <input type="password"
-												class="form-control" name="account.password" required>
-										</div>
-										<div class="form-group">
-											<label>Confirm Password</label> <input type="password"
-												class="form-control" required>
-										</div>
+				</div>
+				<!-- Delete Modal HTML -->
+				<div id="deleteCustomerModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form>
+								<div class="modal-header">
+									<h4 class="modal-title">Delete Customer</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<p>Are you sure you want to delete these Records?</p>
+									<p class="text-warning">
+										<small>This action cannot be undone.</small>
+									</p>
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-danger" value="Delete">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 
-										<div class="form-group">
-											<label>Role</label> <select class="form-control"
-												id="exampleFormControlSelect1" name="role.roleid">
-												<c:forEach var="roles" items="${roles}">
-													<option value="${roles.roleid}">${roles.rolename}</option>
-												</c:forEach>
-											</select>
-										</div>
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-success" value="Add">
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-					<!-- Edit Modal HTML -->
-					<div id="editCustomerModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Edit Customer</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
 
-									<div class="modal-body">
-										<div class="form-group">
-											<label>Customer ID</label> <input type="text"
-												class="form-control" disabled>
-										</div>
-										<div class="form-group">
-											<label>Customer Name</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Address</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Number Phone</label> <input type="number"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Email</label> <input type="email" class="form-control"
-												required>
-										</div>
-										<div class="form-group">
-											<label>Username</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Password</label> <input type="password"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Confirm Password</label> <input type="password"
-												class="form-control" required>
-										</div>
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-info" value="Save">
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-					<!-- Delete Modal HTML -->
-					<div id="deleteCustomerModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Delete Customer</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<p>Are you sure you want to delete these Records?</p>
-										<p class="text-warning">
-											<small>This action cannot be undone.</small>
-										</p>
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-danger" value="Delete">
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-
+		<!-- Sticky Footer -->
+		<footer class="sticky-footer">
+			<div class="container my-auto">
+				<div class="copyright text-center my-auto">
+					<span>Copyright Â© My Shop-LeThaiDuy, All rights reserved</span>
 				</div>
 			</div>
-			<!-- /.container-fluid -->
+		</footer>
 
-			<!-- Sticky Footer -->
-			<footer class="sticky-footer">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright Â© My Shop-LeThaiDuy, All rights reserved</span>
-					</div>
-				</div>
-			</footer>
-
-		</div>
-		<!-- /.content-wrapper -->
+	</div>
+	<!-- /.content-wrapper -->
 
 	</div>
 	<!-- /#wrapper -->
@@ -437,10 +453,11 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Core plugin JavaScript-->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="vendor/datatables/jquery.dataTables.js"></script>
 	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
 
 
 	<!-- Custom scripts for all pages-->
@@ -449,9 +466,39 @@
 
 	<!--  -->
 	<script>
-		$(document).ready(function() {
-			$('#dataTable').DataTable();
-		});
+		$(document).ready(
+				function() {
+					$('#dataTable').DataTable();
+					$('#editCustomerModal').on(
+							'show.bs.modal',
+							function(e) {
+								var cusid = $(e.relatedTarget).data(
+										'customer-id');
+								var cusName = $(e.relatedTarget).data(
+										'customer-name-todo');
+								var address = $(e.relatedTarget).data(
+										'address-todo');
+								var email = $(e.relatedTarget).data(
+										'email-todo');
+								var cellphone = $(e.relatedTarget).data(
+										'cellphone-todo');
+
+								$(e.currentTarget).find(
+										'input[name="customerid"]').val(cusid);
+								$(e.currentTarget).find(
+										'input[name="fullname"]').val(cusName);
+								$(e.currentTarget)
+										.find('input[name="address"]').val(
+												address);
+								$(e.currentTarget).find(
+										'input[name="cellphone"]').val(
+										cellphone);
+								$(e.currentTarget).find('input[name="email"]')
+										.val(email);
+
+							});
+				});
+		document.getElementById('customerid').readOnly = true;
 	</script>
 
 </body>

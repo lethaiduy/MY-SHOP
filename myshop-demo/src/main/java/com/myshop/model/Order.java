@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -45,7 +46,8 @@ public class Order {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="customerid")
 	private Customer customer;
-	@OneToMany(fetch = FetchType.LAZY,mappedBy="order")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="order",cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.PERSIST })
 	private List<DetailOrder> detailOrder;
 
 	public int getOrderid() {

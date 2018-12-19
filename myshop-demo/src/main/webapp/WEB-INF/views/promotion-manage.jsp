@@ -115,42 +115,29 @@
 		</ul>
 
 		<div id="content-wrapper">
-
 			<div class="container-fluid">
 				<!-- DataTables Example -->
 				<div class="card mb-3">
-					<div class="container">
-						<div class="table-wrapper">
-							<div class="table-title">
-								<div class="row">
-									<div class="col-sm-6">
-										<h2>
-											Manage <b>Promotion</b>
-										</h2>
-									</div>
-									<div class="col-sm-6">
-										<a href="#addPromotionModal" class="btn btn-success"
-											data-toggle="modal"><i class="material-icons">&#xE147;</i>
-											<span>Add New Promotion</span></a> <a
-											href="#deletePromotionModal" class="btn btn-danger"
-											data-toggle="modal"><i class="material-icons">&#xE15C;</i>
-											<span>Delete</span></a>
-									</div>
-								</div>
-							</div>
-							<table class="table table-striped table-hover">
+					<div class="card-header">
+						<i class="fas fa-table"></i> Manage Promotion
+					</div>
+					<!--  -->
+					<div class="card-header">
+						<a href="#addPromotionModal" class="btn btn-success"
+							data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add
+								New Promotion</span></a>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%"
+								cellspacing="0">
 								<thead>
 									<tr>
-										<th><span class="custom-checkbox"> <input
-												type="checkbox" id="selectAll"> <label
-												for="selectAll"></label>
-										</span></th>
 										<th>Discount ID</th>
 										<th>Discount name</th>
 										<th>Start Date</th>
 										<th>Finish Date</th>
 										<th>Percent Discount</th>
-										<th>Detail Product</th>
 										<th>Actions</th>
 
 									</tr>
@@ -158,246 +145,213 @@
 								<tbody>
 									<c:forEach items="${promotions}" var="prm">
 										<tr>
-											<td><span class="custom-checkbox"> <input
-													type="checkbox" id="checkbox5" name="options[]" value="1">
-													<label for="checkbox5"></label>
-											</span></td>
 											<td>${prm.promid}</td>
 											<td>${prm.promname}</td>
 											<td>${prm.datestart}</td>
 											<td>${prm.datefinish}</td>
 											<td>${prm.persdisc}</td>
-											<td><a href="#detailProductModal" data-toggle="modal"><i
-													class="fas fa-info-circle"></i></a></td>
-
 
 											<td><a href="#editPromotionModal" class="edit"
-												data-toggle="modal"><i class="material-icons"
-													data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
-												href="#deletePromotionModal" class="delete"
+												data-promotion-id="${prm.promid}"
+												data-promotion-name-todo="${prm.promname}"
+												data-datestart-todo="${prm.datestart}"
+												data-datefinish-todo="${prm.datefinish}"
+												data-persdisc-todo="${prm.persdisc}" data-toggle="modal"><i
+													class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+												<a href="#deletePromotionModal" class="delete"
 												data-toggle="modal"><i class="material-icons"
 													data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>
 										</tr>
 									</c:forEach>
-
 								</tbody>
 							</table>
-							<div class="clearfix">
-								<div class="hint-text">
-									Showing <b>5</b> out of <b>25</b> entries
+						</div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+				<!-- Edit Modal HTML -->
+				<div id="addPromotionModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form action="/promotion/save" method="post">
+								<div class="modal-header">
+									<h4 class="modal-title">Add Promotion</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
 								</div>
-								<ul class="pagination">
-									<li class="page-item disabled"><a href="#">Previous</a></li>
-									<li class="page-item"><a href="#" class="page-link">1</a></li>
-									<li class="page-item"><a href="#" class="page-link">2</a></li>
-									<li class="page-item active"><a href="#" class="page-link">3</a></li>
-									<li class="page-item"><a href="#" class="page-link">4</a></li>
-									<li class="page-item"><a href="#" class="page-link">5</a></li>
-									<li class="page-item"><a href="#" class="page-link">Next</a></li>
-								</ul>
-							</div>
+								<div class="modal-body">
+									<div class="form-group">
+										<label>Discount Name</label> <input type="text"
+											name="promname" class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Date Start</label> <input type="text" name="datestart"
+											id="datetimepicker" class="form-control">
+									</div>
+
+									<div class="form-group">
+										<label>Date Finish</label> <input type="text"
+											name="datefinish" id="datetimepicker1" class="form-control">
+									</div>
+
+									<div class="form-group">
+										<label>Percent Discount</label> <input type="number"
+											name="persdisc" class="form-control" required>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-success" value="Add">
+								</div>
+							</form>
 						</div>
 					</div>
-					<!-- Edit Modal HTML -->
-					<div id="addPromotionModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Add Promotion</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
+				</div>
+
+				<!-- Edit Account -->
+				<div id="editAccountModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form>
+								<div class="modal-header">
+									<h4 class="modal-title">Change Infomation</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+
+								<div class="modal-body">
+									<div class="form-group">
+										<label>ID</label> <input type="text" class="form-control"
+											disabled>
 									</div>
-									<div class="modal-body">
-										<div class="form-group">
-											<label>Discount Name</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Date Start</label> <input type="text"
-												id="datetimepicker" class="form-control">
-										</div>
-
-										<div class="form-group">
-											<label>Date Finish</label> <input type="text"
-												id="datetimepicker1" class="form-control">
-										</div>
-
-										<div class="form-group">
-											<label>Percent Discount</label> <input type="number"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Product Name</label>
-
-										</div>
-										<select class="selectpicker" multiple data-live-search="true">
-											<option>Ao So Mi</option>
-											<option>Quan So Mi</option>
-											<option>Ao Thun</option>
-											<option>Quan jean</option>
-										</select>
-
+									<div class="form-group">
+										<label>User Name</label> <input type="text"
+											class="form-control" required>
 									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-success" value="Add">
+									<div class="form-group">
+										<label>Password</label> <input type="password"
+											class="form-control" required>
 									</div>
-								</form>
-							</div>
+									<div class="form-group">
+										<label>Confirm Password</label> <input type="password"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Full Name</label> <input type="text"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Address</label> <input type="text" class="form-control"
+											required>
+									</div>
+									<div class="form-group">
+										<label>Email</label> <input type="email" class="form-control"
+											required>
+									</div>
+									<div class="form-group">
+										<label>Cell phone</label> <input type="text"
+											class="form-control" required>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-info" value="Save">
+								</div>
+							</form>
 						</div>
 					</div>
+				</div>
+				<!-- Edit Modal HTML -->
+				<div id="editPromotionModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form>
+								<div class="modal-header">
+									<h4 class="modal-title">Edit Promotion</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
 
-					<!-- Edit Account -->
-					<div id="editAccountModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Change Infomation</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
+								<div class="modal-body">
+									<div class="form-group">
+										<label>Discount ID</label> <input type="text"
+											class="form-control" id="promid" name="promid">
+									</div>
+									<div class="form-group">
+										<label>Discount Name</label> <input type="text"
+											name="promname" class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Date Start</label> <input type="text" name="datestart"
+											id="datetimepicker" class="form-control">
 									</div>
 
-									<div class="modal-body">
-										<div class="form-group">
-											<label>ID</label> <input type="text" class="form-control"
-												disabled>
-										</div>
-										<div class="form-group">
-											<label>User Name</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Password</label> <input type="password"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Confirm Password</label> <input type="password"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Full Name</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Address</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Email</label> <input type="email" class="form-control"
-												required>
-										</div>
-										<div class="form-group">
-											<label>Cell phone</label> <input type="text"
-												class="form-control" required>
-										</div>
+									<div class="form-group">
+										<label>Date Finish</label> <input type="text"
+											name="datefinish" id="datetimepicker1" class="form-control">
+									</div>
 
+									<div class="form-group">
+										<label>Percent Discount</label> <input type="number"
+											name="persdisc" class="form-control" required>
 									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-info" value="Save">
-									</div>
-								</form>
-							</div>
+								</div>
+
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-info" value="Save">
+								</div>
+							</form>
 						</div>
 					</div>
-					<!-- Edit Modal HTML -->
-					<div id="editPromotionModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Edit Promotion</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
+				</div>
 
-									<div class="modal-body">
-										<div class="form-group">
-											<label>Discount ID</label> <input type="text"
-												class="form-control" disabled>
-										</div>
-										<div class="form-group">
-											<label>Discount Name</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Date Start</label> <input type="text"
-												id="datetimepicker2" class="form-control" st>
-										</div>
-										<div class="form-group">
-											<label>Date Finish</label> <input type="text"
-												id="datetimepicker3" class="form-control">
-										</div>
-										<div class="form-group">
-											<label>Percent Discount</label> <input type="number"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Product Name</label>
-
-										</div>
-										<select class="selectpicker" multiple data-live-search="true">
-											<option>Ao So Mi</option>
-											<option>Quan So Mi</option>
-											<option>Ao Thun</option>
-											<option>Quan jean</option>
-										</select>
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-info" value="Save">
-									</div>
-								</form>
-							</div>
+				<!-- Delete Modal HTML -->
+				<div id="deletePromotionModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form>
+								<div class="modal-header">
+									<h4 class="modal-title">Delete Promotion</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<p>Are you sure you want to delete these Records?</p>
+									<p class="text-warning">
+										<small>This action cannot be undone.</small>
+									</p>
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-danger" value="Delete">
+								</div>
+							</form>
 						</div>
 					</div>
+				</div>
 
-					<!-- Delete Modal HTML -->
-					<div id="deletePromotionModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Delete Promotion</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<p>Are you sure you want to delete these Records?</p>
-										<p class="text-warning">
-											<small>This action cannot be undone.</small>
-										</p>
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-danger" value="Delete">
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
 
+		<!-- Sticky Footer -->
+		<footer class="sticky-footer">
+			<div class="container my-auto">
+				<div class="copyright text-center my-auto">
+					<span>Copyright Â© My Shop-LeThaiDuy, All rights reserved</span>
 				</div>
 			</div>
-			<!-- /.container-fluid -->
+		</footer>
 
-			<!-- Sticky Footer -->
-			<footer class="sticky-footer">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright Â© My Shop-LeThaiDuy, All rights reserved</span>
-					</div>
-				</div>
-			</footer>
-
-		</div>
-		<!-- /.content-wrapper -->
+	</div>
+	<!-- /.content-wrapper -->
 
 	</div>
 	<!-- /#wrapper -->
@@ -429,7 +383,6 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -439,9 +392,9 @@
 	<!-- Core plugin JavaScript-->
 	<script src="vendor/datatables/jquery.dataTables.js"></script>
 	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-	<script src="vendor/datetimepicker/jquery.datetimepicker.full.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
 
 
 	<!-- Custom scripts for all pages-->
@@ -451,14 +404,44 @@
 
 	<!--  -->
 	<script>
-		$(document).ready(function() {
-			$('#dataTable').DataTable();
-			$('#datetimepicker').datetimepicker();
-			$('#datetimepicker1').datetimepicker();
-			$('#datetimepicker2').datetimepicker();
-			$('#datetimepicker3').datetimepicker();
-			$('select').selectpicker();
-		});
+		$(document).ready(
+				function() {
+					$('#dataTable').DataTable();
+					$('#datetimepicker').datetimepicker();
+					$('#datetimepicker1').datetimepicker();
+					$('#datetimepicker2').datetimepicker();
+					$('#datetimepicker3').datetimepicker();
+					$('select').selectpicker();
+					$('#editPromotionModal').on(
+							'show.bs.modal',
+							function(e) {
+								var promid = $(e.relatedTarget).data(
+										'promotion-id');
+								var cusName = $(e.relatedTarget).data(
+										'customer-name-todo');
+								var address = $(e.relatedTarget).data(
+										'address-todo');
+								var email = $(e.relatedTarget).data(
+										'email-todo');
+								var cellphone = $(e.relatedTarget).data(
+										'cellphone-todo');
+
+								$(e.currentTarget).find('input[name="promid"]')
+										.val(promid);
+								$(e.currentTarget).find(
+										'input[name="fullname"]').val(cusName);
+								$(e.currentTarget)
+										.find('input[name="address"]').val(
+												address);
+								$(e.currentTarget).find(
+										'input[name="cellphone"]').val(
+										cellphone);
+								$(e.currentTarget).find('input[name="email"]')
+										.val(email);
+
+							});
+				});
+		document.getElementById('promid').readOnly = true;
 	</script>
 </body>
 

@@ -1,5 +1,6 @@
 package com.myshop.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import com.myshop.model.ProductGrp;
 import com.myshop.model.Size;
 import com.myshop.repository.ProductGrpRepositoy;
 import com.myshop.repository.ProductsRepository;
+import com.myshop.repository.PromotionRepository;
 import com.myshop.repository.SizeRepository;
 
 @Controller
@@ -29,17 +31,20 @@ public class ProductController {
 	ProductGrpRepositoy productsgrpRepository;
 	@Autowired
 	SizeRepository sizeRepository;
+	@Autowired
+	private PromotionRepository promotionRepository;
 
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	public String getProduct(Model model, Product product) {
 		model.addAttribute("product", productsRepository.findAll());
 		model.addAttribute("productgrp", productsgrpRepository.findAll());
 		model.addAttribute("sizes", sizeRepository.findAll());
+		model.addAttribute("promotions", promotionRepository.findAll());
 		return "product-manager";
 	}
 
 	@RequestMapping(value = "/product/save", method = RequestMethod.POST)
-	public String save(@Valid @RequestParam MultipartFile[] images, @Valid Product products) throws Exception {
+	public String save(@Valid @RequestParam MultipartFile[] images, @Valid Product products,@Valid @RequestParam(value="sizes.sizeid") int sizeid) throws Exception {
 		if (images != null && images.length > 0) {
 			for (MultipartFile aFile : images) {
 				products.setImage(aFile.getBytes());
@@ -49,7 +54,10 @@ public class ProductController {
 		 * ProductGrp grp = new ProductGrp(); grp.setProdgrpid(1);
 		 * products.setProductGrp(grp);
 		 */
+		Size size = sizeRepository.findBySizeid(sizeid);
+		products.getSizes().add(size);
 		productsRepository.save(products);
+		
 		return "redirect:/product";
 	}
 
@@ -68,10 +76,16 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/product/update", method = RequestMethod.POST)
-	public String update(Product product) {
+	public String update(@Valid @RequestParam MultipartFile[] images,@Valid Product product) throws IOException {
+		if (images != null && images.length > 0) {
+			for (MultipartFile aFile : images) {
+				product.setImage(aFile.getBytes());
+			}
+		}
 		productsRepository.updateProduct(product.getProdid(), product.getProdname(), product.getBrand(),
 				product.getFabric(), product.getPrice(), product.getQuantity(), product.getImage(),
-				product.getProductGrp().getProdgrpid());
+				product.getProductGrp().getProdgrpid(),product.getPromotion().getPromid());
+		
 		return "redirect:/product";
 
 	}

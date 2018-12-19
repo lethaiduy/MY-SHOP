@@ -1,5 +1,7 @@
 package com.myshop.controller;
 
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +51,12 @@ public class NewsController {
 	}
 
 	@RequestMapping(value = "/news/update", method = RequestMethod.POST)
-	public String update(News news) {
-
+	public String update(@Valid @RequestParam MultipartFile[] images,@Valid News news) throws IOException {
+		if (images != null && images.length > 0) {
+			for (MultipartFile aFile : images) {
+				news.setImage(aFile.getBytes());
+			}
+		}
 		newsRepository.updateNews(news.getNewsid(), news.getDateSub(), news.getTitle(), news.getDetail(),
 				news.getImage());
 		return "redirect:/news";

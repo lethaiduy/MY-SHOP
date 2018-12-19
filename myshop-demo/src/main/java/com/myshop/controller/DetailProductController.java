@@ -35,6 +35,7 @@ public class DetailProductController {
         model.addAttribute("sizes",sizeRepository.findAll());
         model.addAttribute("productgrps", productgrpRepository.findAll());
         http.setAttribute("prodlist1", products);
+     
 		return "detailprod-guest";
 	}
 

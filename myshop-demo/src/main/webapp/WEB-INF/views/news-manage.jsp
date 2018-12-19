@@ -114,7 +114,7 @@
 
 		<div id="content-wrapper">
 
-			<div class="container-fluid">
+			<%-- 	<div class="container-fluid">
 				<!-- DataTables Example -->
 				<div class="card mb-3">
 					<div class="container">
@@ -187,249 +187,301 @@
 									<li class="page-item"><a class="page-link" href="#">Next</a></li>
 								</ul>
 							</nav>
+						</div> --%>
+			<div class="container-fluid">
+				<!-- DataTables Example -->
+				<div class="card mb-3">
+					<div class="card-header">
+						<i class="fas fa-table"></i> Manage News
+					</div>
+					<!--  -->
+					<div class="card-header">
+						<a href="#addNewsModal" class="btn btn-success"
+							data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add
+								New News</span></a>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%"
+								cellspacing="0">
+								<thead>
+									<tr>
+										<th>News ID</th>
+										<th>Title</th>
+										<th>Image Date</th>
+										<th>Date submit</th>
+										<th>Detail</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${news}" var="listnews">
+										<tr>
+											<td>${listnews.newsid}</td>
+											<td>${listnews.title}</td>
+											<td><img src="data:image/jpg;base64,${listnews.base64}"
+												class="img-news"></td>
+											<td>${listnews.dateSub}</td>
+											<td>${listnews.detail}</td>
+											<td><a href="#editNewsModal" class="edit"
+												data-news-id="${listnews.newsid}"
+												data-title-todo="${listnews.title}"
+												data-datesub-todo="${listnews.dateSub}"
+												data-todo-dateSub="${listnews.dateSub}"
+												data-detail-todo="${listnews.detail}" data-toggle="modal"><i
+													class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+												<a href="/news/delete/${listnews.newsid}" class="delete"><i
+													class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+											</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
 						</div>
-						<!-- Add Modal HTML -->
-						<div id="addNewsModal" class="modal fade">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<form action="/news/save" method="POST"
-										enctype="multipart/form-data">
-										<div class="modal-header">
-											<h4 class="modal-title">Add News</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-hidden="true">&times;</button>
-										</div>
-										<div class="modal-body">
-											<div class="form-group">
-												<label>Title</label> <input type="text" class="form-control"
-													name="title" required>
-
-											</div>
-											<div class="form-group">
-												<label>Image</label> <input type="file" class="form-control"
-													name="images">
-											</div>
-											<div class="form-group">
-												<label>Date submit</label> <input type="text"
-													id="datetimepicker" class="form-control" name="dateSub">
-											</div>
-											<div class="form-group">
-												<label>Detail</label>
-											</div>
-											<textarea class="text-area" name="detail"></textarea>
-										</div>
-										<div class="modal-footer">
-											<input type="button" class="btn btn-default"
-												data-dismiss="modal" value="Cancel"> <input
-												type="submit" class="btn btn-success" value="Add">
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-						<!-- Edit Account -->
-						<div id="editAccountModal" class="modal fade">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<form>
-										<div class="modal-header">
-											<h4 class="modal-title">Change Infomation</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-hidden="true">&times;</button>
-										</div>
-
-										<div class="modal-body">
-											<div class="form-group">
-												<label>ID</label> <input type="text" class="form-control"
-													disabled>
-											</div>
-											<div class="form-group">
-												<label>User Name</label> <input type="text"
-													class="form-control" required>
-											</div>
-											<div class="form-group">
-												<label>Password</label> <input type="password"
-													class="form-control" required>
-											</div>
-											<div class="form-group">
-												<label>Confirm Password</label> <input type="password"
-													class="form-control" required>
-											</div>
-											<div class="form-group">
-												<label>Full Name</label> <input type="text"
-													class="form-control" required>
-											</div>
-											<div class="form-group">
-												<label>Address</label> <input type="text"
-													class="form-control" required>
-											</div>
-											<div class="form-group">
-												<label>Email</label> <input type="email"
-													class="form-control" required>
-											</div>
-											<div class="form-group">
-												<label>Cell phone</label> <input type="text"
-													class="form-control" required>
-											</div>
-
-										</div>
-										<div class="modal-footer">
-											<input type="button" class="btn btn-default"
-												data-dismiss="modal" value="Cancel"> <input
-												type="submit" class="btn btn-info" value="Save">
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-						<!-- Edit Modal HTML -->
-						<div id="editNewsModal" class="modal fade">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<form action="/news/update" method="POST"
-										enctype="multipart/form-data">
-										<div class="modal-header">
-											<h4 class="modal-title">Edit News</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-hidden="true">&times;</button>
-										</div>
-
-										<div class="modal-body">
-											<div class="form-group">
-												<label>Title ID </label> <input type="text" name="newsid"
-													id="newsid" class="form-control">
-
-											</div>
-											<div class="form-group">
-												<label>Title</label> <input type="text" class="form-control"
-													name="title" required>
-
-											</div>
-											<div class="form-group">
-												<label>Image</label> <input type="file" class="form-control"
-													name=image>
-											</div>
-											<div class="form-group">
-												<label>Date submit</label> <input type="text" name="dateSub"
-													id="datetimepicker1" class="form-control">
-											</div>
-											<div class="form-group">
-												<label>Detail</label>
-											</div>
-											<textarea class="text-area" name="detail"></textarea>
-										</div>
-										<div class="modal-footer">
-											<input type="button" class="btn btn-default"
-												data-dismiss="modal" value="Cancel"> <input
-												type="submit" class="btn btn-info" value="Save">
-										</div>
-
-									</form>
-
-
-								</div>
-							</div>
-						</div>
-						<!-- Delete Modal HTML -->
-						<div id="deleteNewsModal" class="modal fade">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<form>
-										<div class="modal-header">
-											<h4 class="modal-title">Delete News</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-hidden="true">&times;</button>
-										</div>
-										<div class="modal-body">
-											<p>Are you sure you want to delete these Records?</p>
-
-											<p class="text-warning">
-												<small>This action cannot be undone.</small>
-											</p>
-										</div>
-										<div class="modal-footer">
-											<input type="button" class="btn btn-default"
-												data-dismiss="modal" value="Cancel"> <input
-												type="submit" class="btn btn-danger" value="Delete">
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-
 					</div>
 				</div>
 				<!-- /.container-fluid -->
+				<!-- Add Modal HTML -->
+				<div id="addNewsModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form action="/news/save" method="POST"
+								enctype="multipart/form-data">
+								<div class="modal-header">
+									<h4 class="modal-title">Add News</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<div class="form-group">
+										<label>Title</label> <input type="text" class="form-control"
+											name="title" required>
 
-				<!-- Sticky Footer -->
-				<footer class="sticky-footer">
-					<div class="container my-auto">
-						<div class="copyright text-center my-auto">
-							<span>Copyright Â© My Shop-LeThaiDuy, All rights reserved</span>
+									</div>
+									<div class="form-group">
+										<label>Image</label> <input type="file" class="form-control"
+											name="images">
+									</div>
+									<div class="form-group">
+										<label>Date submit</label> <input type="text"
+											id="datetimepicker" class="form-control" name="dateSub">
+									</div>
+									<div class="form-group">
+										<label>Detail</label>
+									</div>
+									<textarea class="text-area" name="detail"></textarea>
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-success" value="Add">
+								</div>
+							</form>
 						</div>
 					</div>
-				</footer>
+				</div>
+				<!-- Edit Account -->
+				<div id="editAccountModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form>
+								<div class="modal-header">
+									<h4 class="modal-title">Change Infomation</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+
+								<div class="modal-body">
+									<div class="form-group">
+										<label>ID</label> <input type="text" class="form-control"
+											disabled>
+									</div>
+									<div class="form-group">
+										<label>User Name</label> <input type="text"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Password</label> <input type="password"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Confirm Password</label> <input type="password"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Full Name</label> <input type="text"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Address</label> <input type="text" class="form-control"
+											required>
+									</div>
+									<div class="form-group">
+										<label>Email</label> <input type="email" class="form-control"
+											required>
+									</div>
+									<div class="form-group">
+										<label>Cell phone</label> <input type="text"
+											class="form-control" required>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-info" value="Save">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- Edit Modal HTML -->
+				<div id="editNewsModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form action="/news/update" method="POST"
+								enctype="multipart/form-data">
+								<div class="modal-header">
+									<h4 class="modal-title">Edit News</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+
+								<div class="modal-body">
+									<div class="form-group">
+										<label>Title ID </label> <input type="text" name="newsid"
+											id="newsid" class="form-control">
+
+									</div>
+									<div class="form-group">
+										<label>Title</label> <input type="text" class="form-control"
+											name="title" required>
+
+									</div>
+									<div class="form-group">
+										<label>Image</label> <input type="file" class="form-control"
+											name="images">
+									</div>
+									<div class="form-group">
+										<label>Date submit</label> <input type="text" name="dateSub"
+											id="datetimepicker1" class="form-control">
+									</div>
+									<div class="form-group">
+										<label>Detail</label>
+									</div>
+									<textarea class="text-area" name="detail"></textarea>
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-info" value="Save">
+								</div>
+
+							</form>
+
+
+						</div>
+					</div>
+				</div>
+				<!-- Delete Modal HTML -->
+				<div id="deleteNewsModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form>
+								<div class="modal-header">
+									<h4 class="modal-title">Delete News</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<p>Are you sure you want to delete these Records?</p>
+
+									<p class="text-warning">
+										<small>This action cannot be undone.</small>
+									</p>
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-danger" value="Delete">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 
 			</div>
-			<!-- /.content-wrapper -->
-
 		</div>
-		<!-- /#wrapper -->
+		<!-- /.container-fluid -->
 
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top"> <i
-			class="fas fa-angle-up"></i>
-		</a>
+		<!-- Sticky Footer -->
+		<footer class="sticky-footer">
+			<div class="container my-auto">
+				<div class="copyright text-center my-auto">
+					<span>Copyright Â© My Shop-LeThaiDuy, All rights reserved</span>
+				</div>
+			</div>
+		</footer>
 
-		<!-- Logout Modal-->
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Ready to
-							Leave?</h5>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">Ã</span>
-						</button>
-					</div>
-					<div class="modal-body">Select "Logout" below if you are
-						ready to end your current session.</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button"
-							data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" href="login.html">Logout</a>
-					</div>
+	</div>
+	<!-- /.content-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">Ã</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="login.html">Logout</a>
 				</div>
 			</div>
 		</div>
-		<script>
+	</div>
+	<script>
 			
 		</script>
 
-		<!-- Bootstrap core JavaScript-->
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
 
-		<!-- Core plugin JavaScript-->
-		<script src="vendor/datatables/jquery.dataTables.js"></script>
-		<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-		<script src="https://cdn.ckeditor.com/4.10.1/standard/ckeditor.js"></script>
-		<script src="vendor/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/datatables/jquery.dataTables.js"></script>
+	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+	<script src="https://cdn.ckeditor.com/4.10.1/standard/ckeditor.js"></script>
+	<script src="vendor/datetimepicker/jquery.datetimepicker.full.js"></script>
 
-		<!-- Custom scripts for all pages-->
-		<script src="js/myshop-admin.js"></script>
-		<script src="js/product-manage.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="js/myshop-admin.js"></script>
+	<script src="js/product-manage.js"></script>
 
 
-		<!--  -->
-		<script>
+	<!--  -->
+	<script>
 			
 		</script>
-		<script>
+	<script>
 			$(document).ready(
 					function() {
 						$('#dataTable').DataTable();

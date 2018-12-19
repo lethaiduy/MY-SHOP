@@ -5,10 +5,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -28,6 +25,15 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 @Entity
 @Table(name = "Product")
 public class Product {
+
+	public Promotion getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
+	}
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,20 +59,14 @@ public class Product {
 	@NotFound(action = NotFoundAction.IGNORE)
 	@JoinColumn(name = "prodgrpid")
 	private ProductGrp productGrp;
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.PERSIST }, targetEntity = Size.class)
-	@JoinTable(name = "Prod_Size", inverseJoinColumns = @JoinColumn(name = "sizeid", nullable = false, updatable = false), joinColumns = @JoinColumn(name = "prodid", nullable = false, updatable = false), foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT), inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy="productes")
 	private List<Size> sizes = new ArrayList<>();
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.PERSIST }, targetEntity = Size.class)
-	@JoinTable(name = "Prod_Prom", inverseJoinColumns = @JoinColumn(name = "promid", nullable = false, updatable = false), joinColumns = @JoinColumn(name = "prodid", nullable = false, updatable = false), foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT), inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
-	private List<Promotion> proms = new ArrayList<>();
-
-	/*
-	 * @OneToMany(fetch = FetchType.LAZY,mappedBy="product") private
-	 * List<Prod_Prom> prmvsprd;
-	 */
-
+    
+	@ManyToOne(fetch = FetchType.LAZY)
+	@NotFound(action = NotFoundAction.IGNORE)
+	@JoinColumn(name = "promid")
+	private Promotion promotion;
 	
 	@SuppressWarnings("restriction")
 	public String getBase64() { return this.base64 =
@@ -147,30 +147,10 @@ public class Product {
 		this.productGrp = productGrp;
 	}
 
-	public List<Promotion> getProms() {
-		return proms;
-	}
-
-	public void setProms(List<Promotion> proms) {
-		this.proms = proms;
-	}
-
 	public Product() {
 		super();
 	}
 
-	public Product(int prodid, String prodname, byte[] image, String brand, String fabric, long price, int quantity,
-			ProductGrp productGrp, List<Size> sizes) {
-		super();
-		this.prodid = prodid;
-		this.prodname = prodname;
-		this.image = image;
-		this.brand = brand;
-		this.fabric = fabric;
-		this.price = price;
-		this.quantity = quantity;
-		this.productGrp = productGrp;
-		this.sizes = sizes;
-	}
+
 
 }

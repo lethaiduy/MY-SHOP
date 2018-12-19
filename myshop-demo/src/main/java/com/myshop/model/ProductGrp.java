@@ -16,8 +16,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "prod_grp")
 public class ProductGrp {
-
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "prodgrpid")

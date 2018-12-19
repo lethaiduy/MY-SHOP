@@ -169,7 +169,9 @@
 
 		</div>
 	</div>
+	
 	<!-- /.container-fluid -->
+
 	<!-- Edit Account -->
 	<div id="editAccountModal" class="modal fade">
 		<div class="modal-dialog">

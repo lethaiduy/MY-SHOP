@@ -15,6 +15,7 @@ import com.myshop.model.Size;
 public interface SizeRepository extends CrudRepository<Size,Long> {
   List<Size> findAll();
   Size findByProductesProdid(int id);
+  Size findBySizeid(int id);
 
 
 }

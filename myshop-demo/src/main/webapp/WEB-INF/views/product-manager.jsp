@@ -118,34 +118,25 @@
 
 		<div id="content-wrapper">
 
+
 			<div class="container-fluid">
 				<!-- DataTables Example -->
 				<div class="card mb-3">
-					<div class="container">
-						<div class="table-wrapper">
-							<div class="table-title">
-								<div class="row">
-									<div class="col-sm-6">
-										<h2>
-											Manage <b>Product</b>
-										</h2>
-									</div>
-									<div class="col-sm-6">
-										<a href="#addProductModal" class="btn btn-success"
-											data-toggle="modal"><i class="material-icons">&#xE147;</i>
-											<span>Add New Product</span></a> <a href="#deleteProductModal"
-											class="btn btn-danger" data-toggle="modal"><i
-											class="material-icons">&#xE15C;</i> <span>Delete</span></a>
-									</div>
-								</div>
-							</div>
-							<table class="table table-striped table-hover">
+					<div class="card-header">
+						<i class="fas fa-table"></i> Manage Product
+					</div>
+					<!--  -->
+					<div class="card-header">
+						<a href="#addProductModal" class="btn btn-success"
+							data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add
+								New Product</span></a>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%"
+								cellspacing="0">
 								<thead>
 									<tr>
-										<th><span class="custom-checkbox"> <input
-												type="checkbox" id="selectAll"> <label
-												for="selectAll"></label>
-										</span></th>
 										<th>Product ID</th>
 										<th>Product name</th>
 										<th>Image</th>
@@ -153,8 +144,8 @@
 										<th>Fabric</th>
 										<th>Size</th>
 										<th>Price</th>
-
 										<th>Catalog</th>
+										<th>Promotion</th>
 										<th>Amount</th>
 										<th>Actions</th>
 
@@ -163,10 +154,6 @@
 								<tbody>
 									<c:forEach items="${product}" var="product">
 										<tr>
-											<td><span class="custom-checkbox"> <input
-													type="checkbox" id="checkbox5" name="options[]" value="1">
-													<label for="checkbox5"></label>
-											</span></td>
 											<td>${product.prodid}</td>
 											<td>${product.prodname}</td>
 											<td><img class="img-product"
@@ -174,7 +161,7 @@
 											<td>${product.brand}</td>
 											<td>${product.fabric}</td>
 
-											<td style="width:30px;"><select >
+											<td style="width: 30px;"><select>
 													<c:forEach items="${product.sizes}" var="sizes">
 														<option value="volvo">${sizes.sizename}</option>
 													</c:forEach>
@@ -183,6 +170,7 @@
 											<td>${product.price}</td>
 
 											<td>${product.productGrp.prodgrpname}</td>
+											<td>${product.promotion.promname}</td>
 											<td>${product.quantity}</td>
 											<td><a href="#editProductModal" class="edit"
 												data-product-id="${product.prodid}"
@@ -200,253 +188,253 @@
 									</c:forEach>
 								</tbody>
 							</table>
-							<div class="clearfix">
-								<div class="hint-text">
-									Showing <b>5</b> out of <b>25</b> entries
+						</div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+				<!-- Edit Modal HTML -->
+				<div id="addProductModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form action="/product/save" method="POST"
+								enctype="multipart/form-data">
+								<div class="modal-header">
+									<h4 class="modal-title">Add Product</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
 								</div>
-								<ul class="pagination">
-									<li class="page-item disabled"><a href="#">Previous</a></li>
-									<li class="page-item"><a href="#" class="page-link">1</a></li>
-									<li class="page-item"><a href="#" class="page-link">2</a></li>
-									<li class="page-item active"><a href="#" class="page-link">3</a></li>
-									<li class="page-item"><a href="#" class="page-link">4</a></li>
-									<li class="page-item"><a href="#" class="page-link">5</a></li>
-									<li class="page-item"><a href="#" class="page-link">Next</a></li>
-								</ul>
-							</div>
+								<div class="modal-body">
+									<div class="form-group">
+										<label>Product Name</label> <input type="text" name="prodname"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Image</label> <input type="file" class="form-control"
+											name="images" required>
+									</div>
+									<div class="form-group">
+										<label>Brand</label> <input type="text" class="form-control"
+											name="brand" required>
+									</div>
+									<div class="form-group">
+										<label>Fabric</label> <input type="text" class="form-control"
+											name="fabric" required>
+									</div>
+									<div class="form-group">
+										<label>Size</label> <select class="form-control" multiple name="sizes.sizeid"
+											data-live-search="true">
+											<c:forEach var="sizes" items="${sizes}">
+												<option value="${sizes.sizeid}">${sizes.sizename}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>Price</label> <input type="number" name="price"
+											class="form-control" min="0" required>
+									</div>
+									<div class="form-group">
+										<label>Catalog</label> <select class="form-control"
+											name="productGrp.prodgrpid" id="exampleFormControlSelect1">
+											<c:forEach items="${productgrp}" var="prdgrps">
+												<option value="${prdgrps.prodgrpid}">${prdgrps.prodgrpname}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>Promotion</label> <select class="form-control"
+											name="promotion.promid" id="exampleFormControlSelect1">
+											<c:forEach items="${promotions}" var="promotions">
+												<option value="${promotions.promid}">${promotions.promname}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>Amount</label> <input type="number" name="quantity"
+											class="form-control" min="0" required>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-success" value="Add">
+								</div>
+							</form>
 						</div>
 					</div>
-					<!-- Edit Modal HTML -->
-					<div id="addProductModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form action="/product/save" method="POST"
-									enctype="multipart/form-data">
-									<div class="modal-header">
-										<h4 class="modal-title">Add Product</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<div class="form-group">
-											<label>Product Name</label> <input type="text" name="prodname"
-											 class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Image</label> <input type="file" class="form-control"
-											  name="images" required>
-										</div>
-										<div class="form-group">
-											<label>Brand</label> <input type="text" class="form-control" name="brand"
-											 required>
-										</div>
-										<div class="form-group">
-											<label>Fabric</label> <input type="text" class="form-control" name="fabric"
-											 required>
-										</div>
-										<div class="form-group">
-											<label>Size</label> <select class="form-control" multiple
-												data-live-search="true">
-												<c:forEach var="sizes" items="${sizes}">
-													<option value="${sizes.sizeid}">${sizes.sizename}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="form-group">
-											<label>Price</label> <input type="number" name="price">
-										</div>
+				</div>
+				<!-- Edit Account -->
+				<div id="editAccountModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form>
+								<div class="modal-header">
+									<h4 class="modal-title">Change Infomation</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
 
-										<div class="form-group">
-											<label>Catalog</label> <select class="form-control"
-												name="productGrp.prodgrpid" id="exampleFormControlSelect1">
-												<c:forEach  items="${productgrp}" var="prdgrps" >
-													<option value="${prdgrps.prodgrpid}">${prdgrps.prodgrpname}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="form-group">
-											<label>Amount</label> <input type="number"
-												class="form-control" min="0" required>
-										</div>
+								<div class="modal-body">
+									<div class="form-group">
+										<label>ID</label> <input type="text" class="form-control"
+											disabled>
+									</div>
+									<div class="form-group">
+										<label>User Name</label> <input type="text"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Password</label> <input type="password"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Confirm Password</label> <input type="password"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Full Name</label> <input type="text"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Address</label> <input type="text" class="form-control"
+											required>
+									</div>
+									<div class="form-group">
+										<label>Email</label> <input type="email" class="form-control"
+											required>
+									</div>
+									<div class="form-group">
+										<label>Cell phone</label> <input type="text"
+											class="form-control" required>
+									</div>
 
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-success" value="Add">
-									</div>
-								</form>
-							</div>
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-info" value="Save">
+								</div>
+							</form>
 						</div>
 					</div>
-					<!-- Edit Account -->
-					<div id="editAccountModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Change Infomation</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
+				</div>
+				<!-- Edit Modal HTML -->
+				<div id="editProductModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form action="/product/update" method="POST"
+								enctype="multipart/form-data">
+								<div class="modal-header">
+									<h4 class="modal-title">Edit Product</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+
+								<div class="modal-body">
+									<div class="form-group">
+										<label>Product ID</label> <input type="text"
+											class="form-control" name="prodid" id="prodid">
+									</div>
+									<div class="form-group">
+										<label>Product Name</label> <input type="text" name="prodname"
+											class="form-control" required>
+									</div>
+									<div class="form-group">
+										<label>Image</label> <input type="file" class="form-control"
+											name="images" required>
+									</div>
+									<div class="form-group">
+										<label>Brand</label> <input type="text" class="form-control"
+											name="brand" required>
+									</div>
+									<div class="form-group">
+										<label>Fabric</label> <input type="text" class="form-control"
+											name="fabric" required>
+									</div>
+									<div class="form-group">
+										<label>Size</label> <select class="form-control" multiple
+											data-live-search="true" name="sizes.sizeid">
+											<c:forEach var="sizes" items="${sizes}">
+												<option value="${sizes.sizeid}">${sizes.sizename}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>Price</label> <input type="number" class="form-control"
+											name="price" min="0" required>
+									</div>
+									<div class="form-group">
+										<label>Catalog</label> <select class="form-control"
+											name="productGrp.prodgrpid" id="exampleFormControlSelect1">
+											<c:forEach items="${productgrp}" var="prdgrps">
+												<option value="${prdgrps.prodgrpid}">${prdgrps.prodgrpname}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>Promotion</label> <select class="form-control"
+											name="promotion.promid" id="exampleFormControlSelect1">
+											<c:forEach items="${promotions}" var="promotions">
+												<option value="${promotions.promid}">${promotions.promname}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>Amount</label> <input type="number" name="quantity"
+											class="form-control" min="0" required>
 									</div>
 
-									<div class="modal-body">
-										<div class="form-group">
-											<label>ID</label> <input type="text" class="form-control"
-												disabled>
-										</div>
-										<div class="form-group">
-											<label>User Name</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Password</label> <input type="password"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Confirm Password</label> <input type="password"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Full Name</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Address</label> <input type="text"
-												class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Email</label> <input type="email" class="form-control"
-												required>
-										</div>
-										<div class="form-group">
-											<label>Cell phone</label> <input type="text"
-												class="form-control" required>
-										</div>
-
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-info" value="Save">
-									</div>
-								</form>
-							</div>
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-info" value="Save">
+								</div>
+							</form>
 						</div>
 					</div>
-					<!-- Edit Modal HTML -->
-					<div id="editProductModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form action="/product/update" method="POST"
-									enctype="multipart/form-data">
-									<div class="modal-header">
-										<h4 class="modal-title">Edit Product</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-
-									<div class="modal-body">
-										<div class="form-group">
-											<label>Product ID</label> <input type="text"
-												class="form-control" name="prodid" id="prodid">
-										</div>
-										<div class="form-group">
-											<label>Product Name</label> <input type="text"
-												name="prodname" class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Image</label> <input type="file" class="form-control"
-												name="images" required>
-										</div>
-										<div class="form-group">
-											<label>Brand</label> <input type="text" class="form-control"
-												name="brand" required>
-										</div>
-										<div class="form-group">
-											<label>Fabric</label> <input type="text" class="form-control"
-												name="fabric" required>
-										</div>
-										<div class="form-group">
-											<label>Size</label> <select class="form-control" multiple
-												data-live-search="true" name="sizes.sizeid">
-												<c:forEach var="sizes" items="${sizes}">
-													<option value="${sizes.sizeid}">${sizes.sizename}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="form-group">
-											<label>Price</label> <input type="number"
-												class="form-control" name="price" min="0" required>
-										</div>
-										<div class="form-group">
-											<label>Discount</label> <input type="number" min="0"
-												max="100" class="form-control" required>
-										</div>
-										<div class="form-group">
-											<label>Catalog</label> <select class="form-control"
-												name="productGrp.prodgrpid" id="exampleFormControlSelect1">
-												<c:forEach var="prdgrps" items="${productgrp}">
-													<option value="${prdgrps.prodgrpid}">${prdgrps.prodgrpname}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="form-group">
-											<label>Amount</label> <input type="number" name="quantity"
-												class="form-control" min="0" required>
-										</div>
-
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-info" value="Save">
-									</div>
-								</form>
-							</div>
+				</div>
+				<!-- Delete Modal HTML -->
+				<div id="deleteProductModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form>
+								<div class="modal-header">
+									<h4 class="modal-title">Delete Product</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<p>Are you sure you want to delete these Records?</p>
+									<p class="text-warning">
+										<small>This action cannot be undone.</small>
+									</p>
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default"
+										data-dismiss="modal" value="Cancel"> <input
+										type="submit" class="btn btn-danger" value="Delete">
+								</div>
+							</form>
 						</div>
 					</div>
-					<!-- Delete Modal HTML -->
-					<div id="deleteProductModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Delete Product</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<p>Are you sure you want to delete these Records?</p>
-										<p class="text-warning">
-											<small>This action cannot be undone.</small>
-										</p>
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-danger" value="Delete">
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
+				</div>
 
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+
+		<!-- Sticky Footer -->
+		<footer class="sticky-footer">
+			<div class="container my-auto">
+				<div class="copyright text-center my-auto">
+					<span>Copyright © My Shop-LeThaiDuy, All rights reserved</span>
 				</div>
 			</div>
-			<!-- /.container-fluid -->
+		</footer>
 
-			<!-- Sticky Footer -->
-			<footer class="sticky-footer">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright © My Shop-LeThaiDuy, All rights reserved</span>
-					</div>
-				</div>
-			</footer>
-
-		</div>
-		<!-- /.content-wrapper -->
+	</div>
+	<!-- /.content-wrapper -->
 
 	</div>
 	<!-- /#wrapper -->
