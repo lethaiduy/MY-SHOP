@@ -96,24 +96,23 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-		<ul class="sidebar navbar-nav">
+			<ul class="sidebar navbar-nav">
 			<li class="nav-item active"><a class="nav-link" href="#"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <i
+			<li class="nav-item"><a class="nav-link" href="\product"> <i
 					class="fas fa-box-open"></i> <span>Product Manager</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <i
+			<li class="nav-item"><a class="nav-link" href="\news"> <i
 					class="fas fa-newspaper"></i> <span>News Manager</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <i
+			<li class="nav-item"><a class="nav-link" href="\customer"> <i
 					class="fas fa-user"></i> <span>Customer Manager</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <i
+			<li class="nav-item"><a class="nav-link" href="\order"> <i
 					class="fas fa-fw fa-table"></i> <span>Order Manager</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <i
+			<li class="nav-item"><a class="nav-link" href="\promotion"> <i
 					class="fas fa-percentage"></i> <span>Promotion Manager</span></a></li>
 			<li class="nav-item"><a class="nav-link" href="#"> <i
 					class="fas fa-unlock"></i> <span>Role Manager</span></a></li>
 		</ul>
-
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<!-- DataTables Example -->

@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:wicket>
 
 <head>
 <meta charset="utf-8">
@@ -65,12 +65,12 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive"></div>
 		<ul class="navbar-nav ml-auto">
-			<li class="nav-item active"><a class="nav-link" href="#">Home
+			<li class="nav-item active"><a class="nav-link" href="/home">Home
 					<span class="sr-only">(current)</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">News</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Login</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Register</a></li>
+			<li class="nav-item"><a class="nav-link" href="/user-news">News</a></li>
+			<li class="nav-item"><a class="nav-link"
+				href="javascript:AlertIt();" id="login">Login</a></li>
 			<li class="nav-item">
 				<form
 					class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -117,6 +117,7 @@
 
 	</nav>
 
+
 	<div id="wrapper">
 
 		<!-- Sidebar -->
@@ -138,7 +139,7 @@
 				<div class="row">
 					<div class="col-75">
 						<div class="container">
-							<form action="/payment/save" method="post" oninput="total_money.value=parseInt(price.value)">
+							<form action="/payment/save" method="post">
 
 								<div class="row">
 									<div class="col-50">
@@ -155,13 +156,16 @@
 											Cellphone</label> <input type="text" id="cellphone" name="cellphone"
 											placeholder="01234567789">
 
+
+
 									</div>
 
-									<div class="col-50" >
+									<div class="col-50">
 										<h3>Payment Method</h3>
 										<c:forEach items="${paymentmethod}" var="paymentmethods">
 											<div class="radio">
-												<label><input type="radio" name="methodPayment.methodid"
+												<label><input type="radio"
+													name="methodPayment.methodid"
 													value="${paymentmethods.methodid}">${paymentmethods.methodname}</label>
 											</div>
 										</c:forEach>
@@ -214,8 +218,8 @@
 												<td>${prdPayment.brand}</td>
 												<td>${prdPayment.fabric}</td>
 												<td>M</td>
-												<td><input type="text" value="${prdPayment.price}" style="margin-top:15px;" disabled="disabled" class="price" id="price"></td>
-												<td>${prdPayment.promotion.persdisc}%</td>
+												<td>$<span id="price">${prdPayment.price}</span></td>
+												<td><span id="discount">${prdPayment.promotion.persdisc}</span></td>
 												<td>${prdPayment.productGrp.prodgrpname}</td>
 												<td>1</td>
 												<td><a href="#" class="delete"><i
@@ -228,21 +232,23 @@
 								<div class="order-bill">
 									<div class="detail-order-bill">
 										<div class="row-inf">
-											<span class="lbl">Total Money:</span> <span class="fee"><output id="result" name="total_money" for="price">90$</output></span>
+											<span class="lbl">Total Money:(đ)</span><span class="fee">
+											</span> <input type="hidden" name="total_money" id="result">
+
 										</div>
 										<div class="row-inf last-child">
 											<span class="lbl"><b>Payment:</b> </span> <span class="fee"><b>90$</b>
 											</span>
 										</div>
 									</div>
+
 								</div>
 								<button type="button" class="btn btn-primary"
 									style="margin-left: 400px; width: 150px;"
 									onclick="location.href='/home';">Buy Next</button>
 								<button type="submit" class="btn btn-success"
-									style="margin-right: 200px; width: 150px;">Completed</button>
-
-
+									style="width: 150px;" onclick="location.href='javascript:AlertBackHome;';">Complete</button>
+								<!-- AlertBackHome -->
 							</form>
 							<!-- start  product-->
 							<div class="table-wrapper">
@@ -339,13 +345,32 @@
 	<script>
 		$(document).ready(function() {
 			$('#dataTable').DataTable();
+
 		});
 		$('.table tbody').on('click', '.delete', function() {
 			$(this).closest('tr').remove();
 		});
+		var sum = 0;
+		var dc = $('#discount').text();
+		$('#price').each(function() {
+			sum += +($(this).text() - ($(this).text() * dc / 100)) || 0;
+		});
+
+		$(".fee").text(sum);
+		$("#result").val(sum);
 	</script>
-
-
+	<script type="text/javascript">
+		function AlertIt() {
+			var answer = confirm("This function is for admin.Please click on OK to continue.")
+			if (answer)
+				window.location = "/login-admin";
+		}
+		function AlertBackHome() {
+			var answer = confirm("Are you want order product?")
+			if (answer)
+				window.location = "/home";
+		}
+	</script>
 </body>
 
 </html>

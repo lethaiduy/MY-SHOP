@@ -19,7 +19,8 @@ public class DetailOrder {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name ="detailid")
 	private int detailid;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.PERSIST})
 	@JoinColumn(name = "prodid")
 	private Product product;
 	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,

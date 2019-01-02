@@ -100,37 +100,6 @@
     </nav>
 
     <div id="wrapper">
-
-        <!-- Sidebar -->
-   <!--      <ul class="sidebar navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span>Áo khoác</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span>Áo sơ mi</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span>Quầm dài</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span>Quần jeans</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span>Áo thun</span></a>
-            </li>
-        </ul> -->
-
         <div id="content-wrapper">
 
             <div class="container-fluid">
@@ -147,7 +116,7 @@
                             <input type="username" name="username" placeholder="Username" required class="form-control input-lg" value="" />
                             
                             <input type="password" name="password" class="form-control input-lg" id="password" placeholder="Password" required="" />
-                            <div class="pwstrength_viewport_progress"></div>
+                           <!--  <div class="pwstrength_viewport_progress"></div> -->
                             <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Sign in</button>
                             <div>
                               <a href="#">Create account</a> or <a href="#">reset password</a>
@@ -163,7 +132,6 @@
                   </div>
              <!-- end form login -->
            
-
             </div>
         </div>
         <!-- /#wrapper -->
@@ -205,7 +173,7 @@
 
         <!-- Custom scripts for all pages-->
         <script src="js/myshop-admin.js"></script>
-        <script src="js/login-guest.js"></script>
+      <!--   <script src="js/login-guest.js"></script> -->
 
         <!--  -->
         <script>

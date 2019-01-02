@@ -28,12 +28,9 @@
 	href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css"
 	rel="stylesheet">
 
-
 <!-- Custom styles for this template-->
 <link href="css/main-admin.css" rel="stylesheet">
-
 </head>
-
 <body id="page-top">
 
 	<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -50,13 +47,13 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive"></div>
 		<ul class="navbar-nav ml-auto">
-			<li class="nav-item active"><a class="nav-link" href="#">Home
+			<li class="nav-item active"><a class="nav-link" href="/home">Home
 					<span class="sr-only">(current)</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">News</a></li>
+			<li class="nav-item"><a class="nav-link" href="/user-news">News</a></li>
 			<li class="nav-item"><a class="nav-link"
 				href="javascript:AlertIt();" id="login">Login</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Register</a></li>
+			<!-- <li class="nav-item"><a class="nav-link" href="#">Register</a></li> -->
 			<li class="nav-item">
 				<form
 					class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -76,8 +73,6 @@
 					class="fa fa-shopping-cart fa-lg"></i></a></li>
 
 		</ul>
-
-
 		</div>
 
 		<!-- Navbar Search -->
@@ -168,7 +163,7 @@
 										<h4 class="card-title">
 											<a href="/product/${products.prodid}">${products.prodname}</a>
 										</h4>
-										<h5>${products.price}</h5>
+										<h5>${products.price} đồng</h5>
 
 									</div>
 
@@ -321,7 +316,7 @@
 		var answer = confirm ("This function is for admin.Please click on OK to continue.")
 		if (answer)
 		window.location="/login-admin";
-			}
+		}
 	</script>
 
 </body>

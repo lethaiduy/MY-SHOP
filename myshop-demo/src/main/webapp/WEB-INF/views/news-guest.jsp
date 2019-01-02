@@ -51,11 +51,12 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive"></div>
 		<ul class="navbar-nav ml-auto">
-			<li class="nav-item active"><a class="nav-link" href="#">Home
+			<li class="nav-item active"><a class="nav-link" href="/home">Home
 					<span class="sr-only">(current)</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">News</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+			<li class="nav-item"><a class="nav-link" href="/user-news">News</a></li>
+			<li class="nav-item"><a class="nav-link"
+				href="javascript:AlertIt();" id="login">Login</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">Register</a></li>
 			<li class="nav-item">
 				<form
@@ -76,7 +77,6 @@
 					class="fa fa-shopping-cart fa-lg"></i></a></li>
 
 		</ul>
-
 
 		</div>
 
@@ -134,7 +134,8 @@
 							<div class="col-lg-4 col-md-6 mb-4">
 								<div class="card h-100">
 									<a href="#"><img class="card-img-tops"
-										src="data:image/png;base64,${newsuser.base64}" alt="" style="max-width:345px; display: block;"></a>
+										src="data:image/png;base64,${newsuser.base64}" alt=""
+										style="max-width: 345px; display: block;"></a>
 									<div class="card-body">
 										<h4 class="card-title">
 											<p>${newsuser.title}</p>
@@ -153,9 +154,11 @@
 					<div class="clearfix">
 						<ul class="pagination">
 							<li class="page-item disabled"><a href="/user.news">Previous</a></li>
-							<li class="page-item active"><a href="/user.news" class="page-link">1</a></li>
+							<li class="page-item active"><a href="/user.news"
+								class="page-link">1</a></li>
 							<li class="page-item"><a href="/user.news" class="page-link">2</a></li>
-							<li class="page-item "><a href="/user.news" class="page-link">3</a></li>
+							<li class="page-item "><a href="/user.news"
+								class="page-link">3</a></li>
 							<li class="page-item"><a href="/user.news" class="page-link">4</a></li>
 							<li class="page-item"><a href="/user.news" class="page-link">5</a></li>
 							<li class="page-item"><a href="/user.news" class="page-link">Next</a></li>
@@ -169,7 +172,7 @@
 
 		</div>
 	</div>
-	
+
 	<!-- /.container-fluid -->
 
 	<!-- Edit Account -->
@@ -286,12 +289,19 @@
 
 	<!-- Custom scripts for all pages-->
 	<script src="js/myshop-admin.js"></script>
-	
+
 	<!--  -->
 	<script>
 		$(document).ready(function() {
 			$('#dataTable').DataTable();
 		});
+	</script>
+		<script type="text/javascript">
+		function AlertIt() {
+		var answer = confirm ("This function is for admin.Please click on OK to continue.")
+		if (answer)
+		window.location="/login-admin";
+			}
 	</script>
 
 </body>

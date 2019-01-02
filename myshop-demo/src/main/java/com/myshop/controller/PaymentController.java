@@ -1,5 +1,6 @@
 package com.myshop.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.myshop.model.Customer;
@@ -81,8 +83,9 @@ public class PaymentController {
         order.setStatus("Chưa Xữ Lý");
         order.setCustomer(customer);
 		orderRepository.save(order);
+		detailOrder.setQuantity(1);
+		detailOrder.setOrder(order);
 		detailOrderRepository.save(detailOrder);
-		
 		return "redirect:/payment";
 	}
 
