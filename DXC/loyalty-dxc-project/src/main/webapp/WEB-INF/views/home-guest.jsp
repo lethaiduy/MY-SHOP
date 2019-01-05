@@ -37,7 +37,7 @@
 
 		<!-- <a class="navbar-brand mr-1" href="#">Start Bootstrap</a> -->
 
-		<a class="navbar-brand" href="#"> <img src="img/logo-myshop.JPG"
+		<a class="navbar-brand" href="#"> <img src="/img/logo-myshop.JPG"
 			class="img-logo">
 		</a>
 
@@ -50,7 +50,6 @@
 			<li class="nav-item active"><a class="nav-link" href="/home">Home
 					<span class="sr-only">(current)</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="/user-news">News</a></li>
 			<li class="nav-item"><a class="nav-link"
 				href="javascript:AlertIt();" id="login">Login</a></li>
 			<!-- <li class="nav-item"><a class="nav-link" href="#">Register</a></li> -->
@@ -154,16 +153,14 @@
 					</div>
 					<div class="row">
 						<div class=""></div>
-						<c:forEach items="${products}" var="products">
+						<c:forEach items="${product}" var="product">
 							<div class="col-lg-4 col-md-6 mb-4">
 								<div class="card h-100">
-									<a href="#"><img class="card-img-top"
-										src="data:image/jpg;base64,${products.base64}" alt=""></a>
 									<div class="card-body">
 										<h4 class="card-title">
-											<a href="/product/${products.prodid}">${products.prodname}</a>
+											<a href="/product/${product.prodid}">${product.name}</a>
 										</h4>
-										<h5>${products.price} đồng</h5>
+										<h5>${product.price} đồng</h5>
 
 									</div>
 

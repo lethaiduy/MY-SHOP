@@ -38,7 +38,6 @@
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
-
 <!-- Custom styles for this template-->
 <link href="css/main-admin.css" rel="stylesheet">
 <link href="css/checkout-product.css" rel="stylesheet">
@@ -145,7 +144,7 @@
 									<div class="col-50">
 										<h3>Address Infomation</h3>
 										<label for="fname"><i class="fa fa-user"></i> Full
-											Name</label> <input type="text" id="fname" name="fullname"
+											Name</label> <input type="text" id="fname" name="name"
 											placeholder="John M. Doe"> <label for="email"><i
 											class="fa fa-envelope"></i> Email</label> <input type="text"
 											id="email" name="email" placeholder="john@example.com">
@@ -160,16 +159,7 @@
 
 									</div>
 
-									<div class="col-50">
-										<h3>Payment Method</h3>
-										<c:forEach items="${paymentmethod}" var="paymentmethods">
-											<div class="radio">
-												<label><input type="radio"
-													name="methodPayment.methodid"
-													value="${paymentmethods.methodid}">${paymentmethods.methodname}</label>
-											</div>
-										</c:forEach>
-									</div>
+
 								</div>
 
 								<!--  -->
@@ -192,36 +182,21 @@
 											</span></th>
 											<th>Product ID</th>
 											<th>Product name</th>
-											<th>Image</th>
-											<th>Trademark</th>
-											<th>Fabric</th>
-											<th>Size</th>
 											<th>Price</th>
-											<th>Discount</th>
-											<th>Catalog</th>
-											<th>Amount</th>
-											<th>Actions</th>
-
+											<th>Action</th>
+											
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${prdPayment }" var="prdPayment">
+										<c:forEach items="${products}" var="products">
 											<tr>
 												<td><span class="custom-checkbox"> <input
 														type="checkbox" id="checkbox5" name="options[]" value="1">
 														<label for="checkbox5"></label>
 												</span></td>
-												<td>${prdPayment.prodid}</td>
-												<td>${prdPayment.prodname}</td>
-												<td><img class="img-product"
-													src="data:image/jpg;base64,${prdPayment.base64}"></td>
-												<td>${prdPayment.brand}</td>
-												<td>${prdPayment.fabric}</td>
-												<td>M</td>
-												<td>$<span id="price">${prdPayment.price}</span></td>
-												<td><span id="discount">${prdPayment.promotion.persdisc}</span></td>
-												<td>${prdPayment.productGrp.prodgrpname}</td>
-												<td>1</td>
+												<td>${products.prodid}</td>
+												<td>${products.name}</td>
+												<td><span class="sum">${products.price}</span></td>
 												<td><a href="#" class="delete"><i
 														class="material-icons" data-toggle="tooltip"
 														title="Delete">&#xE872;</i></a></td>
@@ -232,22 +207,19 @@
 								<div class="order-bill">
 									<div class="detail-order-bill">
 										<div class="row-inf">
-											<span class="lbl">Total Money:(đ)</span><span class="fee">
+											<span class="lbl">Total Money:(đ)</span><span class="fee" id="subtotal">
 											</span> <input type="hidden" name="total_money" id="result">
 
-										</div>
-										<div class="row-inf last-child">
-											<span class="lbl"><b>Payment:</b> </span> <span class="fee"><b>90$</b>
-											</span>
 										</div>
 									</div>
 
 								</div>
 								<button type="button" class="btn btn-primary"
 									style="margin-left: 400px; width: 150px;"
-									onclick="location.href='/home';">Buy Next</button>
+									onclick="location.href='/product';">Buy Next</button>
 								<button type="submit" class="btn btn-success"
-									style="width: 150px;" onclick="location.href='javascript:AlertBackHome;';">Complete</button>
+									style="width: 150px;"
+									onclick="location.href='javascript:AlertBackHome;';">Complete</button>
 								<!-- AlertBackHome -->
 							</form>
 							<!-- start  product-->
@@ -351,12 +323,10 @@
 			$(this).closest('tr').remove();
 		});
 		var sum = 0;
-		var dc = $('#discount').text();
-		$('#price').each(function() {
-			sum += +($(this).text() - ($(this).text() * dc / 100)) || 0;
+		$('.sum').each(function() {
+		  sum += +$(this).text()||0;
 		});
-
-		$(".fee").text(sum);
+		$("#subtotal").text(sum);
 		$("#result").val(sum);
 	</script>
 	<script type="text/javascript">

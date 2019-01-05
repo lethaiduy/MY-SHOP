@@ -1,5 +1,7 @@
 package com.dxc.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,40 +14,40 @@ import javax.persistence.Table;
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "idProduct")
-	private int idProduct;
-	@Column(name = "nameProduct")
-	private String nameProduct;
+	@Column(name = "prodid")
+	private int prodid;
+	@Column(name = "name")
+	private String name;
 	@Column(name = "price")
-	private double price;
+	private BigDecimal price;
 	@Column(name = "point")
 	private int point;
 	
 	public Product() {
 		super();
 	}
-	
-	public int getIdProduct() {
-		return idProduct;
+	public int getProdid() {
+		return prodid;
 	}
 
-	public void setIdProduct(int idProduct) {
-		this.idProduct = idProduct;
+
+	public void setProdid(int prodid) {
+		this.prodid = prodid;
 	}
 
-	public String getNameProduct() {
-		return nameProduct;
+	public String getName() {
+		return name;
 	}
 
-	public void setNameProduct(String nameProduct) {
-		this.nameProduct = nameProduct;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
@@ -56,4 +58,7 @@ public class Product {
 	public void setPoint(int point) {
 		this.point = point;
 	}
+
+	
+	
 }

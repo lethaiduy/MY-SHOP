@@ -1,11 +1,15 @@
 package com.dxc.controller;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,17 +19,23 @@ import com.dxc.repository.ProductRepository;
 
 @Controller
 public class ProductController {
+	
 	@Autowired
 	private ProductRepository productRepository;
+	public static List<Product> products= new ArrayList<>();
 
-	@RequestMapping(name = "/product", method = RequestMethod.GET)
-	public ResponseEntity<List<Product>> getListAccount(Product product) {
-
-		List<Product> list = productRepository.findAll();
-		if (list.isEmpty()) {
-			return new ResponseEntity<List<Product>>(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+	@RequestMapping(value = "/product", method = RequestMethod.GET)
+	public String show(Model model, Product product){
+		model.addAttribute("product",productRepository.findAll());
+		return "home-guest";
+	}
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
+	public String findByProductId(@PathVariable("id") int id, Model model,HttpSession http) {
+		Product result = productRepository.findByProdid(id);
+		model.addAttribute("product", result);
+		products.add(result);
+		http.setAttribute("prodselected", products);
+		return "redirect:/payment";
 	}
 	
 

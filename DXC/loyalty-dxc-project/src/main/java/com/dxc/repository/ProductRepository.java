@@ -11,4 +11,5 @@ import com.dxc.entity.Product;
 @RepositoryRestResource
 public interface ProductRepository extends CrudRepository<Product, Long> {
 	List<Product> findAll();
+	Product findByProdid(int id);
 }
