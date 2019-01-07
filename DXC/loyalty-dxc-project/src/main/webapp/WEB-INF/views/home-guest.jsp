@@ -128,15 +128,15 @@
 							</ol>
 							<div class="carousel-inner" role="listbox">
 								<div class="carousel-item active">
-									<img class="d-block img-fluid" src="img/slide-1.jpg"
+									<img class="d-block img-fluid" src="img/image1.jpg"
 										alt="First slide">
 								</div>
 								<div class="carousel-item">
-									<img class="d-block img-fluid" src="img/slide-2.jpg"
+									<img class="d-block img-fluid" src="img/image2.jpg"
 										alt="Second slide">
 								</div>
 								<div class="carousel-item">
-									<img class="d-block img-fluid" src="img/slide-1.jpg"
+									<img class="d-block img-fluid" src="img/image3.jpg"
 										alt="Third slide">
 								</div>
 							</div>
@@ -161,6 +161,7 @@
 											<a href="/product/${product.prodid}">${product.name}</a>
 										</h4>
 										<h5>${product.price} đồng</h5>
+										<h5>${product.point} điểm</h5>
 
 									</div>
 
@@ -192,43 +193,43 @@
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">
-						<h4 class="modal-title">Change Infomation</h4>
+						<h4 class="modal-title">Account</h4>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
 					</div>
 
 					<div class="modal-body">
 						<div class="form-group">
-							<label>ID</label> <input type="text" class="form-control"
+							<label>ID</label> <input type="text" class="form-control" value="${accountlogin.accountid}"
 								disabled>
 						</div>
 						<div class="form-group">
 							<label>User Name</label> <input type="text" class="form-control"
-								required>
+								  value="${accountlogin.userrname}" >
 						</div>
 						<div class="form-group">
 							<label>Password</label> <input type="password"
-								class="form-control" required>
+								class="form-control"  value="${accountlogin.password}" required>
 						</div>
 						<div class="form-group">
 							<label>Confirm Password</label> <input type="password"
-								class="form-control" required>
+								class="form-control" value="${accountlogin.password}" required>
 						</div>
 						<div class="form-group">
 							<label>Full Name</label> <input type="text" class="form-control"
-								required>
+							value="${accountlogin.name}"	required>
 						</div>
 						<div class="form-group">
 							<label>Address</label> <input type="text" class="form-control"
-								required>
+								value="${accountlogin.address}" required>
 						</div>
 						<div class="form-group">
 							<label>Email</label> <input type="email" class="form-control"
-								required>
+								 value="${accountlogin.email}" required>
 						</div>
 						<div class="form-group">
 							<label>Cell phone</label> <input type="text" class="form-control"
-								required>
+							value="${accountlogin.cellphone}"	required>
 						</div>
 
 					</div>

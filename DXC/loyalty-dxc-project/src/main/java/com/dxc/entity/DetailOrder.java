@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class DetailOrder {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "detailid")
 	private int detailid;
 	@ManyToOne(fetch = FetchType.LAZY)

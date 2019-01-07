@@ -111,7 +111,7 @@
                       
                       <div class="col-md-4">
                         <section class="login-form">
-                          <form method="get" action="/login-admin/login" role="login">
+                          <form method="get" action="/login/checkLogin" role="login">
                             <img src="img/logo-cut.JPG" class="img-responsive" alt="" />
                             <input type="username" name="username" placeholder="Username" required class="form-control input-lg" value="" />
                             
