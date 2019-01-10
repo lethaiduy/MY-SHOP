@@ -19,6 +19,8 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
 
 	@Modifying(clearAutomatically = true)
 	@Transactional
-	@Query("update Account account set account.point =:isPoint where account.accountid =:isAccountId")
-	public void updatePoint(@Param("isAccountId") int isAccountId, @Param("isPoint") int isPoint);
+	@Query("update Account account set account.name =:isName,account.address=:isAddress,account.cellphone=:isCellPhone,account.email=:isEmail,account.point=:isPoint where account.accountid =:isAccountId")
+	public void updatePoint(@Param("isAccountId") int isAccountId, @Param("isName") String isName,
+			@Param("isAddress") String isAddress, @Param("isCellPhone") String isCellPhone,
+			@Param("isEmail") String isEmail,@Param("isPoint") int isPoint);
 }

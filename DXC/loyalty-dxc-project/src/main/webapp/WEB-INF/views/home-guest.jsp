@@ -68,9 +68,6 @@
 					</div>
 				</form>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="#"><i
-					class="fa fa-shopping-cart fa-lg"></i></a></li>
-
 		</ul>
 		</div>
 
@@ -88,10 +85,11 @@
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
 					<a href="#editAccountModal" class="dropdown-item"
-						data-toggle="modal">Account</a>
+						data-toggle="modal">Account</a> <a href="/transaction"
+						class="dropdown-item">Transaction</a>
+
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#" data-toggle="modal"
-						data-target="#logoutModal">Logout</a>
+					<a class="dropdown-item" href="/logout" >Logout</a>
 				</div></li>
 		</ul>
 
@@ -160,8 +158,8 @@
 										<h4 class="card-title">
 											<a href="/product/${product.prodid}">${product.name}</a>
 										</h4>
-										<h5>${product.price} đồng</h5>
-										<h5>${product.point} điểm</h5>
+										<h5>${product.price}đồng</h5>
+										<h5>${product.point}điểm</h5>
 
 									</div>
 
@@ -200,36 +198,16 @@
 
 					<div class="modal-body">
 						<div class="form-group">
-							<label>ID</label> <input type="text" class="form-control" value="${accountlogin.accountid}"
-								disabled>
-						</div>
-						<div class="form-group">
 							<label>User Name</label> <input type="text" class="form-control"
-								  value="${accountlogin.userrname}" >
-						</div>
-						<div class="form-group">
-							<label>Password</label> <input type="password"
-								class="form-control"  value="${accountlogin.password}" required>
-						</div>
-						<div class="form-group">
-							<label>Confirm Password</label> <input type="password"
-								class="form-control" value="${accountlogin.password}" required>
+								value="${accountlogin.userrname}">
 						</div>
 						<div class="form-group">
 							<label>Full Name</label> <input type="text" class="form-control"
-							value="${accountlogin.name}"	required>
+								value="${accountlogin.name}" required>
 						</div>
 						<div class="form-group">
-							<label>Address</label> <input type="text" class="form-control"
-								value="${accountlogin.address}" required>
-						</div>
-						<div class="form-group">
-							<label>Email</label> <input type="email" class="form-control"
-								 value="${accountlogin.email}" required>
-						</div>
-						<div class="form-group">
-							<label>Cell phone</label> <input type="text" class="form-control"
-							value="${accountlogin.cellphone}"	required>
+							<label>Point</label> <input type="text" class="form-control"
+								value="${accountlogin.point}" required>
 						</div>
 
 					</div>

@@ -20,7 +20,6 @@ import com.dxc.repository.ProductRepository;
 
 
 @Controller
-@SessionAttributes("account")
 public class ProductController {
 	
 	@Autowired
@@ -30,9 +29,11 @@ public class ProductController {
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	public String show(Model model, Product product,Account account,HttpSession http){
 		model.addAttribute("product",productRepository.findAll());
-		Account acc = (Account)http.getAttribute("account");
-	/*	System.out.println(acc.getAccountid());*/
-		model.addAttribute("accountlogin", acc);
+		if (null!=http.getAttribute("account")){
+			Account acc=(Account)http.getAttribute("account");
+			model.addAttribute("accountlogin", acc);
+			System.out.println("Co acc");
+		}
 		return "home-guest";
 	}
 	@RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
@@ -42,6 +43,12 @@ public class ProductController {
 		products.add(result);
 		http.setAttribute("prodselected", products);
 		return "redirect:/payment";
+	}
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpSession http) {
+		if (null!=http.getAttribute("account"))
+			http.removeAttribute("account");
+		return "redirect:/login";
 	}
 	
 
