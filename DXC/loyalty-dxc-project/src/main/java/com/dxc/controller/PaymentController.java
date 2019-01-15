@@ -1,6 +1,8 @@
 package com.dxc.controller;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -35,15 +37,18 @@ public class PaymentController {
 	private DetailOrderRepository detailOrderRepository;
 	@Autowired
 	private PointRepository pointRepository;
+	/*List<Product> products= new ArrayList<Product>();*/
 
 	@RequestMapping(value = "/payment", method = RequestMethod.GET)
 	public String showPages(Model model, Product Product, HttpSession http) {
-		List<Product> products = (List<Product>) http.getAttribute("prodselected");
+		/*products.clear();*/
+		List<Product>  products = (List<Product>) http.getAttribute("prodselected");
 		model.addAttribute("products", products);
 		if (null!=http.getAttribute("account")){
 			Account acc=(Account)http.getAttribute("account");
 			model.addAttribute("accountselected", acc);
 		}
+	
 		return "payment-user";
 	}
 
@@ -55,6 +60,8 @@ public class PaymentController {
 			System.out.println("co acc");
 			Account acc = (Account) http.getAttribute("account");
 			invoice.setAccount(acc);
+            Date date =new Date();
+			
 			invoice.setDate_order(new Date());
 			invoice.setTotal_price(sum);
 			orderRepository.save(invoice);
@@ -74,6 +81,7 @@ public class PaymentController {
 			point.setPoint(sumPoint);
 			point.setOrder(invoice);
 			pointRepository.save(point);
+			products.clear();
 		}
 		else {
 			System.out.println("khong có");
@@ -93,7 +101,9 @@ public class PaymentController {
 			}
 			point.setPoint(sumPoint);
 			point.setOrder(invoice);
+			products.clear();
 		}
+		
 		return "redirect:/notify";
 	}
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.dxc.entity.Account;
 import com.dxc.entity.Product;
+import com.dxc.repository.AccountRepository;
 import com.dxc.repository.ProductRepository;
 
 
@@ -24,6 +25,8 @@ public class ProductController {
 	
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private AccountRepository accountRepository;
 	public static List<Product> products= new ArrayList<>();
 
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
@@ -31,7 +34,15 @@ public class ProductController {
 		model.addAttribute("product",productRepository.findAll());
 		if (null!=http.getAttribute("account")){
 			Account acc=(Account)http.getAttribute("account");
-			model.addAttribute("accountlogin", acc);
+			
+			Account newAccount = new Account();
+			List<Account> listAccount= new ArrayList<>();
+			listAccount=accountRepository.findAll();
+			for (Account account2 : listAccount) {
+				if (account2.getAccountid()==acc.getAccountid())
+					model.addAttribute("accountlogin", account2);
+			}
+			System.out.println(acc.getPoint());
 			System.out.println("Co acc");
 		}
 		return "home-guest";
@@ -47,12 +58,10 @@ public class ProductController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession http) {
 		if (null!=http.getAttribute("account"))
+		{
 			http.removeAttribute("account");
-		return "redirect:/login";
+			return "redirect:/login";
+		}
+		return "redirect:/product";	
 	}
-	
-
-
-	
-	
 }

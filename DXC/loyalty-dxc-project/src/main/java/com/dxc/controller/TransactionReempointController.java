@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,8 +22,7 @@ import com.dxc.repository.OrderRepository;
 import com.dxc.repository.PointRepository;
 
 @Controller
-public class TransactionController {
-
+public class TransactionReempointController {
 	@Autowired
 	private OrderRepository orderRepository;
 	@Autowired
@@ -33,10 +31,10 @@ public class TransactionController {
 	private DetailOrderRepository detailOrderRepository;
 	@Autowired
 	private AccountRepository accountRepository;
-
-	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
-	public String showPages(Model model, Product Product, Order order, Account account, Point point, HttpSession http,
-			DetailOrder detailOrder) {
+	
+	@RequestMapping(value = "/transaction2", method = RequestMethod.GET)
+	public String transRedeempoint(Model model, Product Product, Order order, Account account, Point point, HttpSession http,
+			DetailOrder detailOrder){
 		if (null!=http.getAttribute("account")){
 			Account acc=(Account)http.getAttribute("account");
 
@@ -50,7 +48,7 @@ public class TransactionController {
 			List<Point> listPoint = pointRepository.findAll();
 			List<Point> lstPoint = new ArrayList<>();
 			for (Point point2 : listPoint) {
-				if (point2.getOrder().getAccount().getAccountid()==acc.getAccountid() && point2.getPoint()>0){
+				if (point2.getOrder().getAccount().getAccountid()==acc.getAccountid() && point2.getPoint()<0){
 					lstPoint.add(point2);
 					temp=point2.getOrder().getOrderid();
 				}
@@ -68,8 +66,6 @@ public class TransactionController {
 			System.out.println(listProduct.size());
 			System.out.println(temp);
 		}
-
-		return "transaction";
+		return "transaction-redeempoint";
 	}
-	
 }

@@ -99,54 +99,51 @@
 			<li class="nav-item active"><a class="nav-link"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="/transaction">
-					<i class="fas fa-box-open"></i> <span> Earn Point</span>
-			</a></li>
-			<li class="nav-item"><a class="nav-link" href="/transaction2"> <i
-					class="fas fa-newspaper"></i> <span> Redeemed Point</span></a></li>
 		</ul>
 		<div id="content-wrapper">
 			<div class="container-fluid">
-				<!-- DataTables Example -->
-				<div class="card mb-3">
-					<div class="card-header">
-						<i class="fas fa-table"></i> Transaction Earn Point
-					</div>
-					<div class="card-body">
-						<div class="table-responsive">
-							<table class="table table-bordered" id="dataTable" width="100%"
-								cellspacing="0">
-								<thead>
-									<tr>
-										<th>Order ID</th>
-										<th>Product</th>
-										<th>Date Order</th>
-										<th>Customer</th>
-										<th>Point</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${points}" var="points">
+				<form action="/redeempoint/save" method="post">
+
+					<!-- DataTables Example -->
+					<div class="card mb-3">
+						<div class="card-header">
+							<i class="fas fa-table"></i> Redeem Point
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0">
+									<thead>
 										<tr>
-											<td>${points.order.orderid}</td>
-											<td>
-												<ul class="list-group">
-													<c:forEach items="${products}" var="products">
-														<li class="list-group-item">${products.name}</li>
-													</c:forEach>
-												</ul>
-											</td>
-											<td>${points.order.date_order}</td>
-											<td>${points.order.account.name}</td>
-											<td>${points.point}</td>
+											<th>Product ID</th>
+											<th>Product Name</th>
+											<th>Point</th>
+											<th>Quantity</th>
 
 										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+									</thead>
+									<tbody>
+										<c:forEach items="${products}" var="products">
+											<tr>
+												<td>${products.prodid}</td>
+												<td>${products.name}</td>
+												<td>${products.point}</td>
+												<td><input type="number" min="0" name="quantity"
+													required="required"></td>
+
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+								<span>${massage}</span>
+								<!--Button submit -->
+								<button type="submit" class="btn btn-success"
+									style="width: 150px;" onclick="location.href='#;">Complete</button>
+							</div>
 						</div>
 					</div>
-				</div>
+
+				</form>
 				<!-- /.container-fluid -->
 				<!-- Edit Account -->
 				<div id="editAccountModal" class="modal fade">
@@ -174,6 +171,8 @@
 										<label>Point</label> <input type="text" class="form-control"
 											value="${accountlogin.point}" disabled="disabled" required>
 									</div>
+								
+						
 								</div>
 							</form>
 						</div>
@@ -247,6 +246,8 @@
 			$(document).ready(function() {
 				$('#dataTable').DataTable();
 			});
+			document.getElementById('point').readOnly = true;
+			
 		</script>
 </body>
 

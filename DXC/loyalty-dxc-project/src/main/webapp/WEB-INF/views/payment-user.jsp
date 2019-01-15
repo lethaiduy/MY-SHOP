@@ -64,12 +64,12 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive"></div>
 		<ul class="navbar-nav ml-auto">
-			<li class="nav-item active"><a class="nav-link" href="/home">Home
+			<li class="nav-item active"><a class="nav-link" href="/product">Home
 					<span class="sr-only">(current)</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="/user-news">News</a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="javascript:AlertIt();" id="login">Login</a></li>
+			<li class="nav-item"><a class="nav-link" href="/login"
+				id="login">Login</a></li>
+			<!-- <li class="nav-item"><a class="nav-link" href="#">Register</a></li> -->
 			<li class="nav-item">
 				<form
 					class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -85,11 +85,7 @@
 					</div>
 				</form>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="#"><i
-					class="fa fa-shopping-cart fa-lg"></i></a></li>
-
 		</ul>
-
 
 		</div>
 
@@ -107,10 +103,12 @@
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
 					<a href="#editAccountModal" class="dropdown-item"
-						data-toggle="modal">Account</a>
+						data-toggle="modal">Account</a> <a href="/transaction"
+						class="dropdown-item">Transaction</a> <a href="/redeempoint"
+						class="dropdown-item">Redeempoint</a>
+
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#" data-toggle="modal"
-						data-target="#logoutModal">Logout</a>
+					<a class="dropdown-item" href="/logout">Logout</a>
 				</div></li>
 		</ul>
 
@@ -124,9 +122,6 @@
 			<li class="nav-item active"><a class="nav-link" href="#"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
 			</a></li>
-			<c:forEach items="${productgrps}" var="productgrps">
-				<li class="nav-item"><a class="nav-link" href="#"> <span>${productgrps.prodgrpname}</span></a></li>
-			</c:forEach>
 		</ul>
 
 		<div id="content-wrapper">
@@ -145,14 +140,17 @@
 										<h3>Address Infomation</h3>
 										<label for="fname"><i class="fa fa-user"></i> Full
 											Name</label> <input type="text" id="fname" name="name"
-											placeholder="John M. Doe" value="${accountselected.name}"> <label for="email"><i
-											class="fa fa-envelope"></i> Email</label> <input type="text"
-											id="email" name="email" value="${accountselected.email}" placeholder="john@example.com">
-										<label for="adr"><i class="fa fa-address-card-o"></i>
-											Address</label> <input type="text" id="adr" name="address" value="${accountselected.address}"
+											placeholder="John M. Doe" value="${accountselected.name}">
+										<label for="email"><i class="fa fa-envelope"></i>
+											Email</label> <input type="text" id="email" name="email"
+											value="${accountselected.email}"
+											placeholder="john@example.com"> <label for="adr"><i
+											class="fa fa-address-card-o"></i> Address</label> <input type="text"
+											id="adr" name="address" value="${accountselected.address}"
 											placeholder="542 W. 15th Street"> <label
 											for="cellphone"><i class="fas fa-mobile-alt"></i>
-											Cellphone</label> <input type="text" id="cellphone" name="cellphone" value="${accountselected.cellphone}"
+											Cellphone</label> <input type="text" id="cellphone" name="cellphone"
+											value="${accountselected.cellphone}"
 											placeholder="01234567789">
 
 
@@ -184,7 +182,7 @@
 											<th>Product name</th>
 											<th>Price</th>
 											<th>Action</th>
-											
+
 										</tr>
 									</thead>
 									<tbody>
@@ -196,7 +194,7 @@
 												</span></td>
 												<td>${products.prodid}</td>
 												<td>${products.name}</td>
-												<td><span class="sum">${products.price}</span></td>
+												<td><span class="price" >${products.price}</span></td>
 												<td><a href="#" class="delete"><i
 														class="material-icons" data-toggle="tooltip"
 														title="Delete">&#xE872;</i></a></td>
@@ -207,8 +205,9 @@
 								<div class="order-bill">
 									<div class="detail-order-bill">
 										<div class="row-inf">
-											<span class="lbl">Total Money:(đ)</span><span class="fee" id="subtotal">
-											</span> <input type="hidden" name="total_money" id="result">
+											<span class="lbl">Total Money:($)</span><span class="fee"
+												id="total"> </span> <input type="hidden" name="total_money"
+												id="result">
 
 										</div>
 									</div>
@@ -253,6 +252,41 @@
 
 			</div>
 			<!-- /.container-fluid -->
+			<!-- Edit Account -->
+			<div id="editAccountModal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form>
+							<div class="modal-header">
+								<h4 class="modal-title">Account</h4>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">&times;</button>
+							</div>
+
+							<div class="modal-body">
+								<div class="form-group">
+									<label>User Name</label> <input type="text"
+										class="form-control" value="${accountselected.userrname}">
+								</div>
+								<div class="form-group">
+									<label>Full Name</label> <input type="text"
+										class="form-control" value="${accountselected.name}" required>
+								</div>
+								<div class="form-group">
+									<label>Point</label> <input type="text" class="form-control"
+										value="${accountselected.point}" required>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<input type="button" class="btn btn-default"
+									data-dismiss="modal" value="Cancel"> <input
+									type="submit" class="btn btn-info" value="Save">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 			<!-- Sticky Footer -->
 			<footer class="sticky-footer">
 				<div class="container my-auto">
@@ -322,24 +356,13 @@
 		$('.table tbody').on('click', '.delete', function() {
 			$(this).closest('tr').remove();
 		});
-		var sum = 0;
-		$('.sum').each(function() {
-		  sum += +$(this).text()||0;
+		 var sum = 0;
+		$('.price').each(function() {
+			sum += +$(this).text() || 0;
 		});
-		$("#subtotal").text(sum);
-		$("#result").val(sum);
-	</script>
-	<script type="text/javascript">
-		function AlertIt() {
-			var answer = confirm("This function is for admin.Please click on OK to continue.")
-			if (answer)
-				window.location = "/login-admin";
-		}
-		function AlertBackHome() {
-			var answer = confirm("Are you want order product?")
-			if (answer)
-				window.location = "/home";
-		}
+		
+		$("#total").text(sum);
+		$("#result").val(sum); 
 	</script>
 </body>
 

@@ -119,16 +119,18 @@
 								<thead>
 									<tr>
 										<th>Order ID</th>
+										<th>Point Redeemed</th>
 										<th>Product</th>
 										<th>Date Order</th>
 										<th>Customer</th>
-										<th>Point</th>
+										
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach items="${points}" var="points">
 										<tr>
 											<td>${points.order.orderid}</td>
+											<td>${points.point}</td>
 											<td>
 												<ul class="list-group">
 													<c:forEach items="${products}" var="products">
@@ -138,7 +140,7 @@
 											</td>
 											<td>${points.order.date_order}</td>
 											<td>${points.order.account.name}</td>
-											<td>${points.point}</td>
+											
 
 										</tr>
 									</c:forEach>
